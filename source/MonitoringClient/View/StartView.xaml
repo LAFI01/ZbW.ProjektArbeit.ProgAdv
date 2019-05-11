@@ -1,0 +1,83 @@
+﻿<Window
+  x:Class="MonitoringClient.View.StartView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:local="clr-namespace:MonitoringClient.View"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  Title="Projektarbeit Programmieren Advanced"
+  Width="800"
+  Height="450"
+  mc:Ignorable="d">
+  <Grid Background="#FF6BB4FD">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="0.2*" />
+      <ColumnDefinition Width="1*" />
+      <ColumnDefinition Width="0.2*" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="0.5*" />
+      <RowDefinition Height="1*" />
+      <RowDefinition Height="0.5*" />
+      <RowDefinition Height="1*" />
+    </Grid.RowDefinitions>
+    <Label
+      Grid.Column="1"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      HorizontalContentAlignment="Center"
+      VerticalContentAlignment="Center"
+      Content="GOOD DAY THOMAS"
+      FontSize="36"
+      FontWeight="Bold" />
+    <TextBlock
+      Name="textBlock"
+      Grid.Row="1"
+      Grid.Column="1"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      FontSize="20"
+      FontStyle="Italic"
+      LineHeight="Auto"
+      TextAlignment="Center"
+      TextWrapping="Wrap"
+      Typography.NumeralStyle="OldStyle"
+      Typography.SlashedZero="True">
+      Please complete the text box below, so that the connection to your database can be made:
+    </TextBlock>
+    <TextBox
+      x:Name="connStringField"
+      Grid.Row="2"
+      Grid.Column="1"
+      VerticalAlignment="Center"
+      FontSize="20"
+      Text="Server=;Database=;Uid=;Pwd=;"
+      TextWrapping="Wrap" />
+    <Button
+      Name="addBtn"
+      Grid.Row="3"
+      Grid.Column="1"
+      Width="150"
+      Margin="0,0,15,0"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Background="#FFFFFBFB"
+      BorderThickness="0"
+      Click="BtnNext_Click"
+      FontSize="20"
+      TabIndex="1">
+      <StackPanel Width="150" Orientation="Horizontal">
+        <TextBlock Margin="10,10,10,10" Background="White">Next</TextBlock>
+        <Image
+          Width="70"
+          Height="40"
+          Margin="5,5,5,5"
+          HorizontalAlignment="Center"
+          Opacity="0.5"
+          Source="D:\ProjectE\ZbW.Projektarbeit.ProgAdv\img\next.png"
+          Stretch="Fill"
+          UseLayoutRounding="False" />
+      </StackPanel>
+    </Button>
+  </Grid>
+</Window>
