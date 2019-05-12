@@ -1,27 +1,31 @@
 ﻿// ************************************************************************************
-// FileName: StartView.xaml.cs
+// FileName: Severity.cs
 // Author: 
-// Created on: 11.05.2019
+// Created on: 12.05.2019
 // Last modified on: 12.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
 // ------------------------------------------------------------------------------------
 // ************************************************************************************
-namespace MonitoringClient.View
+namespace MonitoringClient.Model
 {
-  using System.Windows;
-  using ViewModel;
+  using System.Collections.ObjectModel;
 
-  /// <summary>
-  ///   Interaction logic for StartView.xaml
-  /// </summary>
-  public partial class StartView : Window
+  public class Severity
   {
-    public StartView()
+    public static ObservableCollection<string> Severities
     {
-      InitializeComponent();
-      DataContext = new StartViewModel(this);
+      get
+      {
+        return new ObservableCollection<string>
+        {
+          "Error",
+          "Warning",
+          "Critical",
+          "Low"
+        };
+      }
     }
   }
 }

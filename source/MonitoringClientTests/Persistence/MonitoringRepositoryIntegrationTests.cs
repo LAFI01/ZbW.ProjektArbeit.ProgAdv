@@ -63,5 +63,13 @@ namespace MonitoringClientTests.Persistence
       var logEnries = monitoringRepo.GetAllLogEntries();
       Assert.IsTrue(logEnries.Count > 0);
     }
+
+    [Test]
+    public void GetAllHostname_LoadAllHostnames_GetAListOfAllHostname()
+    {
+      MonitoringRepository monitoringRepo = new MonitoringRepository(ConnString);
+      var logEnries = monitoringRepo.GetAllHostname();
+      Assert.IsTrue(logEnries.Count > 0);
+    }
   }
 }

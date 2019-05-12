@@ -28,8 +28,9 @@
       HorizontalContentAlignment="Center"
       VerticalContentAlignment="Center"
       Content="GOOD DAY THOMAS"
+      FontFamily="Segoe Script"
       FontSize="28"
-      FontWeight="Bold" FontFamily="Segoe Script" />
+      FontWeight="Bold" />
     <TextBlock
       Name="textBlock"
       Grid.Row="1"
@@ -54,29 +55,33 @@
       Text="Server=localhost;Database=inventarisierungsloesungv2;Uid=root;Pwd=halo1velo;"
       TextWrapping="Wrap" />
 
-    <StackPanel Width="150" Orientation="Horizontal"     Grid.Column="1"   Grid.Row="3">
+    <StackPanel
+      Grid.Row="3"
+      Grid.Column="1"
+      Width="150"
+      Orientation="Horizontal">
       <Button
-          Name="addBtn"
-          Width="100"
-          Margin="0,0,15,0"
-          HorizontalAlignment="Center"
-          VerticalAlignment="Center"
-          Background="#FFFFFBFB"
-          BorderThickness="0"
-          Click="BtnNext_Click"
-          FontSize="12"
-          TabIndex="1">
-        <!--<TextBlock Margin="10,10,10,10" Background="White">Next</TextBlock>-->
+        Name="nextBtn"
+        Width="100"
+        Margin="0,0,15,0"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Background="#FFFFFBFB"
+        BorderThickness="0"
+        Command="{Binding Path=NextCommand}"
+        FontSize="12"
+        TabIndex="1">
         <Image
           Width="70"
           Height="20"
           Margin="5,5,5,5"
           HorizontalAlignment="Center"
+          IsEnabled="False"
           Opacity="0.5"
           Source="../Icons/next.PNG"
           Stretch="Fill"
-          UseLayoutRounding="False" IsEnabled="False" />
-     </Button>
+          UseLayoutRounding="False" />
+      </Button>
     </StackPanel>
   </Grid>
 </Window>

@@ -13,7 +13,7 @@ namespace MonitoringClient.Model
   using System;
   using Utilities;
 
-  public class LogEntry : ChangeBase, ILogEntry
+  public class LogEntry : BindableBase, ILogEntry
   {
     private int _deviceId;
 

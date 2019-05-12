@@ -70,6 +70,60 @@ namespace MonitoringClient.Persistence
       }
     }
 
+    public ObservableCollection<int> GetAllDeviceIds()
+    {
+      var deviceIds = new ObservableCollection<int>();
+      using (IDbConnection conn = MySqlConnection)
+      {
+        conn.Open();
+
+        var statement =
+          "select  id  from device";
+        using (IDbCommand cmd = CreateCommand(MySqlConnection, CommandType.Text, statement))
+        {
+          using (IDataReader r = cmd.ExecuteReader())
+          {
+            while (r.Read())
+            {
+              for (var i = 0; i < r.FieldCount; i++)
+              {
+                deviceIds.Add(r.GetInt32(i));
+              }
+            }
+          }
+        }
+      }
+
+      return deviceIds;
+    }
+
+    public ObservableCollection<string> GetAllHostname()
+    {
+      var hostnames = new ObservableCollection<string>();
+      using (IDbConnection conn = MySqlConnection)
+      {
+        conn.Open();
+
+        var statement =
+          "select  hostname  from device";
+        using (IDbCommand cmd = CreateCommand(MySqlConnection, CommandType.Text, statement))
+        {
+          using (IDataReader r = cmd.ExecuteReader())
+          {
+            while (r.Read())
+            {
+              for (var i = 0; i < r.FieldCount; i++)
+              {
+                hostnames.Add(r.GetString(i));
+              }
+            }
+          }
+        }
+      }
+
+      return hostnames;
+    }
+
     public ObservableCollection<ILogEntry> GetAllLogEntries()
     {
       var logEntries = new ObservableCollection<ILogEntry>();

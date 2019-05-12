@@ -36,7 +36,7 @@
         VerticalAlignment="Center"
         Background="#FFFFFBFB"
         BorderThickness="0"
-        Click="BtnLoad_Click"
+        Command="{Binding Path=LoadCommand}"
         FontSize="12"
         TabIndex="0"
         ToolTip="Load all Log Entries">
@@ -61,6 +61,7 @@
         VerticalAlignment="Center"
         Background="#FFFFFBFB"
         BorderThickness="0"
+        Command="{Binding Path=ConfirmCommand}"
         FontSize="12"
         TabIndex="1"
         ToolTip="Quit a Log Entry">
@@ -86,7 +87,7 @@
         VerticalAlignment="Center"
         Background="#FFFFFBFB"
         BorderThickness="0"
-        Click="BtnLoad_Click"
+        Command="{Binding Path=AddCommand}"
         FontSize="12"
         TabIndex="2"
         ToolTip="Add new Log Entry">
@@ -111,7 +112,10 @@
       Grid.Row="2"
       Grid.Column="1"
       HorizontalContentAlignment="Stretch"
-      ItemsSource="{Binding LogEntries}">
+      IsSynchronizedWithCurrentItem="True"
+      ItemsSource="{Binding LogEntries}"
+      SelectedIndex="0"
+      SelectedItem="{Binding SelectedLogEntry, Mode=TwoWay}">
       <ListView.View>
         <GridView x:Name="logEntryGrid">
           <GridViewColumn

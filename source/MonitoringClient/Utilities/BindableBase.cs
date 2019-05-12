@@ -1,5 +1,5 @@
 ﻿// ************************************************************************************
-// FileName: ChangeBase.cs
+// FileName: BindableBase.cs
 // Author: 
 // Created on: 12.05.2019
 // Last modified on: 12.05.2019
@@ -13,7 +13,7 @@ namespace MonitoringClient.Utilities
   using System.Collections.Specialized;
   using System.ComponentModel;
 
-  public class ChangeBase : INotifyPropertyChanged, INotifyCollectionChanged
+  public class BindableBase : INotifyPropertyChanged, INotifyCollectionChanged
   {
     public event NotifyCollectionChangedEventHandler CollectionChanged;
 
