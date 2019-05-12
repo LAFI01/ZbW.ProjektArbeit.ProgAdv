@@ -14,7 +14,7 @@ namespace MonitoringClient.Persistence
   using System.Data;
   using MySql.Data.MySqlClient;
 
-  internal class MySqlBaseRepository
+  public class MySqlBaseRepository
   {
     protected MySqlBaseRepository(string connectionString)
     {

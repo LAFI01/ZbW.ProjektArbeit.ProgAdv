@@ -1,33 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿// ************************************************************************************
+// FileName: MonitoringViewModel.cs
+// Author: 
+// Created on: 11.05.2019
+// Last modified on: 12.05.2019
+// Copy Right: JELA Rocks
+// ------------------------------------------------------------------------------------
+// Description: 
+// ------------------------------------------------------------------------------------
+// ************************************************************************************
 namespace MonitoringClient.ViewModel
 {
   using System.Collections.ObjectModel;
   using System.Collections.Specialized;
-  using System.ComponentModel;
-  using System.Reflection;
-  using System.Runtime.CompilerServices;
   using Model;
+  using Persistence;
+  using Utilities;
 
-  public class MonitoringViewModel : INotifyPropertyChanged, INotifyCollectionChanged
+  public class MonitoringViewModel : ChangeBase
   {
-    private static string ConnString { get; set; }
-
     public ObservableCollection<ILogEntry> _logEntries;
 
     public ILogEntry _selectedLogEntry;
-    
+
     public MonitoringViewModel(string connString)
     {
-      ConnString = connString;
       LogEntries = new ObservableCollection<ILogEntry>();
-      //ILogEntry log = new LogEntry() { Hostname = "Test22", Id = 2, Location = "SG", Message = "hallo", Pod = "rr", Severity = 3, Timestamp = new DateTime(2019, 05, 11, 22, 00, 00) };
-      //LogEntries.Add(log);
-
+      MonitoringRepository = new MonitoringRepository(connString);
     }
 
     public ObservableCollection<ILogEntry> LogEntries
@@ -40,31 +38,15 @@ namespace MonitoringClient.ViewModel
       }
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    private MonitoringRepository MonitoringRepository { get; }
 
-    protected void NotifyPropertyChanged(string propertyName)
-    {
-      if (PropertyChanged != null)
-      {
-        PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
-        this.PropertyChanged(this, args);
-      }
-    }
 
     public void GetAllLogEntries()
     {
-      ILogEntry log = new LogEntry() { Hostname = "Test22", Id = 2, Location = "SG", Message = "hallo", Pod = "rr", Severity = 3, Timestamp = new DateTime(2019, 05, 11, 22, 00, 00) };
-      _logEntries.Add(log);
-      OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, _logEntries));
-    }
-
-    public event NotifyCollectionChangedEventHandler CollectionChanged;
-
-    protected virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
-    {
-      if (CollectionChanged != null)
+      LogEntries = MonitoringRepository.GetAllLogEntries();
+      foreach (ILogEntry log in LogEntries)
       {
-        CollectionChanged(this, e);
+        OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, log));
       }
     }
   }

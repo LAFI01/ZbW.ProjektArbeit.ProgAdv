@@ -2,7 +2,7 @@
 // FileName: LogEntry.cs
 // Author: 
 // Created on: 11.05.2019
-// Last modified on: 11.05.2019
+// Last modified on: 12.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -11,11 +11,9 @@
 namespace MonitoringClient.Model
 {
   using System;
-  using System.ComponentModel;
-  using System.Reflection;
-  using Google.Protobuf.WellKnownTypes;
+  using Utilities;
 
-  internal class LogEntry : ILogEntry
+  public class LogEntry : ChangeBase, ILogEntry
   {
     private string _hostename;
 
@@ -30,6 +28,18 @@ namespace MonitoringClient.Model
     private int _severity;
 
     private DateTime _timestamp;
+
+    public LogEntry(string hostename, int id, string location, string message, string pod, int severity,
+      DateTime timestamp)
+    {
+      Hostname = hostename;
+      Id = id;
+      Location = location;
+      Message = message;
+      Pod = pod;
+      Severity = severity;
+      Timestamp = timestamp;
+    }
 
     public string Hostname
     {
@@ -73,7 +83,15 @@ namespace MonitoringClient.Model
       }
     }
 
-    public string Pod { get; set; }
+    public string Pod
+    {
+      get { return _pod; }
+      set
+      {
+        _pod = value;
+        OnPropertyChanged("Pod");
+      }
+    }
 
     public int Severity
     {
@@ -92,16 +110,6 @@ namespace MonitoringClient.Model
       {
         _timestamp = value;
         OnPropertyChanged("Timestamp");
-      }
-    }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    private void OnPropertyChanged(string propertyName)
-    {
-      if (PropertyChanged != null)
-      {
-        PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
       }
     }
   }

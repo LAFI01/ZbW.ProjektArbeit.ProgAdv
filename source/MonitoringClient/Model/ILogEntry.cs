@@ -2,18 +2,17 @@
 // FileName: ILogEntry.cs
 // Author: 
 // Created on: 11.05.2019
-// Last modified on: 11.05.2019
+// Last modified on: 12.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
-// Description: -
+// Description: 
 // ------------------------------------------------------------------------------------
 // ************************************************************************************
 namespace MonitoringClient.Model
 {
   using System;
-  using System.ComponentModel;
 
-  public interface ILogEntry : INotifyPropertyChanged
+  public interface ILogEntry
   {
     string Hostname { get; set; }
 

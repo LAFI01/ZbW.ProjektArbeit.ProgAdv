@@ -51,7 +51,7 @@
       Grid.Column="1"
       VerticalAlignment="Center"
       FontSize="20"
-      Text="Server=;Database=;Uid=;Pwd=;"
+      Text="Server=localhost;Database=inventarisierungsloesungv2;Uid=root;Pwd=halo1velo;"
       TextWrapping="Wrap" />
     <Button
       Name="addBtn"
