@@ -14,6 +14,8 @@ namespace MonitoringClient.Model
 
   public interface ILogEntry
   {
+    int DeviceId { get; set; }
+
     string Hostname { get; set; }
 
     int Id { get; set; }

@@ -10,6 +10,7 @@
 // ************************************************************************************
 namespace MonitoringClientTests.Persistence
 {
+  using MonitoringClient.Model;
   using MonitoringClient.Persistence;
   using NUnit.Framework;
 
@@ -17,6 +18,43 @@ namespace MonitoringClientTests.Persistence
   public class MonitoringRepositoryIntegrationTests
   {
     private const string ConnString = "Server=localhost;Database=inventarisierungsloesungv2;Uid=root;Pwd=halo1velo;";
+
+    private ILogEntry CreateNewLogEntry(int deviceId)
+    {
+      ILogEntry logEntry = new LogEntry("PC1", "Error", 4);
+      logEntry.DeviceId = deviceId;
+
+      return logEntry;
+    }
+
+    [Test]
+    public void AddLogEntry_AddNewLogEntry_LogEntryIsInDbAdded()
+    {
+      MonitoringRepository monitoringRepo = new MonitoringRepository(ConnString);
+      var logEnriesCountBeforeAdd = monitoringRepo.GetAllLogEntries().Count;
+
+      ILogEntry newLogEntry = CreateNewLogEntry(5);
+      monitoringRepo.AddLogEntriy(newLogEntry);
+
+      var logEntriesCountAfterAdd = monitoringRepo.GetAllLogEntries().Count;
+      Assert.IsTrue(logEnriesCountBeforeAdd < logEntriesCountAfterAdd);
+    }
+
+    [Test]
+    public void ClearLogEntriy_QuitOneLogEntry_LogEntriesListShouldBeSamller()
+    {
+      MonitoringRepository monitoringRepo = new MonitoringRepository(ConnString);
+
+      ILogEntry newLogEntry = CreateNewLogEntry(3);
+      monitoringRepo.AddLogEntriy(newLogEntry);
+      var logEnriesAfterAdd = monitoringRepo.GetAllLogEntries();
+      var logEnriesCountAfterAdd = logEnriesAfterAdd.Count;
+
+      monitoringRepo.ClearLogEntriy(logEnriesAfterAdd[logEnriesCountAfterAdd - 1]);
+      var logEnriesCountAfterClear = monitoringRepo.GetAllLogEntries().Count;
+
+      Assert.IsTrue(logEnriesCountAfterClear < logEnriesCountAfterAdd);
+    }
 
     [Test]
     public void GetAllLogEntries_LoadAllLogEntries_GetAListOfAllLogEntries()

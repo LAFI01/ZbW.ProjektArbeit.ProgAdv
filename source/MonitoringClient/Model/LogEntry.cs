@@ -15,6 +15,8 @@ namespace MonitoringClient.Model
 
   public class LogEntry : ChangeBase, ILogEntry
   {
+    private int _deviceId;
+
     private string _hostename;
 
     private int _id;
@@ -29,16 +31,21 @@ namespace MonitoringClient.Model
 
     private DateTime _timestamp;
 
-    public LogEntry(string hostename, int id, string location, string message, string pod, int severity,
-      DateTime timestamp)
+    public LogEntry(string hostename, string message, int severity)
     {
       Hostname = hostename;
-      Id = id;
-      Location = location;
       Message = message;
-      Pod = pod;
       Severity = severity;
-      Timestamp = timestamp;
+    }
+
+    public int DeviceId
+    {
+      get { return _deviceId; }
+      set
+      {
+        _deviceId = value;
+        OnPropertyChanged("DeviceId");
+      }
     }
 
     public string Hostname
