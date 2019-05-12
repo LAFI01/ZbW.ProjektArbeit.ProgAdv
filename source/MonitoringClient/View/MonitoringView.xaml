@@ -23,94 +23,86 @@
       <RowDefinition Height="0.5*" />
       <RowDefinition Height="0.05*" />
     </Grid.RowDefinitions>
+
     <StackPanel
       Grid.Row="1"
       Grid.Column="1"
       Orientation="Horizontal">
       <Button
         Name="loadBtn"
-        Width="150"
+        Width="100"
         Margin="0,0,15,0"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Background="#FFFFFBFB"
         BorderThickness="0"
         Click="BtnLoad_Click"
-        FontSize="20"
+        FontSize="12"
         TabIndex="0"
         ToolTip="Load all Log Entries">
         <StackPanel Orientation="Horizontal">
           <Image
-            Width="20"
-            Height="20"
+            Width="15"
+            Height="15"
             Margin="5,5,5,5"
             HorizontalAlignment="Center"
             Opacity="0.5"
-            Source="D:\ProjectE\ZbW.Projektarbeit.ProgAdv\img\load.png"
+            Source="../Icons/load.png"
             Stretch="Fill"
             UseLayoutRounding="False" />
-          <Button
-            Margin="5,5,5,5"
-            Background="White"
-            BorderThickness="0"
-            Content="Load" />
+          <TextBlock Margin="5,5,5,5">Load</TextBlock>
         </StackPanel>
       </Button>
       <Button
         Name="confirmBtn"
-        Width="150"
+        Width="100"
         Margin="0,0,15,0"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Background="#FFFFFBFB"
         BorderThickness="0"
-        FontSize="20"
+        FontSize="12"
         TabIndex="1"
         ToolTip="Quit a Log Entry">
         <StackPanel Orientation="Horizontal">
           <Image
-            Width="20"
-            Height="20"
+            Width="15"
+            Height="15"
             Margin="5,5,5,5"
             HorizontalAlignment="Center"
             Opacity="0.5"
-            Source="D:\ProjectE\ZbW.Projektarbeit.ProgAdv\img\confirm.PNG"
-            Stretch="Fill"
-            UseLayoutRounding="False" />
-          <Button
-            Margin="5,5,5,5"
-            Background="White"
-            BorderThickness="0"
-            Content="Confirm" />
+            Source="../Icons/confirm.PNG"
+            Stretch="Fill" />
+          <TextBlock Margin="5,5,5,5">
+            Confirm
+          </TextBlock>
         </StackPanel>
       </Button>
       <Button
         Name="addBtn"
-        Width="150"
+        Width="100"
         Margin="0,0,15,0"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Background="#FFFFFBFB"
         BorderThickness="0"
         Click="BtnLoad_Click"
-        FontSize="20"
+        FontSize="12"
         TabIndex="2"
         ToolTip="Add new Log Entry">
         <StackPanel Orientation="Horizontal">
           <Image
-            Width="20"
-            Height="20"
+            Width="15"
+            Height="15"
             Margin="5,5,5,5"
             HorizontalAlignment="Center"
             Opacity="0.5"
-            Source="D:\ProjectE\ZbW.Projektarbeit.ProgAdv\img\add.png"
+            Source="../Icons/add.png"
             Stretch="Fill"
             UseLayoutRounding="False" />
-          <Button
-            Margin="5,5,5,5"
-            Background="White"
-            BorderThickness="0"
-            Content="Add" />
+          <TextBlock Margin="5,5,5,5">
+            Add
+          </TextBlock>
         </StackPanel>
       </Button>
     </StackPanel>

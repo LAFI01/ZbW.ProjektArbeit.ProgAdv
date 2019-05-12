@@ -7,7 +7,7 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   Title="Projektarbeit Programmieren Advanced"
   Width="800"
-  Height="450"
+  Height="350"
   mc:Ignorable="d">
   <Grid Background="#FF6BB4FD">
     <Grid.ColumnDefinitions>
@@ -28,15 +28,15 @@
       HorizontalContentAlignment="Center"
       VerticalContentAlignment="Center"
       Content="GOOD DAY THOMAS"
-      FontSize="36"
-      FontWeight="Bold" />
+      FontSize="28"
+      FontWeight="Bold" FontFamily="Segoe Script" />
     <TextBlock
       Name="textBlock"
       Grid.Row="1"
       Grid.Column="1"
       HorizontalAlignment="Center"
       VerticalAlignment="Center"
-      FontSize="20"
+      FontSize="18"
       FontStyle="Italic"
       LineHeight="Auto"
       TextAlignment="Center"
@@ -50,34 +50,33 @@
       Grid.Row="2"
       Grid.Column="1"
       VerticalAlignment="Center"
-      FontSize="20"
+      FontSize="14"
       Text="Server=localhost;Database=inventarisierungsloesungv2;Uid=root;Pwd=halo1velo;"
       TextWrapping="Wrap" />
-    <Button
-      Name="addBtn"
-      Grid.Row="3"
-      Grid.Column="1"
-      Width="150"
-      Margin="0,0,15,0"
-      HorizontalAlignment="Center"
-      VerticalAlignment="Center"
-      Background="#FFFFFBFB"
-      BorderThickness="0"
-      Click="BtnNext_Click"
-      FontSize="20"
-      TabIndex="1">
-      <StackPanel Width="150" Orientation="Horizontal">
-        <TextBlock Margin="10,10,10,10" Background="White">Next</TextBlock>
+
+    <StackPanel Width="150" Orientation="Horizontal"     Grid.Column="1"   Grid.Row="3">
+      <Button
+          Name="addBtn"
+          Width="100"
+          Margin="0,0,15,0"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          Background="#FFFFFBFB"
+          BorderThickness="0"
+          Click="BtnNext_Click"
+          FontSize="12"
+          TabIndex="1">
+        <!--<TextBlock Margin="10,10,10,10" Background="White">Next</TextBlock>-->
         <Image
           Width="70"
-          Height="40"
+          Height="20"
           Margin="5,5,5,5"
           HorizontalAlignment="Center"
           Opacity="0.5"
-          Source="D:\ProjectE\ZbW.Projektarbeit.ProgAdv\img\next.png"
+          Source="../Icons/next.PNG"
           Stretch="Fill"
-          UseLayoutRounding="False" />
-      </StackPanel>
-    </Button>
+          UseLayoutRounding="False" IsEnabled="False" />
+     </Button>
+    </StackPanel>
   </Grid>
 </Window>

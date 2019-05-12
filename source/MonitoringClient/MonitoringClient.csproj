@@ -125,6 +125,17 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Icons\next.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\load.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\confirm.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\add.PNG" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
