@@ -177,5 +177,8 @@
   <ItemGroup>
     <Folder Include="Utilities\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\connect.PNG" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

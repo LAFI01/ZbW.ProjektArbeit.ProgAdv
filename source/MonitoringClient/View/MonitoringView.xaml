@@ -44,6 +44,30 @@
       Grid.Column="2"
       Orientation="Vertical">
       <Button
+        Name="connectBtn"
+        Width="100"
+        Margin="0,0,15,15"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Background="#FFFFFBFB"
+        BorderThickness="0"
+        Command="{Binding ConnectCommand}"
+        FontSize="14"
+        TabIndex="0"
+        ToolTip="Connect to DB">
+        <StackPanel Width="80" Orientation="Horizontal">
+          <Image
+            Width="15"
+            Height="15"
+            Margin="0,5,5,5"
+            HorizontalAlignment="Left"
+            Opacity="0.5"
+            Source="../Icons/connect.png"
+            Stretch="Fill" />
+          <TextBlock Margin="5,5,5,5"><Run Text="Connect" /></TextBlock>
+        </StackPanel>
+      </Button>
+      <Button
         Name="loadBtn"
         Width="100"
         Margin="0,0,15,15"
@@ -55,7 +79,7 @@
         FontSize="14"
         TabIndex="0"
         ToolTip="Load all Log Entries">
-        <StackPanel Orientation="Horizontal" Width="80">
+        <StackPanel Width="80" Orientation="Horizontal">
           <Image
             Width="15"
             Height="15"
@@ -63,8 +87,7 @@
             HorizontalAlignment="Left"
             Opacity="0.5"
             Source="../Icons/load.png"
-            Stretch="Fill"
-          />
+            Stretch="Fill" />
           <TextBlock Margin="5,5,5,5"><Run Text="Load" /></TextBlock>
         </StackPanel>
       </Button>
@@ -106,7 +129,7 @@
         FontSize="14"
         TabIndex="2"
         ToolTip="Add new Log Entry">
-        <StackPanel Orientation="Horizontal" Width="89">
+        <StackPanel Width="89" Orientation="Horizontal">
           <Image
             Width="15"
             Height="15"

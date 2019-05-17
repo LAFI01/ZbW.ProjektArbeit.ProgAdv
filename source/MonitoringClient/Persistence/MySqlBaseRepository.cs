@@ -12,6 +12,7 @@ namespace MonitoringClient.Persistence
 {
   using System;
   using System.Data;
+  using System.Diagnostics;
   using MySql.Data.MySqlClient;
   using Properties;
 
@@ -28,7 +29,28 @@ namespace MonitoringClient.Persistence
     }
     protected IDbConnection MySqlConnection { get; set; }
 
-   
+    public bool ConnectionTest()
+    {
+      bool isConnected = false;
+      try
+      {
+        MySqlConnection.Open();
+        isConnected = true;
+      }
+      catch (Exception ex)
+      {
+        Debug.Print("Conncetion failed");
+      }
+      finally
+      {
+        if (MySqlConnection.State == ConnectionState.Open)
+        {
+          MySqlConnection.Close();
+        }
+      }
+
+      return isConnected;
+    }
 
     protected IDbCommand CreateCommand(IDbConnection myConnection, CommandType commandType, string coomandText)
     {

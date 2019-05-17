@@ -18,7 +18,7 @@ namespace MonitoringClient.ViewModel
   {
     private Visibility _addLogEntryView = Visibility.Hidden;
 
-    private Visibility _monitoringView = Visibility.Collapsed;
+    private Visibility _monitoringView;
 
 
     public MainUserControlViewModel()
@@ -55,11 +55,9 @@ namespace MonitoringClient.ViewModel
       //MonitoringContent = new MonitoringView();
       //MonitoringContent.Visibility = Visibility.Visible;
       //MonitoringVisibility = Visibility.Visible;
-      MonitoringVisibility = Visibility.Collapsed;
+      MonitoringVisibility = Visibility.Visible;
     }
 
-    public void Test()
-    {
-    }
+
   }
 }

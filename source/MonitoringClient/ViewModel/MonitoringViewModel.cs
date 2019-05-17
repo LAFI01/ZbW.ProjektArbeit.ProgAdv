@@ -2,7 +2,7 @@
 // FileName: MonitoringViewModel.cs
 // Author: 
 // Created on: 11.05.2019
-// Last modified on: 12.05.2019
+// Last modified on: 17.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -11,87 +11,40 @@
 namespace MonitoringClient.ViewModel
 {
   using System.Collections.ObjectModel;
-  using System.Collections.Specialized;
   using System.Reflection;
   using System.Windows;
-  using System.Windows.Controls;
   using System.Windows.Input;
-  using GalaSoft.MvvmLight;
-  using GalaSoft.MvvmLight.Command;
   using Model;
   using Persistence;
-  using View;
   using Prism.Commands;
   using Prism.Mvvm;
   using Properties;
 
   public class MonitoringViewModel : BindableBase
   {
+    private string _connString;
+
     private ObservableCollection<ILogEntry> _logEntries;
 
     private ILogEntry _selectedLogEntry;
 
-    private string _connString;
-
-    private UserControl _content;
 
     public MonitoringViewModel()
     {
-      //Content = content;
-      LogEntries = new ObservableCollection<ILogEntry>();      
-      AddCommand = new DelegateCommand(OnCmdAdd);
-      ConfirmCommand = new DelegateCommand(OnCmdConfirm);
-      LoadCommand = new DelegateCommand(OnCmdLoad);
-    }
-    public UserControl Content
-    {
-      get { return _content; }
-
-      set { SetProperty(ref _content, value); }
+      LogEntries = new ObservableCollection<ILogEntry>();
+      ConnectCommand = new DelegateCommand(OnCmdConncet, CanConnectToDb);
+      AddCommand = new DelegateCommand(OnCmdAdd, CanLoadAndAdd);
+      ConfirmCommand = new DelegateCommand(OnCmdConfirm, OnCanConfirm);
+      LoadCommand = new DelegateCommand(OnCmdLoad, CanLoadAndAdd);
     }
 
-    public void OnCmdLoad()
-    {
-      LoadExecute();
-    }
+    public DelegateCommand AddCommand { get; set; }
 
-    private void OnCmdConfirm()
-    {
-      MonitoringRepository.ClearLogEntriy(SelectedLogEntry);
-      RefreshLogEntries();
-    }
-
-    private void OnCmdAdd()
-    {
-      NavigationToAddLogEntryView();
-    }
-
-    private void NavigationToAddLogEntryView()
-    {
-      //Content.Visibility = Visibility.Collapsed;
-      //Content = new AddLogEntryView();
-      //Content.Visibility = Visibility.Visible;
-    }
+    public DelegateCommand ConfirmCommand { get; set; }
 
 
+    public DelegateCommand ConnectCommand { get; set; }
 
-    public ICommand AddCommand { get; set; }
-
-    public ICommand ConfirmCommand { get; set; }
-
-    public ICommand LoadCommand { get; set; }
-
-    public ObservableCollection<ILogEntry> LogEntries
-    {
-      get { return _logEntries; }
-      set
-      {
-        SetProperty(ref _logEntries, value);
-
-        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
-      }
-    }
-  
 
     public string GetConetentTextBox
     {
@@ -99,6 +52,19 @@ namespace MonitoringClient.ViewModel
       set
       {
         SetProperty(ref _connString, value);
+
+        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
+      }
+    }
+
+    public DelegateCommand LoadCommand { get; set; }
+
+    public ObservableCollection<ILogEntry> LogEntries
+    {
+      get { return _logEntries; }
+      set
+      {
+        SetProperty(ref _logEntries, value);
 
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
@@ -115,24 +81,74 @@ namespace MonitoringClient.ViewModel
       }
     }
 
+    private bool IsDbConnect { get; set; }
+
+    public bool CanConnectToDb()
+    {
+      return !IsDbConnect;
+    }
+
     private MonitoringRepository MonitoringRepository { get; set; }
 
+    public void OnCmdLoad()
+    {
+      MonitoringRepository = new MonitoringRepository();
+      LogEntries = MonitoringRepository.GetAllLogEntries();
+    }
+
+    private bool CanLoadAndAdd()
+    {
+      return IsDbConnect;
+    }
 
 
-    private void LoadExecute()
+    private void NavigationToAddLogEntryView()
+    {
+      //Content.Visibility = Visibility.Collapsed;
+      //Content = new AddLogEntryView();
+      //Content.Visibility = Visibility.Visible;
+    }
+
+    private bool OnCanConfirm()
+    {
+      return LogEntries.Count > 0;
+    }
+
+    private void OnCmdAdd()
+    {
+      NavigationToAddLogEntryView();
+    }
+
+    private void OnCmdConfirm()
+    {
+      MonitoringRepository.ClearLogEntriy(SelectedLogEntry);
+      RefreshLogEntries();
+    }
+
+    private void OnCmdConncet()
     {
       if (Settings.Default.ConnectionString == null)
       {
         Settings.Default.ConnectionString = GetConetentTextBox;
       }
+
       MonitoringRepository = new MonitoringRepository();
-      LogEntries = MonitoringRepository.GetAllLogEntries();
+      if (!MonitoringRepository.ConnectionTest())
+      {
+        MessageBox.Show("Die Verbindung zur BD konnte nicht hergestellt werden.");
+      }
+      else
+      {
+        IsDbConnect = true;
+        AddCommand.RaiseCanExecuteChanged();
+        LoadCommand.RaiseCanExecuteChanged();
+        ConnectCommand.RaiseCanExecuteChanged();
+      }
     }
 
     private void RefreshLogEntries()
     {
       LogEntries = MonitoringRepository.GetAllLogEntries();
     }
-
   }
 }
