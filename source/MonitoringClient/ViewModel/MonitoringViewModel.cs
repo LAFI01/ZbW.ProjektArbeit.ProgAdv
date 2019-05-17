@@ -69,7 +69,7 @@ namespace MonitoringClient.ViewModel
     private void NavigationToAddLogEntryView()
     {
       //Content.Visibility = Visibility.Collapsed;
-      //Content = new AddLogEntryView1();
+      //Content = new AddLogEntryView();
       //Content.Visibility = Visibility.Visible;
     }
 

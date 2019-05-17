@@ -98,19 +98,19 @@
     <Compile Include="ViewModel\MainUserControlViewModel.cs" />
     <Compile Include="ViewModel\MonitoringViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="View\AddLogEntryView1.xaml.cs">
-      <DependentUpon>AddLogEntryView1.xaml</DependentUpon>
+    <Compile Include="View\AddLogEntryView.xaml.cs">
+      <DependentUpon>AddLogEntryView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MainUserControl.xaml.cs">
-      <DependentUpon>MainUserControl.xaml</DependentUpon>
+    <Compile Include="View\MainUserControlView.xaml.cs">
+      <DependentUpon>MainUserControlView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MonitoringView1.xaml.cs">
-      <DependentUpon>MonitoringView1.xaml</DependentUpon>
+    <Compile Include="View\MonitoringView.xaml.cs">
+      <DependentUpon>MonitoringView.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\AddLogEntryView1.xaml">
+    <Page Include="View\AddLogEntryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -120,7 +120,7 @@
     </Compile>
     <Compile Include="Model\ILogEntry.cs" />
     <Compile Include="Model\LogEntry.cs" />
-    <Page Include="View\MainUserControl.xaml">
+    <Page Include="View\MainUserControlView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -128,7 +128,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MonitoringView1.xaml">
+    <Page Include="View\MonitoringView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

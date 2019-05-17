@@ -1,8 +1,8 @@
 ﻿// ************************************************************************************
-// FileName: MainUserControl.xaml.cs
+// FileName: MonitoringView.xaml.cs
 // Author: 
-// Created on: 16.05.2019
-// Last modified on: 17.05.2019
+// Created on: 14.05.2019
+// Last modified on: 14.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -14,14 +14,14 @@ namespace MonitoringClient.View
   using ViewModel;
 
   /// <summary>
-  ///   Interaction logic for MainUserControl.xaml
+  ///   Interaction logic for MonitoringView.xaml
   /// </summary>
-  public partial class MainUserControl : UserControl
+  public partial class MonitoringView : UserControl
   {
-    public MainUserControl()
+    public MonitoringView()
     {
       InitializeComponent();
-      DataContext = new MainUserControlViewModel();
+      DataContext = new MonitoringViewModel();
     }
   }
 }

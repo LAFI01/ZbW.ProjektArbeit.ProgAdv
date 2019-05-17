@@ -50,9 +50,9 @@ namespace MonitoringClient.ViewModel
 
     public void InitialViews()
     {
-      //AddLogEntryContent = new AddLogEntryView1();
+      //AddLogEntryContent = new AddLogEntryView();
       //AddLogEntryContent.Visibility = Visibility.Collapsed;
-      //MonitoringContent = new MonitoringView1();
+      //MonitoringContent = new MonitoringView();
       //MonitoringContent.Visibility = Visibility.Visible;
       //MonitoringVisibility = Visibility.Visible;
       MonitoringVisibility = Visibility.Collapsed;

@@ -33,9 +33,9 @@ namespace MonitoringClient.ViewModel
 
     public void Initial()
     {
-      //MainUserControlView = new AddLogEntryView1();
+      //MainUserControlView = new AddLogEntryView();
       //MainUserControlView.Visibility = Visibility.Collapsed;
-      Content = new MainUserControl();
+      Content = new MainUserControlView();
     }
   }
 }
