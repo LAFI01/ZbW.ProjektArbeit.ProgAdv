@@ -25,13 +25,13 @@ namespace MonitoringClient.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int Setting {
+        [global::System.Configuration.DefaultSettingValueAttribute("Server=localhost;Database=inventarisierungsloesungv2;Uid=root;Pwd=halo1velo;")]
+        public string ConnectionString {
             get {
-                return ((int)(this["Setting"]));
+                return ((string)(this["ConnectionString"]));
             }
             set {
-                this["Setting"] = value;
+                this["ConnectionString"] = value;
             }
         }
     }

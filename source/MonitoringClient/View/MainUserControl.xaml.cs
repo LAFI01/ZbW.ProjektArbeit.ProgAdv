@@ -1,8 +1,8 @@
 ﻿// ************************************************************************************
-// FileName: AddLogEntryView.xaml.cs
+// FileName: MainUserControl.xaml.cs
 // Author: 
-// Created on: 12.05.2019
-// Last modified on: 12.05.2019
+// Created on: 16.05.2019
+// Last modified on: 17.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -10,18 +10,18 @@
 // ************************************************************************************
 namespace MonitoringClient.View
 {
-  using System.Windows;
+  using System.Windows.Controls;
   using ViewModel;
 
   /// <summary>
-  ///   Interaction logic for AddLogEntryView.xaml
+  ///   Interaction logic for MainUserControl.xaml
   /// </summary>
-  public partial class AddLogEntryView : Window
+  public partial class MainUserControl : UserControl
   {
-    public AddLogEntryView(string connString)
+    public MainUserControl()
     {
       InitializeComponent();
-      DataContext = new AddLogEntryViewModel(connString, this);
+      DataContext = new MainUserControlViewModel();
     }
   }
 }

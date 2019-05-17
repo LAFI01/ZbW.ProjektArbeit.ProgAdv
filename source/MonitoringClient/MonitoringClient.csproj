@@ -56,6 +56,12 @@
     <Reference Include="MySql.Data, Version=8.0.16.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.8.0.16\lib\net452\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Prism">
+      <HintPath>..\packages\Prism.Core.7.1.0.431\lib\net45\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Wpf">
+      <HintPath>..\packages\Prism.Wpf.7.1.0.431\lib\net45\Prism.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -88,24 +94,25 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Severity.cs" />
-    <Compile Include="Utilities\BindableBase.cs" />
-    <Compile Include="Utilities\CommandHandler.cs" />
     <Compile Include="ViewModel\AddLogEntryViewModel.cs" />
+    <Compile Include="ViewModel\MainUserControlViewModel.cs" />
     <Compile Include="ViewModel\MonitoringViewModel.cs" />
-    <Compile Include="ViewModel\StartViewModel.cs" />
-    <Compile Include="View\AddLogEntryView.xaml.cs">
-      <DependentUpon>AddLogEntryView.xaml</DependentUpon>
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="View\AddLogEntryView1.xaml.cs">
+      <DependentUpon>AddLogEntryView1.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\StartView.xaml.cs">
-      <DependentUpon>StartView.xaml</DependentUpon>
+    <Compile Include="View\MainUserControl.xaml.cs">
+      <DependentUpon>MainUserControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\AddLogEntryView.xaml">
+    <Compile Include="View\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MonitoringView1.xaml.cs">
+      <DependentUpon>MonitoringView1.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\AddLogEntryView1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\MonitoringView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -113,11 +120,15 @@
     </Compile>
     <Compile Include="Model\ILogEntry.cs" />
     <Compile Include="Model\LogEntry.cs" />
-    <Compile Include="View\MonitoringView.xaml.cs">
-      <DependentUpon>MonitoringView.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="View\StartView.xaml">
+    <Page Include="View\MainUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MonitoringView1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -162,6 +173,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\add.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utilities\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

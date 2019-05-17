@@ -12,13 +12,20 @@ namespace MonitoringClient.Persistence
 {
   using System.Collections.ObjectModel;
   using System.Data;
+  using Google.Protobuf;
   using Model;
   using MySql.Data.MySqlClient;
+  using Properties;
 
   public class MonitoringRepository : MySqlBaseRepository
   {
     public MonitoringRepository(string connString) : base(connString)
     {
+    }
+
+    public MonitoringRepository()
+    {
+
     }
 
     public void AddLogEntriy(ILogEntry logEntry)

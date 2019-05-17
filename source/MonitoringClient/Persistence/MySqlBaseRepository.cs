@@ -13,56 +13,22 @@ namespace MonitoringClient.Persistence
   using System;
   using System.Data;
   using MySql.Data.MySqlClient;
+  using Properties;
 
   public class MySqlBaseRepository
   {
-    protected MySqlBaseRepository(string connectionString)
+    protected MySqlBaseRepository()
     {
-      MySqlConnection = new MySqlConnection(connectionString);
+      MySqlConnection = new MySqlConnection(Settings.Default.ConnectionString);
     }
+    protected MySqlBaseRepository(string connString)
+    {
 
+      MySqlConnection = new MySqlConnection(connString);
+    }
     protected IDbConnection MySqlConnection { get; set; }
 
-    protected bool ConvertToBool(object obj)
-    {
-      var i = false;
-      if (obj is bool)
-      {
-        i = (bool) obj;
-      }
-
-      return i;
-    }
-
-    protected DateTime ConvertToDateTime(object obj)
-    {
-      DateTime date;
-      DateTime.TryParse(obj.ToString(), out date);
-
-      return date;
-    }
-
-    protected decimal ConvertToDecimal(object obj)
-    {
-      decimal i = 0;
-      if (obj is decimal @decimal)
-      {
-        i = @decimal;
-      }
-
-      return i;
-    }
-
-    protected int ConvertToInt(object obj)
-    {
-      var i = 0;
-      if (obj is int)
-      {
-        i = (int) obj;
-      }
-
-      return i;
-    }
+   
 
     protected IDbCommand CreateCommand(IDbConnection myConnection, CommandType commandType, string coomandText)
     {

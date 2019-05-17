@@ -11,7 +11,8 @@
 namespace MonitoringClient.Model
 {
   using System;
-  using Utilities;
+  using System.Reflection;
+  using Prism.Mvvm;
 
   public class LogEntry : BindableBase, ILogEntry
   {
@@ -43,8 +44,9 @@ namespace MonitoringClient.Model
       get { return _deviceId; }
       set
       {
-        _deviceId = value;
-        OnPropertyChanged("DeviceId");
+        SetProperty(ref _deviceId, value);
+
+        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
 
@@ -53,9 +55,9 @@ namespace MonitoringClient.Model
       get { return _hostename; }
       set
       {
-        _hostename = value;
+        SetProperty(ref _hostename, value);
 
-        OnPropertyChanged("Hostname");
+        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
 
@@ -65,8 +67,9 @@ namespace MonitoringClient.Model
       get { return _id; }
       set
       {
-        _id = value;
-        OnPropertyChanged("Id");
+        SetProperty(ref _id, value);
+
+        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
 
@@ -75,8 +78,9 @@ namespace MonitoringClient.Model
       get { return _location; }
       set
       {
-        _location = value;
-        OnPropertyChanged("Location");
+        SetProperty(ref _location, value);
+
+        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
 
@@ -85,8 +89,9 @@ namespace MonitoringClient.Model
       get { return _message; }
       set
       {
-        _message = value;
-        OnPropertyChanged("Message");
+        SetProperty(ref _message, value);
+
+        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
 
@@ -95,8 +100,9 @@ namespace MonitoringClient.Model
       get { return _pod; }
       set
       {
-        _pod = value;
-        OnPropertyChanged("Pod");
+        SetProperty(ref _pod, value);
+
+        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
 
@@ -105,8 +111,9 @@ namespace MonitoringClient.Model
       get { return _severity; }
       set
       {
-        _severity = value;
-        OnPropertyChanged("Severity");
+        SetProperty(ref _severity, value);
+
+        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
 
@@ -115,8 +122,9 @@ namespace MonitoringClient.Model
       get { return _timestamp; }
       set
       {
-        _timestamp = value;
-        OnPropertyChanged("Timestamp");
+        SetProperty(ref _timestamp, value);
+
+        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
   }

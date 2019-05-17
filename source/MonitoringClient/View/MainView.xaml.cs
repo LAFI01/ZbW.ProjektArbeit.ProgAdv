@@ -1,8 +1,8 @@
 ﻿// ************************************************************************************
-// FileName: MonitoringView.xaml.cs
+// FileName: MainView.xaml.cs
 // Author: 
-// Created on: 11.05.2019
-// Last modified on: 12.05.2019
+// Created on: 14.05.2019
+// Last modified on: 16.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -14,24 +14,14 @@ namespace MonitoringClient.View
   using ViewModel;
 
   /// <summary>
-  ///   Interaction logic for MonitoringView.xaml
+  ///   Interaction logic for MainView.xaml
   /// </summary>
-  public partial class MonitoringView : Window
+  public partial class MainView : Window
   {
-    public MonitoringView(string connString)
+    public MainView()
     {
       InitializeComponent();
-      DataContext = new MonitoringViewModel(connString);
+      DataContext = new MainViewModel();
     }
-
-    //public List<ILogEntry> LogEntriesList { get; set; }
-
-    //private MonitoringViewModel MonitoringViewModel { get; }
-
-
-    //private void BtnLoad_Click(object sender, RoutedEventArgs e)
-    //{
-    //  MonitoringViewModel.GetAllLogEntries();
-    //}
   }
 }

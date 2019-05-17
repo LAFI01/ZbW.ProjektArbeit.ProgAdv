@@ -12,13 +12,18 @@ namespace MonitoringClient.ViewModel
 {
   using System.Collections.ObjectModel;
   using System.Collections.Specialized;
+  using System.Reflection;
   using System.Windows;
+  using System.Windows.Controls;
   using System.Windows.Input;
+  using GalaSoft.MvvmLight;
   using GalaSoft.MvvmLight.Command;
   using Model;
   using Persistence;
-  using Utilities;
   using View;
+  using Prism.Commands;
+  using Prism.Mvvm;
+  using Properties;
 
   public class MonitoringViewModel : BindableBase
   {
@@ -26,15 +31,49 @@ namespace MonitoringClient.ViewModel
 
     private ILogEntry _selectedLogEntry;
 
-    public MonitoringViewModel(string connString)
+    private string _connString;
+
+    private UserControl _content;
+
+    public MonitoringViewModel()
     {
-      ConnString = connString;
-      LogEntries = new ObservableCollection<ILogEntry>();
-      MonitoringRepository = new MonitoringRepository(connString);
-      CreateLoadCommand();
-      CreateConfirmCommand();
-      CreateAddCommand();
+      //Content = content;
+      LogEntries = new ObservableCollection<ILogEntry>();      
+      AddCommand = new DelegateCommand(OnCmdAdd);
+      ConfirmCommand = new DelegateCommand(OnCmdConfirm);
+      LoadCommand = new DelegateCommand(OnCmdLoad);
     }
+    public UserControl Content
+    {
+      get { return _content; }
+
+      set { SetProperty(ref _content, value); }
+    }
+
+    public void OnCmdLoad()
+    {
+      LoadExecute();
+    }
+
+    private void OnCmdConfirm()
+    {
+      MonitoringRepository.ClearLogEntriy(SelectedLogEntry);
+      RefreshLogEntries();
+    }
+
+    private void OnCmdAdd()
+    {
+      NavigationToAddLogEntryView();
+    }
+
+    private void NavigationToAddLogEntryView()
+    {
+      //Content.Visibility = Visibility.Collapsed;
+      //Content = new AddLogEntryView1();
+      //Content.Visibility = Visibility.Visible;
+    }
+
+
 
     public ICommand AddCommand { get; set; }
 
@@ -47,8 +86,21 @@ namespace MonitoringClient.ViewModel
       get { return _logEntries; }
       set
       {
-        _logEntries = value;
-        NotifyPropertyChanged("LogEntries");
+        SetProperty(ref _logEntries, value);
+
+        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
+      }
+    }
+  
+
+    public string GetConetentTextBox
+    {
+      get { return _connString; }
+      set
+      {
+        SetProperty(ref _connString, value);
+
+        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
 
@@ -57,59 +109,30 @@ namespace MonitoringClient.ViewModel
       get { return _selectedLogEntry; }
       set
       {
-        _selectedLogEntry = value;
-        NotifyPropertyChanged("SelectedLogEntry");
+        SetProperty(ref _selectedLogEntry, value);
+
+        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
 
-    private string ConnString { get; }
-
-    private MonitoringRepository MonitoringRepository { get; }
+    private MonitoringRepository MonitoringRepository { get; set; }
 
 
-    private void AddExecute()
-    {
-      AddLogEntryView addLogEntry = new AddLogEntryView(ConnString);
-      addLogEntry.Show();
-    }
-
-    private void CreateAddCommand()
-    {
-      AddCommand = new RelayCommand(AddExecute, TrueFunc);
-    }
-
-    private void CreateConfirmCommand()
-    {
-      ConfirmCommand = new RelayCommand(ExecuteConfirm, TrueFunc);
-    }
-
-    private void CreateLoadCommand()
-    {
-      LoadCommand = new RelayCommand(LoadExecute, TrueFunc);
-    }
-
-    private void ExecuteConfirm()
-    {
-      if (SelectedLogEntry == null)
-      {
-        MessageBox.Show("Please selected a log entry");
-      }
-
-      MonitoringRepository.ClearLogEntriy(_selectedLogEntry);
-    }
 
     private void LoadExecute()
     {
-      LogEntries = MonitoringRepository.GetAllLogEntries();
-      foreach (ILogEntry log in LogEntries)
+      if (Settings.Default.ConnectionString == null)
       {
-        OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, log));
+        Settings.Default.ConnectionString = GetConetentTextBox;
       }
+      MonitoringRepository = new MonitoringRepository();
+      LogEntries = MonitoringRepository.GetAllLogEntries();
     }
 
-    private bool TrueFunc()
+    private void RefreshLogEntries()
     {
-      return true;
+      LogEntries = MonitoringRepository.GetAllLogEntries();
     }
+
   }
 }
