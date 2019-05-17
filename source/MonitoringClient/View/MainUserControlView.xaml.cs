@@ -20,8 +20,9 @@ namespace MonitoringClient.View
   {
     public MainUserControlView()
     {
-      InitializeComponent();
       DataContext = new MainUserControlViewModel();
+
+      InitializeComponent();
     }
   }
 }

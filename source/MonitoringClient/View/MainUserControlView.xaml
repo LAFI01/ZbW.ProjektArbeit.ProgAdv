@@ -11,8 +11,8 @@
  >
 
   <Grid>
-    <local:MonitoringView x:Name="LoggerView" Visibility="{Binding MonitoringVisibility, Mode=TwoWay}" />
-    <local:AddLogEntryView x:Name="AddLogView" Visibility="{Binding AddLogEntryVisibility, Mode=TwoWay}" />
+    <local:MonitoringView x:Name="LoggerView" Visibility="{Binding MonitoringVisibility}" />
+    <!--<local:AddLogEntryView x:Name="AddLogView" Visibility="{Binding AddLogEntryVisibility, Mode=TwoWay}" />-->
 
     <!--<local:AddLogEntryView1 x:Name="AddLogEntryView" Visibility="{Binding Path=AddLogEntryView}"></local:AddLogEntryView1>-->
   </Grid>

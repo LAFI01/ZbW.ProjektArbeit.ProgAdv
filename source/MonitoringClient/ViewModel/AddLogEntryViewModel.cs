@@ -2,7 +2,7 @@
 // FileName: AddLogEntryViewModel.cs
 // Author: 
 // Created on: 12.05.2019
-// Last modified on: 16.05.2019
+// Last modified on: 17.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -14,9 +14,7 @@ namespace MonitoringClient.ViewModel
   using System.Reflection;
   using System.Windows.Input;
   using Model;
-  using Persistence;
   using Prism.Mvvm;
-  using Properties;
 
   public class AddLogEntryViewModel : BindableBase
   {
@@ -130,9 +128,6 @@ namespace MonitoringClient.ViewModel
 
 
     //private MonitoringRepository MonitoringRepository { get; }
-
-
-  
 
 
     private int MapSeverityToInt(string severity)

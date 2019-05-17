@@ -10,6 +10,7 @@
 // ************************************************************************************
 namespace MonitoringClient.ViewModel
 {
+  using System.Reflection;
   using System.Windows;
   using Prism.Mvvm;
 
@@ -17,7 +18,7 @@ namespace MonitoringClient.ViewModel
   {
     private Visibility _addLogEntryView = Visibility.Hidden;
 
-    private Visibility _monitoringView;
+    private Visibility _monitoringView = Visibility.Collapsed;
 
 
     public MainUserControlViewModel()
@@ -43,8 +44,7 @@ namespace MonitoringClient.ViewModel
       set
       {
         SetProperty(ref _monitoringView, value);
-
-        //RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
+        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
 
