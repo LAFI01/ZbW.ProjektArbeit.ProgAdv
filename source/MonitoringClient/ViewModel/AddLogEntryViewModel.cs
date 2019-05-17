@@ -12,12 +12,19 @@ namespace MonitoringClient.ViewModel
 {
   using System.Collections.ObjectModel;
   using System.Reflection;
-  using System.Windows.Input;
+  using System.Windows;
   using Model;
+  using Persistence;
+  using Prism.Commands;
   using Prism.Mvvm;
+  using Properties;
 
   public class AddLogEntryViewModel : BindableBase
   {
+    private const int InitialDeviceId = 0;
+
+    private const int MaxLengthOfSign = 45;
+
     private ObservableCollection<int> _deviceIds;
 
     private ObservableCollection<string> _hostnameItems;
@@ -34,14 +41,14 @@ namespace MonitoringClient.ViewModel
 
     public AddLogEntryViewModel()
     {
-      //MonitoringRepository = null;
-      //DeviceIds = MonitoringRepository.GetAllDeviceIds();
-      //HostnameItems = MonitoringRepository.GetAllHostname();
-
+      GetAddLogEntryViewModel = this;
+      CancelCommand = new DelegateCommand(OnCmdCancel);
+      SaveCommand = new DelegateCommand(OnCmdSave, CanSave);
       SeverityItems = Severity.Severities;
     }
 
-    public ICommand CancelCommand { get; set; }
+
+    public static DelegateCommand CancelCommand { get; set; }
 
 
     public ObservableCollection<int> DeviceIds
@@ -72,13 +79,21 @@ namespace MonitoringClient.ViewModel
       get { return _message; }
       set
       {
-        SetProperty(ref _message, value);
-
-        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
+        if (value.Length > MaxLengthOfSign)
+        {
+          MessageBox.Show(string.Format($"Message is too long. Maximum {0} words", MaxLengthOfSign));
+        }
+        else
+        {
+          SetProperty(ref _message, value);
+          RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
+        }
       }
     }
+    public static AddLogEntryViewModel GetAddLogEntryViewModel { get; private set; }
+    public MonitoringRepository MonitoringRepository { get; set; }
 
-    public ICommand SaveCommand { get; set; }
+    public DelegateCommand SaveCommand { get; set; }
 
 
     public int SelectedDeviceId
@@ -89,6 +104,7 @@ namespace MonitoringClient.ViewModel
         SetProperty(ref _selectedDeviceId, value);
 
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
+        SaveCommand.RaiseCanExecuteChanged();
       }
     }
 
@@ -100,6 +116,7 @@ namespace MonitoringClient.ViewModel
         SetProperty(ref _selectedHostnameItem, value);
 
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
+        SaveCommand.RaiseCanExecuteChanged();
       }
     }
 
@@ -111,6 +128,7 @@ namespace MonitoringClient.ViewModel
         SetProperty(ref _selectedSeverityItem, value);
 
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
+        SaveCommand.RaiseCanExecuteChanged();
       }
     }
 
@@ -121,39 +139,45 @@ namespace MonitoringClient.ViewModel
       set
       {
         SetProperty(ref _serverityItems, value);
-
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
+        SaveCommand.RaiseCanExecuteChanged();
       }
     }
 
+    private MainUserControlViewModel MainUserControlViewModel { get; set; }
 
-    //private MonitoringRepository MonitoringRepository { get; }
-
-
-    private int MapSeverityToInt(string severity)
+    private bool CanSave()
     {
-      var status = 0;
-      switch (severity)
-      {
-        case "Error":
-          status = 1;
+      return SelectedHostnameItem != null && (SelectedSeverityItem != null) & (SelectedDeviceId != InitialDeviceId);
+    }
 
-          break;
-        case "Warning":
-          status = 2;
+    public void FillComboboxen()
+    {
+      MainUserControlViewModel = MainUserControlViewModel.GetMainUserControlViewModel;
+      SetMonitroingRepository();
+      DeviceIds = MonitoringRepository.GetAllDeviceIds();
+      HostnameItems = MonitoringRepository.GetAllHostname();
+    }
 
-          break;
-        case "Critical":
-          status = 3;
 
-          break;
-        case "Low":
-          status = 4;
+    private void OnCmdCancel()
+    {
+      MainUserControlViewModel.SetMonitoringAsView();
+    }
 
-          break;
-      }
+    private void OnCmdSave()
+    {
+      ILogEntry logEntry = new LogEntry(SelectedHostnameItem, Message, SelectedSeverityItem);
+      logEntry.DeviceId = SelectedDeviceId;
+      MonitoringRepository.AddLogEntriy(logEntry);
+      MainUserControlViewModel.SetMonitoringAsView();
+      MonitoringViewModel.GetMonitoringViewModel.RefreshLogEntries();
+    }
 
-      return status;
+    private void SetMonitroingRepository()
+    {
+      MonitoringRepository monitoringRepositoring = new MonitoringRepository(Settings.Default.ConnectionString);
+      MonitoringRepository = monitoringRepositoring;
     }
   }
 }

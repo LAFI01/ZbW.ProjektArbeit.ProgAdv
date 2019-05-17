@@ -13,7 +13,6 @@ namespace MonitoringClient.ViewModel
   using System.Collections.ObjectModel;
   using System.Reflection;
   using System.Windows;
-  using System.Windows.Input;
   using Model;
   using Persistence;
   using Prism.Commands;
@@ -22,21 +21,20 @@ namespace MonitoringClient.ViewModel
 
   public class MonitoringViewModel : BindableBase
   {
+    private const int MaxLengthOfConnectionString = 100;
+
     private string _connString;
 
     private ObservableCollection<ILogEntry> _logEntries;
 
     private ILogEntry _selectedLogEntry;
 
-
     public MonitoringViewModel()
     {
-      LogEntries = new ObservableCollection<ILogEntry>();
-      ConnectCommand = new DelegateCommand(OnCmdConncet, CanConnectToDb);
-      AddCommand = new DelegateCommand(OnCmdAdd, CanLoadAndAdd);
-      ConfirmCommand = new DelegateCommand(OnCmdConfirm, OnCanConfirm);
-      LoadCommand = new DelegateCommand(OnCmdLoad, CanLoadAndAdd);
+      GetMonitoringViewModel = this;
+      InitalViewModel();
     }
+
 
     public DelegateCommand AddCommand { get; set; }
 
@@ -46,7 +44,7 @@ namespace MonitoringClient.ViewModel
     public DelegateCommand ConnectCommand { get; set; }
 
 
-    public string GetConetentTextBox
+    public string GetContentTextBox
     {
       get { return _connString; }
       set
@@ -56,6 +54,8 @@ namespace MonitoringClient.ViewModel
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
+
+    public static MonitoringViewModel GetMonitoringViewModel { get; private set; }
 
     public DelegateCommand LoadCommand { get; set; }
 
@@ -83,16 +83,24 @@ namespace MonitoringClient.ViewModel
 
     private bool IsDbConnect { get; set; }
 
+    private MainUserControlViewModel MainUserControlViewModel { get; set; }
+
+    private MonitoringRepository MonitoringRepository { get; set; }
+
     public bool CanConnectToDb()
     {
       return !IsDbConnect;
     }
 
-    private MonitoringRepository MonitoringRepository { get; set; }
-
     public void OnCmdLoad()
     {
       MonitoringRepository = new MonitoringRepository();
+      LogEntries = MonitoringRepository.GetAllLogEntries();
+      ConfirmCommand.RaiseCanExecuteChanged();
+    }
+
+    public void RefreshLogEntries()
+    {
       LogEntries = MonitoringRepository.GetAllLogEntries();
     }
 
@@ -101,13 +109,16 @@ namespace MonitoringClient.ViewModel
       return IsDbConnect;
     }
 
-
-    private void NavigationToAddLogEntryView()
+    private void InitalViewModel()
     {
-      //Content.Visibility = Visibility.Collapsed;
-      //Content = new AddLogEntryView();
-      //Content.Visibility = Visibility.Visible;
+      MainUserControlViewModel = MainUserControlViewModel.GetMainUserControlViewModel;
+      LogEntries = new ObservableCollection<ILogEntry>();
+      ConnectCommand = new DelegateCommand(OnCmdConncet, CanConnectToDb);
+      AddCommand = new DelegateCommand(OnCmdAdd, CanLoadAndAdd);
+      ConfirmCommand = new DelegateCommand(OnCmdConfirm, OnCanConfirm);
+      LoadCommand = new DelegateCommand(OnCmdLoad, CanLoadAndAdd);
     }
+
 
     private bool OnCanConfirm()
     {
@@ -116,7 +127,8 @@ namespace MonitoringClient.ViewModel
 
     private void OnCmdAdd()
     {
-      NavigationToAddLogEntryView();
+      AddLogEntryViewModel.GetAddLogEntryViewModel.FillComboboxen();
+      MainUserControlViewModel.SetAddLogEntryAsView();
     }
 
     private void OnCmdConfirm()
@@ -127,28 +139,27 @@ namespace MonitoringClient.ViewModel
 
     private void OnCmdConncet()
     {
-      if (Settings.Default.ConnectionString == null)
+      var inputConnectionString = GetContentTextBox;
+      if (inputConnectionString != null && inputConnectionString.Length < MaxLengthOfConnectionString)
       {
-        Settings.Default.ConnectionString = GetConetentTextBox;
-      }
-
-      MonitoringRepository = new MonitoringRepository();
-      if (!MonitoringRepository.ConnectionTest())
-      {
-        MessageBox.Show("Die Verbindung zur BD konnte nicht hergestellt werden.");
+        Settings.Default.ConnectionString = inputConnectionString;
+        MonitoringRepository = new MonitoringRepository();
+        if (!MonitoringRepository.ConnectionTest())
+        {
+          MessageBox.Show("It coud not connect to your database!");
+        }
+        else
+        {
+          IsDbConnect = true;
+          AddCommand.RaiseCanExecuteChanged();
+          LoadCommand.RaiseCanExecuteChanged();
+          ConnectCommand.RaiseCanExecuteChanged();
+        }
       }
       else
       {
-        IsDbConnect = true;
-        AddCommand.RaiseCanExecuteChanged();
-        LoadCommand.RaiseCanExecuteChanged();
-        ConnectCommand.RaiseCanExecuteChanged();
+        MessageBox.Show("Your input connection string is not correct");
       }
-    }
-
-    private void RefreshLogEntries()
-    {
-      LogEntries = MonitoringRepository.GetAllLogEntries();
     }
   }
 }

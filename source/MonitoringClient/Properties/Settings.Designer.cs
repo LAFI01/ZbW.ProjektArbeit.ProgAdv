@@ -25,7 +25,7 @@ namespace MonitoringClient.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Server=localhost;Database=inventarisierungsloesungv2;Uid=root;Pwd=halo1velo;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ConnectionString {
             get {
                 return ((string)(this["ConnectionString"]));

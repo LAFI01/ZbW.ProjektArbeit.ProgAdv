@@ -2,7 +2,7 @@
 // FileName: LogEntry.cs
 // Author: 
 // Created on: 11.05.2019
-// Last modified on: 12.05.2019
+// Last modified on: 17.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -28,11 +28,11 @@ namespace MonitoringClient.Model
 
     private string _pod;
 
-    private int _severity;
+    private string _severity;
 
     private DateTime _timestamp;
 
-    public LogEntry(string hostename, string message, int severity)
+    public LogEntry(string hostename, string message, string severity)
     {
       Hostname = hostename;
       Message = message;
@@ -106,7 +106,7 @@ namespace MonitoringClient.Model
       }
     }
 
-    public int Severity
+    public string Severity
     {
       get { return _severity; }
       set

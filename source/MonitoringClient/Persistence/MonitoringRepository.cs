@@ -2,7 +2,7 @@
 // FileName: MonitoringRepository.cs
 // Author: 
 // Created on: 11.05.2019
-// Last modified on: 12.05.2019
+// Last modified on: 17.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -12,10 +12,9 @@ namespace MonitoringClient.Persistence
 {
   using System.Collections.ObjectModel;
   using System.Data;
-  using Google.Protobuf;
   using Model;
   using MySql.Data.MySqlClient;
-  using Properties;
+  using Utilities;
 
   public class MonitoringRepository : MySqlBaseRepository
   {
@@ -25,7 +24,6 @@ namespace MonitoringClient.Persistence
 
     public MonitoringRepository()
     {
-
     }
 
     public void AddLogEntriy(ILogEntry logEntry)
@@ -43,7 +41,7 @@ namespace MonitoringClient.Persistence
           MySqlParameter p2 = new MySqlParameter("in_hostname", logEntry.Hostname);
           p2.Direction = ParameterDirection.Input;
           p2.DbType = DbType.String;
-          MySqlParameter p3 = new MySqlParameter("in_serverity", logEntry.Severity);
+          MySqlParameter p3 = new MySqlParameter("in_serverity", Mapper.MapSeverityToInt(logEntry.Severity));
           p3.Direction = ParameterDirection.Input;
           p3.DbType = DbType.Int32;
           MySqlParameter p4 = new MySqlParameter("in_message", logEntry.Message);
@@ -146,7 +144,8 @@ namespace MonitoringClient.Persistence
           {
             while (r.Read())
             {
-              ILogEntry logEntry = new LogEntry(r.GetString(3), r.GetString(6), r.GetInt32(4));
+              ILogEntry logEntry =
+                new LogEntry(r.GetString(3), r.GetString(6), Mapper.MapSeverityToString(r.GetInt32(4)));
               logEntry.Id = r.GetInt32(0);
               logEntry.Pod = r.GetString(1);
               logEntry.Location = r.GetString(2);

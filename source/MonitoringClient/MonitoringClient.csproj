@@ -94,6 +94,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Severity.cs" />
+    <Compile Include="Utilities\Mapper.cs" />
     <Compile Include="ViewModel\AddLogEntryViewModel.cs" />
     <Compile Include="ViewModel\MainUserControlViewModel.cs" />
     <Compile Include="ViewModel\MonitoringViewModel.cs" />
@@ -174,9 +175,7 @@
   <ItemGroup>
     <Resource Include="Icons\add.PNG" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utilities\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Icons\connect.PNG" />
   </ItemGroup>

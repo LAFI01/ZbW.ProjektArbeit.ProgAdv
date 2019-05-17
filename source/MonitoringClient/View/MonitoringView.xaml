@@ -7,15 +7,15 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:viewModel="clr-namespace:MonitoringClient.ViewModel"
   d:DesignHeight="450"
-  d:DesignWidth="800"
+  d:DesignWidth="850"
   mc:Ignorable="d">
 
   <Grid Background="DeepSkyBlue">
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="0.05*" />
-      <ColumnDefinition Width="0.75*" />
-      <ColumnDefinition Width="0.25*" />
-      <ColumnDefinition Width="0.05*" />
+      <ColumnDefinition Width="0.01*" />
+      <ColumnDefinition Width="0.85*" />
+      <ColumnDefinition Width="0.15*" />
+      <ColumnDefinition Width="0.01*" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition Height="0.05*" />
@@ -34,9 +34,9 @@
         DB-Connection:
       </Label>
       <TextBox
-        Width="445"
+        Width="615"
         VerticalAlignment="Center"
-        Text="{Binding Path=GetConetentTextBox}" />
+        Text="{Binding GetContentTextBox}" />
 
     </StackPanel>
     <StackPanel
@@ -46,7 +46,7 @@
       <Button
         Name="connectBtn"
         Width="100"
-        Margin="0,0,15,15"
+        Margin="15,0,15,15"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Background="#FFFFFBFB"
@@ -70,7 +70,7 @@
       <Button
         Name="loadBtn"
         Width="100"
-        Margin="0,0,15,15"
+        Margin="15,0,15,15"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Background="#FFFFFBFB"
@@ -94,7 +94,7 @@
       <Button
         Name="confirmBtn"
         Width="100"
-        Margin="0,0,15,15"
+        Margin="15,0,15,15"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Background="#FFFFFBFB"
@@ -120,7 +120,7 @@
       <Button
         Name="addBtn"
         Width="100"
-        Margin="0,0,15,0"
+        Margin="15,0,15,0"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Background="#FFFFFBFB"
@@ -157,7 +157,7 @@
       <ListView.View>
         <GridView x:Name="logEntryGrid">
           <GridViewColumn
-            Width="50"
+            Width="100"
             DisplayMemberBinding="{Binding Id}"
             Header="Id" />
           <GridViewColumn
@@ -173,11 +173,11 @@
             DisplayMemberBinding="{Binding Location}"
             Header="Location" />
           <GridViewColumn
-            Width="50"
+            Width="100"
             DisplayMemberBinding="{Binding Severity}"
             Header="Severity" />
           <GridViewColumn
-            Width="150"
+            Width="200"
             DisplayMemberBinding="{Binding Message}"
             Header="Message" />
         </GridView>

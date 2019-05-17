@@ -2,7 +2,7 @@
 // FileName: AddLogEntryView.xaml.cs
 // Author: 
 // Created on: 14.05.2019
-// Last modified on: 16.05.2019
+// Last modified on: 17.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 

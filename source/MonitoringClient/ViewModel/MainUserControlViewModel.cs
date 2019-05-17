@@ -10,54 +10,45 @@
 // ************************************************************************************
 namespace MonitoringClient.ViewModel
 {
-  using System.Reflection;
   using System.Windows;
   using Prism.Mvvm;
 
   public class MainUserControlViewModel : BindableBase
   {
-    private Visibility _addLogEntryView = Visibility.Hidden;
+    private static Visibility _addLogEntryView = Visibility.Hidden;
 
-    private Visibility _monitoringView;
-
+    private static Visibility _monitoringView = Visibility.Visible;
 
     public MainUserControlViewModel()
     {
-      InitialViews();
+      GetMainUserControlViewModel = this;
     }
 
     public Visibility AddLogEntryVisibility
     {
       get { return _addLogEntryView; }
-      set
-      {
-        SetProperty(ref _addLogEntryView, value);
-
-        //RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
-      }
+      set { SetProperty(ref _addLogEntryView, value); }
     }
+
+    public static MainUserControlViewModel GetMainUserControlViewModel { get; private set; }
 
 
     public Visibility MonitoringVisibility
     {
       get { return _monitoringView; }
-      set
-      {
-        SetProperty(ref _monitoringView, value);
-        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
-      }
+      set { SetProperty(ref _monitoringView, value); }
     }
 
-    public void InitialViews()
+    public void SetAddLogEntryAsView()
     {
-      //AddLogEntryContent = new AddLogEntryView();
-      //AddLogEntryContent.Visibility = Visibility.Collapsed;
-      //MonitoringContent = new MonitoringView();
-      //MonitoringContent.Visibility = Visibility.Visible;
-      //MonitoringVisibility = Visibility.Visible;
-      MonitoringVisibility = Visibility.Visible;
+      AddLogEntryVisibility = Visibility.Visible;
+      MonitoringVisibility = Visibility.Collapsed;
     }
 
-
+    public void SetMonitoringAsView()
+    {
+      MonitoringVisibility = Visibility.Visible;
+      AddLogEntryVisibility = Visibility.Collapsed;
+    }
   }
 }

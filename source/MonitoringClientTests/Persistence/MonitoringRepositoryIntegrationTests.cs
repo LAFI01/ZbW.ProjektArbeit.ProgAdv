@@ -17,11 +17,11 @@ namespace MonitoringClientTests.Persistence
   [TestFixture]
   public class MonitoringRepositoryIntegrationTests
   {
-    private const string ConnString = "Server=localhost;Database=inventarisierungsloesungv2;Uid=root;Pwd=halo1velo;";
+    private const string ConnString = "Server=localhost;Database=inventarisierungsloesunglfi;Uid=root;Pwd=halo1velo;";
 
     private ILogEntry CreateNewLogEntry(int deviceId)
     {
-      ILogEntry logEntry = new LogEntry("PC1", "Error", 4);
+      ILogEntry logEntry = new LogEntry("PC1", "Error", "Error");
       logEntry.DeviceId = deviceId;
 
       return logEntry;
