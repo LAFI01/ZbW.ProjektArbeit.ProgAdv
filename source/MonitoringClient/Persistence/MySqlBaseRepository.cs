@@ -2,7 +2,7 @@
 // FileName: MySqlBaseRepository.cs
 // Author: 
 // Created on: 11.05.2019
-// Last modified on: 11.05.2019
+// Last modified on: 18.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -22,16 +22,17 @@ namespace MonitoringClient.Persistence
     {
       MySqlConnection = new MySqlConnection(Settings.Default.ConnectionString);
     }
+
     protected MySqlBaseRepository(string connString)
     {
-
       MySqlConnection = new MySqlConnection(connString);
     }
+
     protected IDbConnection MySqlConnection { get; set; }
 
     public bool ConnectionTest()
     {
-      bool isConnected = false;
+      var isConnected = false;
       try
       {
         MySqlConnection.Open();
@@ -59,19 +60,6 @@ namespace MonitoringClient.Persistence
       command.CommandText = coomandText;
 
       return command;
-    }
-
-    protected void DeleteRow(string tablename, string rowName, int value)
-    {
-      var statement = "DELETE FROM " + tablename + " WHERE " + rowName + " = " + value + ";";
-      ExecuteStatemante(statement);
-    }
-
-    protected void UpdateRow(string tablename, string rowName, object newValue, int id, string idName)
-    {
-      var statement = "UPDATE " + tablename + " SET " + rowName + " = " + newValue + " WHERE " + idName + " = " + id +
-                      ";";
-      ExecuteStatemante(statement);
     }
 
     private void ExecuteStatemante(string statement)

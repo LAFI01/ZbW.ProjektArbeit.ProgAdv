@@ -2,7 +2,7 @@
 // FileName: AddLogEntryViewModel.cs
 // Author: 
 // Created on: 12.05.2019
-// Last modified on: 17.05.2019
+// Last modified on: 18.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -62,6 +62,8 @@ namespace MonitoringClient.ViewModel
       }
     }
 
+    public static AddLogEntryViewModel GetAddLogEntryViewModel { get; private set; }
+
     public ObservableCollection<string> HostnameItems
     {
       get { return _hostnameItems; }
@@ -81,7 +83,7 @@ namespace MonitoringClient.ViewModel
       {
         if (value.Length > MaxLengthOfSign)
         {
-          MessageBox.Show(string.Format($"Message is too long. Maximum {0} words", MaxLengthOfSign));
+          MessageBox.Show(string.Format($"Message is too long. Maximum {MaxLengthOfSign} signs"));
         }
         else
         {
@@ -90,7 +92,7 @@ namespace MonitoringClient.ViewModel
         }
       }
     }
-    public static AddLogEntryViewModel GetAddLogEntryViewModel { get; private set; }
+
     public MonitoringRepository MonitoringRepository { get; set; }
 
     public DelegateCommand SaveCommand { get; set; }
@@ -146,17 +148,17 @@ namespace MonitoringClient.ViewModel
 
     private MainUserControlViewModel MainUserControlViewModel { get; set; }
 
-    private bool CanSave()
-    {
-      return SelectedHostnameItem != null && (SelectedSeverityItem != null) & (SelectedDeviceId != InitialDeviceId);
-    }
-
     public void FillComboboxen()
     {
       MainUserControlViewModel = MainUserControlViewModel.GetMainUserControlViewModel;
       SetMonitroingRepository();
       DeviceIds = MonitoringRepository.GetAllDeviceIds();
       HostnameItems = MonitoringRepository.GetAllHostname();
+    }
+
+    private bool CanSave()
+    {
+      return SelectedHostnameItem != null && (SelectedSeverityItem != null) & (SelectedDeviceId != InitialDeviceId);
     }
 
 

@@ -6,10 +6,8 @@
         xmlns:local="clr-namespace:MonitoringClient.View"
         xmlns:view="clr-namespace:MonitoringClient.View"
         mc:Ignorable="d"
-        Title="MainView" Height="450" Width="800">
+        Title="Project Programming Advanced" Height="450" Width="800">
     <Grid>
     <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Content}" Margin="5"/>
-    <!--<view:MonitoringView1 x:Name="LoggerView" Visibility="Visible"></view:MonitoringView1>
-    <view:AddLogEntryView1 x:Name="AddLogEntryView" Visibility="Hidden"></view:AddLogEntryView1>-->
   </Grid>
 </Window>

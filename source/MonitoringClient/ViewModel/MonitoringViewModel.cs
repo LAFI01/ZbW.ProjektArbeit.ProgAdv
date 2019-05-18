@@ -44,7 +44,7 @@ namespace MonitoringClient.ViewModel
     public DelegateCommand ConnectCommand { get; set; }
 
 
-    public string GetContentTextBox
+    public string ContentTextBox
     {
       get { return _connString; }
       set
@@ -117,6 +117,7 @@ namespace MonitoringClient.ViewModel
       AddCommand = new DelegateCommand(OnCmdAdd, CanLoadAndAdd);
       ConfirmCommand = new DelegateCommand(OnCmdConfirm, OnCanConfirm);
       LoadCommand = new DelegateCommand(OnCmdLoad, CanLoadAndAdd);
+      ContentTextBox = "Server=;Database=;Uid=;pwd=";
     }
 
 
@@ -139,7 +140,7 @@ namespace MonitoringClient.ViewModel
 
     private void OnCmdConncet()
     {
-      var inputConnectionString = GetContentTextBox;
+      var inputConnectionString = ContentTextBox;
       if (inputConnectionString != null && inputConnectionString.Length < MaxLengthOfConnectionString)
       {
         Settings.Default.ConnectionString = inputConnectionString;

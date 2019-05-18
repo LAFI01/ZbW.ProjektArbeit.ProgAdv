@@ -2,7 +2,7 @@
 // FileName: MonitoringRepositoryIntegrationTests.cs
 // Author: 
 // Created on: 12.05.2019
-// Last modified on: 12.05.2019
+// Last modified on: 18.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -17,7 +17,7 @@ namespace MonitoringClientTests.Persistence
   [TestFixture]
   public class MonitoringRepositoryIntegrationTests
   {
-    private const string ConnString = "Server=localhost;Database=inventarisierungsloesunglfi;Uid=root;Pwd=halo1velo;";
+    private const string ConnString = "Server=localhost;Database=inventarisierungsloesunglfi;Uid=root;Pwd=;";
 
     private ILogEntry CreateNewLogEntry(int deviceId)
     {
@@ -57,18 +57,18 @@ namespace MonitoringClientTests.Persistence
     }
 
     [Test]
-    public void GetAllLogEntries_LoadAllLogEntries_GetAListOfAllLogEntries()
-    {
-      MonitoringRepository monitoringRepo = new MonitoringRepository(ConnString);
-      var logEnries = monitoringRepo.GetAllLogEntries();
-      Assert.IsTrue(logEnries.Count > 0);
-    }
-
-    [Test]
     public void GetAllHostname_LoadAllHostnames_GetAListOfAllHostname()
     {
       MonitoringRepository monitoringRepo = new MonitoringRepository(ConnString);
       var logEnries = monitoringRepo.GetAllHostname();
+      Assert.IsTrue(logEnries.Count > 0);
+    }
+
+    [Test]
+    public void GetAllLogEntries_LoadAllLogEntries_GetAListOfAllLogEntries()
+    {
+      MonitoringRepository monitoringRepo = new MonitoringRepository(ConnString);
+      var logEnries = monitoringRepo.GetAllLogEntries();
       Assert.IsTrue(logEnries.Count > 0);
     }
   }

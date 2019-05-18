@@ -2,7 +2,7 @@
 // FileName: MainViewModel.cs
 // Author: 
 // Created on: 12.05.2019
-// Last modified on: 17.05.2019
+// Last modified on: 18.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -10,7 +10,6 @@
 // ************************************************************************************
 namespace MonitoringClient.ViewModel
 {
-  using System.Windows;
   using System.Windows.Controls;
   using Prism.Mvvm;
   using View;
@@ -33,8 +32,6 @@ namespace MonitoringClient.ViewModel
 
     public void Initial()
     {
-      //MainUserControlView = new AddLogEntryView();
-      //MainUserControlView.Visibility = Visibility.Collapsed;
       Content = new MainUserControlView();
     }
   }

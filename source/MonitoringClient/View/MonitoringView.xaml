@@ -36,7 +36,7 @@
       <TextBox
         Width="615"
         VerticalAlignment="Center"
-        Text="{Binding GetContentTextBox}" />
+        Text="{Binding ContentTextBox}" />
 
     </StackPanel>
     <StackPanel
