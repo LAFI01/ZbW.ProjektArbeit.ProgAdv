@@ -14,19 +14,18 @@ namespace MonitoringClient.Persistence
   using System.Data;
   using Model;
   using MySql.Data.MySqlClient;
+  using Properties;
   using Utilities;
 
-  public class MonitoringRepository : MySqlBaseRepository
+  public class MonitoringRepository : MySqlBaseRepository, IMonitoringRepository
   {
-    public MonitoringRepository(string connString) : base(connString)
-    {
-    }
 
     public MonitoringRepository()
     {
     }
 
-    public void AddLogEntriy(ILogEntry logEntry)
+
+    public void AddLogEntriy(IEntity entity)
     {
       using (IDbConnection conn = MySqlConnection)
       {
@@ -35,16 +34,16 @@ namespace MonitoringClient.Persistence
         var procedureName = "logMessageAdd";
         using (IDbCommand cmd = CreateCommand(MySqlConnection, CommandType.StoredProcedure, procedureName))
         {
-          MySqlParameter p1 = new MySqlParameter("in_deviceId", logEntry.DeviceId);
+          MySqlParameter p1 = new MySqlParameter("in_deviceId", entity.DeviceId);
           p1.Direction = ParameterDirection.Input;
           p1.DbType = DbType.Int32;
-          MySqlParameter p2 = new MySqlParameter("in_hostname", logEntry.Hostname);
+          MySqlParameter p2 = new MySqlParameter("in_hostname", entity.Hostname);
           p2.Direction = ParameterDirection.Input;
           p2.DbType = DbType.String;
-          MySqlParameter p3 = new MySqlParameter("in_serverity", Mapper.MapSeverityToInt(logEntry.Severity));
+          MySqlParameter p3 = new MySqlParameter("in_serverity", Mapper.MapSeverityToInt(entity.Severity));
           p3.Direction = ParameterDirection.Input;
           p3.DbType = DbType.Int32;
-          MySqlParameter p4 = new MySqlParameter("in_message", logEntry.Message);
+          MySqlParameter p4 = new MySqlParameter("in_message", entity.Message);
           p4.Direction = ParameterDirection.Input;
           p4.DbType = DbType.String;
 
@@ -57,7 +56,7 @@ namespace MonitoringClient.Persistence
       }
     }
 
-    public void ClearLogEntriy(ILogEntry logEntry)
+    public void ClearLogEntriy(IEntity entity)
     {
       using (IDbConnection conn = MySqlConnection)
       {
@@ -66,7 +65,7 @@ namespace MonitoringClient.Persistence
         var procedureName = "LogClear";
         using (IDbCommand cmd = CreateCommand(MySqlConnection, CommandType.StoredProcedure, procedureName))
         {
-          MySqlParameter p1 = new MySqlParameter("id", logEntry.Id);
+          MySqlParameter p1 = new MySqlParameter("id", entity.Id);
           p1.Direction = ParameterDirection.Input;
           p1.DbType = DbType.Int32;
           cmd.Parameters.Add(p1);
@@ -129,9 +128,9 @@ namespace MonitoringClient.Persistence
       return hostnames;
     }
 
-    public ObservableCollection<ILogEntry> GetAllLogEntries()
+    public ObservableCollection<IEntity> GetAllLogEntries()
     {
-      var logEntries = new ObservableCollection<ILogEntry>();
+      var logEntries = new ObservableCollection<IEntity>();
       using (IDbConnection conn = MySqlConnection)
       {
         conn.Open();
@@ -144,13 +143,13 @@ namespace MonitoringClient.Persistence
           {
             while (r.Read())
             {
-              ILogEntry logEntry =
+              IEntity entity =
                 new LogEntry(r.GetString(3), r.GetString(6), Mapper.MapSeverityToString(r.GetInt32(4)));
-              logEntry.Id = r.GetInt32(0);
-              logEntry.Pod = r.GetString(1);
-              logEntry.Location = r.GetString(2);
-              logEntry.Timestamp = r.GetDateTime(5);
-              logEntries.Add(logEntry);
+              entity.Id = r.GetInt32(0);
+              entity.Pod = r.GetString(1);
+              entity.Location = r.GetString(2);
+              entity.Timestamp = r.GetDateTime(5);
+              logEntries.Add(entity);
             }
           }
         }

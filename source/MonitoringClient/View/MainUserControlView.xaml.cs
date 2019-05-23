@@ -2,7 +2,7 @@
 // FileName: MainUserControlView.xaml.cs
 // Author: 
 // Created on: 16.05.2019
-// Last modified on: 17.05.2019
+// Last modified on: 23.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -20,9 +20,8 @@ namespace MonitoringClient.View
   {
     public MainUserControlView()
     {
-      DataContext = new MainUserControlViewModel();
-
       InitializeComponent();
+      DataContext = MainUserControlViewModel.GetInstance();
     }
   }
 }

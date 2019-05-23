@@ -16,12 +16,11 @@ namespace MonitoringClient.ViewModel
   public class MainUserControlViewModel : BindableBase
   {
     private static Visibility _addLogEntryView = Visibility.Hidden;
-
     private static Visibility _monitoringView = Visibility.Visible;
 
     public MainUserControlViewModel()
     {
-      GetMainUserControlViewModel = this;
+
     }
 
     public Visibility AddLogEntryVisibility
@@ -30,7 +29,7 @@ namespace MonitoringClient.ViewModel
       set { SetProperty(ref _addLogEntryView, value); }
     }
 
-    public static MainUserControlViewModel GetMainUserControlViewModel { get; private set; }
+    private static MainUserControlViewModel Instance { get;  set; }
 
 
     public Visibility MonitoringVisibility
@@ -39,16 +38,27 @@ namespace MonitoringClient.ViewModel
       set { SetProperty(ref _monitoringView, value); }
     }
 
-    public void SetAddLogEntryAsView()
+    //public void SetAddLogEntryAsView()
+    //{
+    //  AddLogEntryVisibility = Visibility.Visible;
+    //  MonitoringVisibility = Visibility.Collapsed;
+    //}
+
+    //public void SetMonitoringAsView()
+    //{
+    //  MonitoringVisibility = Visibility.Visible;
+    //  AddLogEntryVisibility = Visibility.Collapsed;
+    //}
+
+    public static MainUserControlViewModel GetInstance()
     {
-      AddLogEntryVisibility = Visibility.Visible;
-      MonitoringVisibility = Visibility.Collapsed;
+      if (Instance == null)
+      {
+        Instance = new MainUserControlViewModel();
+      }
+
+      return Instance;
     }
 
-    public void SetMonitoringAsView()
-    {
-      MonitoringVisibility = Visibility.Visible;
-      AddLogEntryVisibility = Visibility.Collapsed;
-    }
   }
 }

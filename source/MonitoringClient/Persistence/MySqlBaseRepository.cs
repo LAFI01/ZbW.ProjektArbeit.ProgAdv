@@ -16,22 +16,28 @@ namespace MonitoringClient.Persistence
   using MySql.Data.MySqlClient;
   using Properties;
 
-  public class MySqlBaseRepository
+  public class MySqlBaseRepository 
   {
     protected MySqlBaseRepository()
     {
-      MySqlConnection = new MySqlConnection(Settings.Default.ConnectionString);
+      
     }
 
-    protected MySqlBaseRepository(string connString)
+    public string GetConnectionString()
     {
-      MySqlConnection = new MySqlConnection(connString);
+      return Settings.Default.ConnectionString;
     }
 
-    protected IDbConnection MySqlConnection { get; set; }
+    public void SetConnectionString(string connString)
+    {
+      Settings.Default.ConnectionString = connString;
+    }
+
+    protected static IDbConnection MySqlConnection { get; set; }
 
     public bool ConnectionTest()
     {
+      MySqlConnection = new MySqlConnection(GetConnectionString());
       var isConnected = false;
       try
       {
@@ -60,20 +66,6 @@ namespace MonitoringClient.Persistence
       command.CommandText = coomandText;
 
       return command;
-    }
-
-    private void ExecuteStatemante(string statement)
-    {
-      try
-      {
-        MySqlConnection.Open();
-        IDbCommand command = CreateCommand(MySqlConnection, CommandType.Text, statement);
-        command.ExecuteNonQuery();
-      }
-      finally
-      {
-        MySqlConnection.Close();
-      }
     }
   }
 }

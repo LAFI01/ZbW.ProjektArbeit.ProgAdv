@@ -11,6 +11,7 @@
 namespace MonitoringClient.View
 {
   using System.Windows.Controls;
+  using Persistence;
   using ViewModel;
 
   /// <summary>
@@ -21,7 +22,8 @@ namespace MonitoringClient.View
     public MonitoringView()
     {
       InitializeComponent();
-      DataContext = new MonitoringViewModel();
+      IMonitoringRepository monitoringRepository = new MonitoringRepository();
+      DataContext = new MonitoringViewModel(monitoringRepository);
     }
   }
 }

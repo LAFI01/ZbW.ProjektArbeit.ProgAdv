@@ -25,13 +25,14 @@ namespace MonitoringClient.ViewModel
 
     private string _connString;
 
-    private ObservableCollection<ILogEntry> _logEntries;
+    private ObservableCollection<IEntity> _logEntries;
 
-    private ILogEntry _selectedLogEntry;
-
-    public MonitoringViewModel()
+    private IEntity _selectedEntity;
+    private IMonitoringRepository MonitoringRepository { get; set; }
+    public MonitoringViewModel(IMonitoringRepository monitoringRepository)
     {
       GetMonitoringViewModel = this;
+      MonitoringRepository = monitoringRepository;
       InitalViewModel();
     }
 
@@ -59,7 +60,7 @@ namespace MonitoringClient.ViewModel
 
     public DelegateCommand LoadCommand { get; set; }
 
-    public ObservableCollection<ILogEntry> LogEntries
+    public ObservableCollection<IEntity> LogEntries
     {
       get { return _logEntries; }
       set
@@ -70,12 +71,12 @@ namespace MonitoringClient.ViewModel
       }
     }
 
-    public ILogEntry SelectedLogEntry
+    public IEntity SelectedEntity
     {
-      get { return _selectedLogEntry; }
+      get { return _selectedEntity; }
       set
       {
-        SetProperty(ref _selectedLogEntry, value);
+        SetProperty(ref _selectedEntity, value);
 
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
@@ -83,9 +84,6 @@ namespace MonitoringClient.ViewModel
 
     private bool IsDbConnect { get; set; }
 
-    private MainUserControlViewModel MainUserControlViewModel { get; set; }
-
-    private MonitoringRepository MonitoringRepository { get; set; }
 
     public bool CanConnectToDb()
     {
@@ -94,7 +92,6 @@ namespace MonitoringClient.ViewModel
 
     public void OnCmdLoad()
     {
-      MonitoringRepository = new MonitoringRepository();
       LogEntries = MonitoringRepository.GetAllLogEntries();
       ConfirmCommand.RaiseCanExecuteChanged();
     }
@@ -102,6 +99,7 @@ namespace MonitoringClient.ViewModel
     public void RefreshLogEntries()
     {
       LogEntries = MonitoringRepository.GetAllLogEntries();
+      ConfirmCommand.RaiseCanExecuteChanged();
     }
 
     private bool CanLoadAndAdd()
@@ -111,13 +109,12 @@ namespace MonitoringClient.ViewModel
 
     private void InitalViewModel()
     {
-      MainUserControlViewModel = MainUserControlViewModel.GetMainUserControlViewModel;
-      LogEntries = new ObservableCollection<ILogEntry>();
+      LogEntries = new ObservableCollection<IEntity>();
       ConnectCommand = new DelegateCommand(OnCmdConncet, CanConnectToDb);
       AddCommand = new DelegateCommand(OnCmdAdd, CanLoadAndAdd);
       ConfirmCommand = new DelegateCommand(OnCmdConfirm, OnCanConfirm);
       LoadCommand = new DelegateCommand(OnCmdLoad, CanLoadAndAdd);
-      ContentTextBox = "Server=;Database=;Uid=;pwd=";
+      ContentTextBox = "Server=localhost;Database=inventarisierungsloesungv2;Uid=root;pwd=halo1velo";
     }
 
 
@@ -129,12 +126,18 @@ namespace MonitoringClient.ViewModel
     private void OnCmdAdd()
     {
       AddLogEntryViewModel.GetAddLogEntryViewModel.FillComboboxen();
-      MainUserControlViewModel.SetAddLogEntryAsView();
+      NavigateToLogView();
+    }
+    public void NavigateToLogView()
+    {
+      var mainUserControl = MainUserControlViewModel.GetInstance();
+      mainUserControl.AddLogEntryVisibility = Visibility.Visible;
+      mainUserControl.MonitoringVisibility = Visibility.Collapsed;
     }
 
     private void OnCmdConfirm()
     {
-      MonitoringRepository.ClearLogEntriy(SelectedLogEntry);
+      MonitoringRepository.ClearLogEntriy(SelectedEntity);
       RefreshLogEntries();
     }
 
@@ -143,8 +146,7 @@ namespace MonitoringClient.ViewModel
       var inputConnectionString = ContentTextBox;
       if (inputConnectionString != null && inputConnectionString.Length < MaxLengthOfConnectionString)
       {
-        Settings.Default.ConnectionString = inputConnectionString;
-        MonitoringRepository = new MonitoringRepository();
+        MonitoringRepository.SetConnectionString(inputConnectionString);;
         if (!MonitoringRepository.ConnectionTest())
         {
           MessageBox.Show("It coud not connect to your database!");

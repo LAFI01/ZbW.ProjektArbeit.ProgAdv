@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MonitoringClient")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Monitoring Client")]
+[assembly: AssemblyDescription("Simple Monitoring Client")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("JELA Rocks")]
 [assembly: AssemblyProduct("MonitoringClient")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyCopyright("Copyright © by JELA Rocks 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

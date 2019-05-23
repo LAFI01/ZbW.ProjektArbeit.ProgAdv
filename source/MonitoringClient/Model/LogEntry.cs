@@ -2,7 +2,7 @@
 // FileName: LogEntry.cs
 // Author: 
 // Created on: 11.05.2019
-// Last modified on: 18.05.2019
+// Last modified on: 21.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -14,7 +14,7 @@ namespace MonitoringClient.Model
   using System.Reflection;
   using Prism.Mvvm;
 
-  public class LogEntry : BindableBase, ILogEntry
+  public class LogEntry : BindableBase, IEntity
   {
     private int _deviceId;
 
@@ -126,6 +126,60 @@ namespace MonitoringClient.Model
 
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
+    }
+
+    public override bool Equals(object value)
+    {
+      return Equals(value as LogEntry);
+    }
+
+    public bool Equals(LogEntry logEntry)
+    {
+      if (ReferenceEquals(null, logEntry))
+      {
+        return false;
+      }
+
+      if (ReferenceEquals(this, logEntry))
+      {
+        return true;
+      }
+
+      return string.Equals(Severity, logEntry.Severity) && string.Equals(Message, logEntry.Message);
+    }
+
+    public override int GetHashCode()
+    {
+      unchecked
+      {
+        const int HashingBase = (int) 2166136261;
+        const int HashingMultiplier = 16777619;
+        var hash = HashingBase;
+        hash = (hash * HashingMultiplier) ^ (!ReferenceEquals(null, Severity) ? Severity.GetHashCode() : 0);
+        hash = (hash * HashingMultiplier) ^ (!ReferenceEquals(null, Message) ? Message.GetHashCode() : 0);
+
+        return hash;
+      }
+    }
+
+    public static bool operator ==(LogEntry logEntryA, LogEntry logEntryB)
+    {
+      if (ReferenceEquals(logEntryA, logEntryB))
+      {
+        return true;
+      }
+
+      if (ReferenceEquals(null, logEntryA))
+      {
+        return false;
+      }
+
+      return logEntryA.Equals(logEntryB);
+    }
+
+    public static bool operator !=(LogEntry logEntryA, LogEntry logEntryB)
+    {
+      return !(logEntryA == logEntryB);
     }
   }
 }

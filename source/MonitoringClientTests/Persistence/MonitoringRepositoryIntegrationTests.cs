@@ -2,7 +2,7 @@
 // FileName: MonitoringRepositoryIntegrationTests.cs
 // Author: 
 // Created on: 12.05.2019
-// Last modified on: 18.05.2019
+// Last modified on: 23.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -19,22 +19,23 @@ namespace MonitoringClientTests.Persistence
   {
     private const string ConnString = "Server=localhost;Database=inventarisierungsloesunglfi;Uid=root;Pwd=;";
 
-    private ILogEntry CreateNewLogEntry(int deviceId)
+    private IEntity CreateNewLogEntry(int deviceId)
     {
-      ILogEntry logEntry = new LogEntry("PC1", "Error", "Error");
-      logEntry.DeviceId = deviceId;
+      IEntity entity = new LogEntry("PC1", "Error", "Error");
+      entity.DeviceId = deviceId;
 
-      return logEntry;
+      return entity;
     }
 
     [Test]
     public void AddLogEntry_AddNewLogEntry_LogEntryIsInDbAdded()
     {
-      MonitoringRepository monitoringRepo = new MonitoringRepository(ConnString);
+      IMonitoringRepository monitoringRepo = new MonitoringRepository();
+      monitoringRepo.SetConnectionString(ConnString);
       var logEnriesCountBeforeAdd = monitoringRepo.GetAllLogEntries().Count;
 
-      ILogEntry newLogEntry = CreateNewLogEntry(5);
-      monitoringRepo.AddLogEntriy(newLogEntry);
+      IEntity newEntity = CreateNewLogEntry(5);
+      monitoringRepo.AddLogEntriy(newEntity);
 
       var logEntriesCountAfterAdd = monitoringRepo.GetAllLogEntries().Count;
       Assert.IsTrue(logEnriesCountBeforeAdd < logEntriesCountAfterAdd);
@@ -43,10 +44,11 @@ namespace MonitoringClientTests.Persistence
     [Test]
     public void ClearLogEntriy_QuitOneLogEntry_LogEntriesListShouldBeSamller()
     {
-      MonitoringRepository monitoringRepo = new MonitoringRepository(ConnString);
+      IMonitoringRepository monitoringRepo = new MonitoringRepository();
+      monitoringRepo.SetConnectionString(ConnString);
 
-      ILogEntry newLogEntry = CreateNewLogEntry(3);
-      monitoringRepo.AddLogEntriy(newLogEntry);
+      IEntity newEntity = CreateNewLogEntry(3);
+      monitoringRepo.AddLogEntriy(newEntity);
       var logEnriesAfterAdd = monitoringRepo.GetAllLogEntries();
       var logEnriesCountAfterAdd = logEnriesAfterAdd.Count;
 
@@ -59,7 +61,8 @@ namespace MonitoringClientTests.Persistence
     [Test]
     public void GetAllHostname_LoadAllHostnames_GetAListOfAllHostname()
     {
-      MonitoringRepository monitoringRepo = new MonitoringRepository(ConnString);
+      IMonitoringRepository monitoringRepo = new MonitoringRepository();
+      monitoringRepo.SetConnectionString(ConnString);
       var logEnries = monitoringRepo.GetAllHostname();
       Assert.IsTrue(logEnries.Count > 0);
     }
@@ -67,7 +70,8 @@ namespace MonitoringClientTests.Persistence
     [Test]
     public void GetAllLogEntries_LoadAllLogEntries_GetAListOfAllLogEntries()
     {
-      MonitoringRepository monitoringRepo = new MonitoringRepository(ConnString);
+      IMonitoringRepository monitoringRepo = new MonitoringRepository();
+      monitoringRepo.SetConnectionString(ConnString);
       var logEnries = monitoringRepo.GetAllLogEntries();
       Assert.IsTrue(logEnries.Count > 0);
     }

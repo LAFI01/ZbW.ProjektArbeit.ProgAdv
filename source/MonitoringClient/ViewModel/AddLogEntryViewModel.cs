@@ -38,15 +38,20 @@ namespace MonitoringClient.ViewModel
     private string _selectedSeverityItem;
 
     private ObservableCollection<string> _serverityItems;
+    private IMonitoringRepository MonitoringRepository { get; set; }
+    public AddLogEntryViewModel(IMonitoringRepository monitoringRepository)
+    {
+      MonitoringRepository = monitoringRepository;
+      InitalView();
+    }
 
-    public AddLogEntryViewModel()
+    public void InitalView()
     {
       GetAddLogEntryViewModel = this;
       CancelCommand = new DelegateCommand(OnCmdCancel);
       SaveCommand = new DelegateCommand(OnCmdSave, CanSave);
       SeverityItems = Severity.Severities;
     }
-
 
     public static DelegateCommand CancelCommand { get; set; }
 
@@ -57,7 +62,6 @@ namespace MonitoringClient.ViewModel
       set
       {
         SetProperty(ref _deviceIds, value);
-
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
@@ -93,7 +97,6 @@ namespace MonitoringClient.ViewModel
       }
     }
 
-    public MonitoringRepository MonitoringRepository { get; set; }
 
     public DelegateCommand SaveCommand { get; set; }
 
@@ -146,12 +149,8 @@ namespace MonitoringClient.ViewModel
       }
     }
 
-    private MainUserControlViewModel MainUserControlViewModel { get; set; }
-
     public void FillComboboxen()
     {
-      MainUserControlViewModel = MainUserControlViewModel.GetMainUserControlViewModel;
-      SetMonitroingRepository();
       DeviceIds = MonitoringRepository.GetAllDeviceIds();
       HostnameItems = MonitoringRepository.GetAllHostname();
     }
@@ -164,22 +163,22 @@ namespace MonitoringClient.ViewModel
 
     private void OnCmdCancel()
     {
-      MainUserControlViewModel.SetMonitoringAsView();
+      NavigateToMonitoringView();
+    }
+    public void NavigateToMonitoringView()
+    {
+      var mainUserControl = MainUserControlViewModel.GetInstance();
+      mainUserControl.AddLogEntryVisibility = Visibility.Collapsed;
+      mainUserControl.MonitoringVisibility = Visibility.Visible;
     }
 
     private void OnCmdSave()
     {
-      ILogEntry logEntry = new LogEntry(SelectedHostnameItem, Message, SelectedSeverityItem);
-      logEntry.DeviceId = SelectedDeviceId;
-      MonitoringRepository.AddLogEntriy(logEntry);
-      MainUserControlViewModel.SetMonitoringAsView();
+      IEntity entity = new LogEntry(SelectedHostnameItem, Message, SelectedSeverityItem);
+      entity.DeviceId = SelectedDeviceId;
+      MonitoringRepository.AddLogEntriy(entity);
+      NavigateToMonitoringView();
       MonitoringViewModel.GetMonitoringViewModel.RefreshLogEntries();
-    }
-
-    private void SetMonitroingRepository()
-    {
-      MonitoringRepository monitoringRepositoring = new MonitoringRepository(Settings.Default.ConnectionString);
-      MonitoringRepository = monitoringRepositoring;
     }
   }
 }
