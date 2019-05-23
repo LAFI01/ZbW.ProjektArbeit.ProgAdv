@@ -1,9 +1,8 @@
-﻿<Application x:Class="MonitoringClinetDemo.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:MonitoringClinetDemo"
-             StartupUri="MainWindow.xaml">
-    <Application.Resources>
-         
-    </Application.Resources>
+﻿<Application
+  x:Class="MonitoringClientDemo.App"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="clr-namespace:MonitoringClientDemo"
+  StartupUri="MainWindow.xaml">
+  <Application.Resources />
 </Application>

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringClient", "Monitor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringClientTests", "MonitoringClientTests\MonitoringClientTests.csproj", "{CA0E869E-2794-40DD-B635-7AC46BBFBC1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringClinetDemo", "MonitoringClinetDemo\MonitoringClinetDemo.csproj", "{232E7E70-5F5E-495E-B940-2234DA8563E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringClientDemo", "MonitoringClinetDemo\MonitoringClientDemo.csproj", "{232E7E70-5F5E-495E-B940-2234DA8563E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

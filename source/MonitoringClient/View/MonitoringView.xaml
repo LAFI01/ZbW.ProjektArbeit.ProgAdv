@@ -120,7 +120,7 @@
       <Button
         Name="addBtn"
         Width="100"
-        Margin="15,0,15,0"
+        Margin="15,0,15,15"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Background="#FFFFFBFB"
@@ -144,6 +144,33 @@
           </TextBlock>
         </StackPanel>
       </Button>
+      <Button
+        Name="duplicBtn"
+        Width="100"
+        Margin="15,0,15,0"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Background="#FFFFFBFB"
+        BorderThickness="0"
+        Command="{Binding DuplicatedCommand}"
+        FontSize="14"
+        TabIndex="2"
+        ToolTip="Add new Log Entry">
+        <StackPanel Width="89" Orientation="Horizontal">
+          <Image
+            Width="15"
+            Height="15"
+            Margin="5,5,5,5"
+            HorizontalAlignment="Left"
+            Opacity="0.5"
+            Source="../Icons/add.png"
+            Stretch="Fill"
+            UseLayoutRounding="False" />
+          <TextBlock Margin="5,5,5,5">
+            Duplicate Button
+          </TextBlock>
+        </StackPanel>
+      </Button>
     </StackPanel>
     <ListView
       Name="LogEntriesGrid"
@@ -153,19 +180,19 @@
       IsSynchronizedWithCurrentItem="True"
       ItemsSource="{Binding LogEntries}"
       SelectedIndex="0"
-      SelectedItem="{Binding SelectedLogEntry, Mode=TwoWay}">
+      SelectedItem="{Binding SelectedEntity, Mode=TwoWay}">
       <ListView.View>
         <GridView x:Name="logEntryGrid">
           <GridViewColumn
-            Width="100"
+            Width="40"
             DisplayMemberBinding="{Binding Id}"
             Header="Id" />
           <GridViewColumn
-            Width="100"
+            Width="75"
             DisplayMemberBinding="{Binding Hostname}"
             Header="Hostname" />
           <GridViewColumn
-            Width="100"
+            Width="75"
             DisplayMemberBinding="{Binding Pod}"
             Header="Pod" />
           <GridViewColumn
@@ -173,9 +200,13 @@
             DisplayMemberBinding="{Binding Location}"
             Header="Location" />
           <GridViewColumn
-            Width="100"
+            Width="75"
             DisplayMemberBinding="{Binding Severity}"
             Header="Severity" />
+          <GridViewColumn
+            Width="130"
+            DisplayMemberBinding="{Binding Timestamp}"
+            Header="Timestamp" />
           <GridViewColumn
             Width="200"
             DisplayMemberBinding="{Binding Message}"

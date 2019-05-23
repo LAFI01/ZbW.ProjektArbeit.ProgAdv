@@ -96,7 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MonitoringClient\MonitoringClient.csproj">
-      <Project>{E2D6C1D7-D45F-4641-A0EA-424EE218E389}</Project>
+      <Project>{e2d6c1d7-d45f-4641-a0ea-424ee218e389}</Project>
       <Name>MonitoringClient</Name>
     </ProjectReference>
   </ItemGroup>
