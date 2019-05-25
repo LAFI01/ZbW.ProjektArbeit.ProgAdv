@@ -82,7 +82,7 @@
       Width="auto"
       Height="20"
       VerticalAlignment="center"
-      Text="{Binding Message, Mode=TwoWay}" />
+      Text="{Binding Text, Mode=TwoWay}" />
     <Button
       Name="cancelBtn"
       Grid.Row="5"

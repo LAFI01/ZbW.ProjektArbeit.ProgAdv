@@ -2,7 +2,7 @@
 // FileName: AddLogEntryViewModel.cs
 // Author: 
 // Created on: 12.05.2019
-// Last modified on: 18.05.2019
+// Last modified on: 25.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -11,14 +11,12 @@
 namespace MonitoringClient.ViewModel
 {
   using System.Collections.Generic;
-  using System.Collections.ObjectModel;
   using System.Reflection;
   using System.Windows;
   using Model;
   using Persistence;
   using Prism.Commands;
   using Prism.Mvvm;
-  using Properties;
 
   public class AddLogEntryViewModel : BindableBase
   {
@@ -30,8 +28,6 @@ namespace MonitoringClient.ViewModel
 
     private List<string> _hostnameItems;
 
-    private string _message;
-
     private int _selectedDeviceId;
 
     private string _selectedHostnameItem;
@@ -39,19 +35,13 @@ namespace MonitoringClient.ViewModel
     private string _selectedSeverityItem;
 
     private List<string> _serverityItems;
-    private IMonitoringRepository MonitoringRepository { get; set; }
+
+    private string _text;
+
     public AddLogEntryViewModel(IMonitoringRepository monitoringRepository)
     {
       MonitoringRepository = monitoringRepository;
       InitalView();
-    }
-
-    public void InitalView()
-    {
-      GetAddLogEntryViewModel = this;
-      CancelCommand = new DelegateCommand(OnCmdCancel);
-      SaveCommand = new DelegateCommand(OnCmdSave, CanSave);
-      SeverityItems = Severity.Severities;
     }
 
     public static DelegateCommand CancelCommand { get; set; }
@@ -62,6 +52,7 @@ namespace MonitoringClient.ViewModel
       get
       {
         _deviceIds?.Sort();
+
         return _deviceIds;
       }
       set
@@ -71,7 +62,6 @@ namespace MonitoringClient.ViewModel
       }
     }
 
-    public static AddLogEntryViewModel GetAddLogEntryViewModel { get; private set; }
 
     public List<string> HostnameItems
     {
@@ -81,24 +71,6 @@ namespace MonitoringClient.ViewModel
         SetProperty(ref _hostnameItems, value);
 
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
-      }
-    }
-
-
-    public string Message
-    {
-      get { return _message; }
-      set
-      {
-        if (value.Length > MaxLengthOfSign)
-        {
-          MessageBox.Show(string.Format($"Message is too long. Maximum {MaxLengthOfSign} signs"));
-        }
-        else
-        {
-          SetProperty(ref _message, value);
-          RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
-        }
       }
     }
 
@@ -154,15 +126,64 @@ namespace MonitoringClient.ViewModel
       }
     }
 
+
+    public string Text
+    {
+      get { return _text; }
+      set
+      {
+        if (value.Length > MaxLengthOfSign)
+        {
+          MessageBox.Show(string.Format($"Text is too long. Maximum {MaxLengthOfSign} signs"));
+        }
+        else
+        {
+          SetProperty(ref _text, value);
+          RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
+        }
+      }
+    }
+
+    private static AddLogEntryViewModel Instance { get; set; }
+
+    private IMonitoringRepository MonitoringRepository { get; }
+
     public void FillComboboxen()
     {
       DeviceIds = MonitoringRepository.GetAllDeviceIds();
       HostnameItems = MonitoringRepository.GetAllHostname();
     }
 
+    public static AddLogEntryViewModel GetInstance()
+    {
+      if (Instance == null)
+      {
+        IMonitoringRepository monitoringRepository = new MonitoringRepository();
+        Instance = new AddLogEntryViewModel(monitoringRepository);
+      }
+
+      return Instance;
+    }
+
+    public void InitalView()
+    {
+      CancelCommand = new DelegateCommand(OnCmdCancel);
+      SaveCommand = new DelegateCommand(OnCmdSave, CanSave);
+      SeverityItems = Severity.Severities;
+    }
+
+    public void NavigateToMonitoringView()
+    {
+      MainUserControlViewModel mainUserControl = MainUserControlViewModel.GetInstance();
+      mainUserControl.AddLogEntryVisibility = Visibility.Collapsed;
+      mainUserControl.MonitoringVisibility = Visibility.Visible;
+    }
+
     private bool CanSave()
     {
-      return SelectedHostnameItem != null && (SelectedSeverityItem != null) & (SelectedDeviceId != InitialDeviceId);
+      var t = Text;
+
+      return SelectedHostnameItem != null && SelectedSeverityItem != null && SelectedDeviceId != InitialDeviceId;
     }
 
 
@@ -170,20 +191,21 @@ namespace MonitoringClient.ViewModel
     {
       NavigateToMonitoringView();
     }
-    public void NavigateToMonitoringView()
-    {
-      var mainUserControl = MainUserControlViewModel.GetInstance();
-      mainUserControl.AddLogEntryVisibility = Visibility.Collapsed;
-      mainUserControl.MonitoringVisibility = Visibility.Visible;
-    }
 
     private void OnCmdSave()
     {
-      IEntity entity = new LogEntry(SelectedHostnameItem, Message, SelectedSeverityItem);
-      entity.DeviceId = SelectedDeviceId;
-      MonitoringRepository.AddLogEntriy(entity);
-      NavigateToMonitoringView();
-      MonitoringViewModel.GetMonitoringViewModel.RefreshLogEntries();
+      if (!string.IsNullOrEmpty(Text))
+      {
+        IEntity entity = new LogEntry(SelectedHostnameItem, Text, SelectedSeverityItem);
+        entity.DeviceId = SelectedDeviceId;
+        MonitoringRepository.AddLogEntriy(entity);
+        NavigateToMonitoringView();
+        MonitoringViewModel.GetInstance().RefreshLogEntries();
+      }
+      else
+      {
+        MessageBox.Show("Please enter a message");
+      }
     }
   }
 }

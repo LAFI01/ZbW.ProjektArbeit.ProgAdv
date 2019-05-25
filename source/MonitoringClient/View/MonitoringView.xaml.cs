@@ -1,8 +1,8 @@
 ﻿// ************************************************************************************
 // FileName: MonitoringView.xaml.cs
 // Author: 
-// Created on: 14.05.2019
-// Last modified on: 17.05.2019
+// Created on: 23.05.2019
+// Last modified on: 25.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -11,7 +11,6 @@
 namespace MonitoringClient.View
 {
   using System.Windows.Controls;
-  using Persistence;
   using ViewModel;
 
   /// <summary>
@@ -22,8 +21,7 @@ namespace MonitoringClient.View
     public MonitoringView()
     {
       InitializeComponent();
-      IMonitoringRepository monitoringRepository = new MonitoringRepository();
-      DataContext = new MonitoringViewModel(monitoringRepository);
+      DataContext = MonitoringViewModel.GetInstance();
     }
   }
 }

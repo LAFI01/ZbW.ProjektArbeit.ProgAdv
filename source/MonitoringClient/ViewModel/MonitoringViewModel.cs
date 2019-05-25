@@ -10,14 +10,11 @@
 // ************************************************************************************
 namespace MonitoringClient.ViewModel
 {
-  using System.Collections;
   using System.Collections.Generic;
-  using System.Collections.ObjectModel;
   using System.Linq;
   using System.Reflection;
   using System.Windows;
   using DuplicateCheckerLib;
-  using Model;
   using Persistence;
   using Prism.Commands;
   using Prism.Mvvm;
@@ -35,7 +32,6 @@ namespace MonitoringClient.ViewModel
 
     public MonitoringViewModel(IMonitoringRepository monitoringRepository)
     {
-      GetMonitoringViewModel = this;
       MonitoringRepository = monitoringRepository;
       InitalViewModel();
     }
@@ -55,15 +51,13 @@ namespace MonitoringClient.ViewModel
       set
       {
         SetProperty(ref _connString, value);
-
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
 
-    public static MonitoringViewModel GetMonitoringViewModel { get; private set; }
+    public DelegateCommand DuplicatedCommand { get; set; }
 
     public DelegateCommand LoadCommand { get; set; }
-    public DelegateCommand DuplicatedCommand { get; set; }
 
 
     public List<IEntity> LogEntries
@@ -86,6 +80,8 @@ namespace MonitoringClient.ViewModel
       }
     }
 
+    private static MonitoringViewModel Instance { get; set; }
+
     private bool IsDbConnect { get; set; }
 
     private IMonitoringRepository MonitoringRepository { get; }
@@ -94,6 +90,17 @@ namespace MonitoringClient.ViewModel
     public bool CanConnectToDb()
     {
       return !IsDbConnect;
+    }
+
+    public static MonitoringViewModel GetInstance()
+    {
+      if (Instance == null)
+      {
+        IMonitoringRepository monitoringRepository = new MonitoringRepository();
+        Instance = new MonitoringViewModel(monitoringRepository);
+      }
+
+      return Instance;
     }
 
     public void NavigateToLogView()
@@ -107,17 +114,25 @@ namespace MonitoringClient.ViewModel
     {
       LogEntries = MonitoringRepository.GetAllLogEntries();
       ConfirmCommand.RaiseCanExecuteChanged();
+      DuplicatedCommand.RaiseCanExecuteChanged();
     }
 
     public void RefreshLogEntries()
     {
       LogEntries = MonitoringRepository.GetAllLogEntries();
       ConfirmCommand.RaiseCanExecuteChanged();
+      DuplicatedCommand.RaiseCanExecuteChanged();
     }
+
 
     private bool CanUseDb()
     {
       return IsDbConnect;
+    }
+
+    private bool HasAnyLogEntries()
+    {
+      return LogEntries.Count > 0;
     }
 
     private void InitalViewModel()
@@ -128,51 +143,12 @@ namespace MonitoringClient.ViewModel
       ConfirmCommand = new DelegateCommand(OnCmdConfirm, HasAnyLogEntries);
       LoadCommand = new DelegateCommand(OnCmdLoad, CanUseDb);
       DuplicatedCommand = new DelegateCommand(OnCmdDuplicatCheck, HasAnyLogEntries);
-      ContentTextBox = "Server=localhost;Database=inventarisierungsloesungv2;Uid=root;pwd=halo1velo";
-    }
-
-    private void OnCmdDuplicatCheck()
-    {
-      var list = new List<IEntity> { new LogEntry(null, null, null)
-      {
-        Id = 1, Severity = "", Text = "a"
-      }, new LogEntry(null, null, null)
-        {
-          Id = 2, Severity = "Debug", Text = "Debug"
-        }, new LogEntry(null, null, null) { Id = 3, Severity = "Debug", Text = "c" },
-        new LogEntry(null, null, null) { Id = 4, Severity = "Debug", Text = "b" },
-        new LogEntry(null, null, null) { Id = 5, Severity = "Debug", Text = "b" },
-        new LogEntry(null, null, null) { Id = 6, Severity = "warn", Text = "a" } };
-      var dupChecker = new DuplicateChecker();
-      //var dupList = dupChecker.FindDuplicates(list);
-
-      //var dupChecker = new DuplicateChecker();
-      //System.Collections.Generic.IEnumerable<DuplicateCheckerLib.IEntity> a = new DuplicateCheckerLib.IEntity[5];
-      //DuplicateCheckerLib.IEntity[] b = new DuplicateCheckerLib.IEntity[5];
-
-      //var dupList = dupChecker.FindDuplicates(LogEntries);
-    }
-
-    //private void MapToDu(List<IEntity> list)
-    //{
-    //  DuplicateCheckerLib.IEntity[] b = new DuplicateCheckerLib.IEntity[list.Count];
-    //  for (int i = 0; i < list.Count; i++)
-    //  {
-    //    b[i]
-    //  }
-
-    //}
-
-
-    private bool HasAnyLogEntries()
-    {
-      //return LogEntries.Count > 0;
-      return true;
+      ContentTextBox = "Server=localhost;Database=inventarisierungsloesunglfi;Uid=root;pwd=halo1velo";
     }
 
     private void OnCmdAdd()
     {
-      AddLogEntryViewModel.GetAddLogEntryViewModel.FillComboboxen();
+      AddLogEntryViewModel.GetInstance().FillComboboxen();
       NavigateToLogView();
     }
 
@@ -204,6 +180,27 @@ namespace MonitoringClient.ViewModel
       else
       {
         MessageBox.Show("Your input connection string is not correct");
+      }
+    }
+
+    private void OnCmdDuplicatCheck()
+    {
+      DuplicateChecker dupChecker = new DuplicateChecker();
+      var dupList = dupChecker.FindDuplicates(LogEntries);
+      if (dupList.Any())
+      {
+        var newEntities = new List<IEntity>();
+        foreach (DuplicateCheckerLib.IEntity d in dupList)
+        {
+          newEntities.Add(d as IEntity);
+        }
+
+        LogEntries.Clear();
+        LogEntries = newEntities;
+      }
+      else
+      {
+        MessageBox.Show("There are no duplicated Log Entries");
       }
     }
   }

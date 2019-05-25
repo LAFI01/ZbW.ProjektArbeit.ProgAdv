@@ -2,7 +2,7 @@
 // FileName: IEntity.cs
 // Author: 
 // Created on: 11.05.2019
-// Last modified on: 18.05.2019
+// Last modified on: 25.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -12,7 +12,7 @@ namespace MonitoringClient.Model
 {
   using System;
 
-  public interface IEntity
+  public interface IEntity : DuplicateCheckerLib.IEntity
   {
     int DeviceId { get; set; }
 
@@ -22,16 +22,12 @@ namespace MonitoringClient.Model
 
     string Location { get; set; }
 
-    string Text { get; set; }
-
     string Pod { get; set; }
 
     string Severity { get; set; }
 
+    string Text { get; set; }
+
     DateTime Timestamp { get; set; }
-
-    bool Equals(object value);
-
-    int GetHashCode();
   }
 }

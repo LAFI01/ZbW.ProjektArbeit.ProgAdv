@@ -3,19 +3,22 @@
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+  xmlns:interactivity="assembly=System.Windows.Interactivity"
   xmlns:local="clr-namespace:MonitoringClient.View"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:viewModel="clr-namespace:MonitoringClient.ViewModel"
+  xmlns:visualBasic="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic"
   d:DesignHeight="450"
   d:DesignWidth="850"
   mc:Ignorable="d">
 
   <Grid Background="DeepSkyBlue">
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="0.01*" />
+      <!--<ColumnDefinition Width="0.01*" />-->
       <ColumnDefinition Width="0.85*" />
       <ColumnDefinition Width="0.15*" />
-      <ColumnDefinition Width="0.01*" />
+      <!--<ColumnDefinition Width="0.01*" />-->
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition Height="0.05*" />
@@ -25,10 +28,10 @@
     </Grid.RowDefinitions>
     <StackPanel
       Grid.Row="1"
-      Grid.Column="1"
+      Grid.Column="0"
       Orientation="Horizontal">
       <Label
-        Margin="0,0,0,0"
+        Margin="5,0,0,0"
         HorizontalAlignment="Center"
         VerticalAlignment="Center">
         DB-Connection:
@@ -41,12 +44,12 @@
     </StackPanel>
     <StackPanel
       Grid.Row="2"
-      Grid.Column="2"
+      Grid.Column="1"
       Orientation="Vertical">
       <Button
         Name="connectBtn"
-        Width="100"
-        Margin="15,0,15,15"
+        Width="120"
+        Margin="15,0,5,15"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Background="#FFFFFBFB"
@@ -69,8 +72,8 @@
       </Button>
       <Button
         Name="loadBtn"
-        Width="100"
-        Margin="15,0,15,15"
+        Width="120"
+        Margin="15,0,5,15"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Background="#FFFFFBFB"
@@ -93,8 +96,8 @@
       </Button>
       <Button
         Name="confirmBtn"
-        Width="100"
-        Margin="15,0,15,15"
+        Width="120"
+        Margin="15,0,5,15"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Background="#FFFFFBFB"
@@ -119,8 +122,8 @@
       </Button>
       <Button
         Name="addBtn"
-        Width="100"
-        Margin="15,0,15,15"
+        Width="120"
+        Margin="15,0,5,15"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Background="#FFFFFBFB"
@@ -146,8 +149,8 @@
       </Button>
       <Button
         Name="duplicBtn"
-        Width="100"
-        Margin="15,0,15,0"
+        Width="120"
+        Margin="15,0,5,15"
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Background="#FFFFFBFB"
@@ -163,11 +166,11 @@
             Margin="5,5,5,5"
             HorizontalAlignment="Left"
             Opacity="0.5"
-            Source="../Icons/add.png"
+            Source="../Icons/findDuplicat.PNG"
             Stretch="Fill"
             UseLayoutRounding="False" />
-          <TextBlock Margin="5,5,5,5">
-            Duplicate Button
+          <TextBlock Margin="5,5,5,5" FontSize="14">
+            Find Dupl.
           </TextBlock>
         </StackPanel>
       </Button>
@@ -175,7 +178,8 @@
     <ListView
       Name="LogEntriesGrid"
       Grid.Row="2"
-      Grid.Column="1"
+      Grid.Column="0"
+      Margin="5,0,0,0"
       HorizontalContentAlignment="Stretch"
       IsSynchronizedWithCurrentItem="True"
       ItemsSource="{Binding LogEntries}"
@@ -204,15 +208,16 @@
             DisplayMemberBinding="{Binding Severity}"
             Header="Severity" />
           <GridViewColumn
-            Width="130"
+            Width="140"
             DisplayMemberBinding="{Binding Timestamp}"
             Header="Timestamp" />
           <GridViewColumn
             Width="200"
-            DisplayMemberBinding="{Binding Message}"
+            DisplayMemberBinding="{Binding Text}"
             Header="Text" />
         </GridView>
       </ListView.View>
     </ListView>
   </Grid>
 </UserControl>
+
