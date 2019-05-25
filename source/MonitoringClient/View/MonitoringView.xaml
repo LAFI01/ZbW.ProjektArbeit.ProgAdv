@@ -210,7 +210,7 @@
           <GridViewColumn
             Width="200"
             DisplayMemberBinding="{Binding Message}"
-            Header="Message" />
+            Header="Text" />
         </GridView>
       </ListView.View>
     </ListView>

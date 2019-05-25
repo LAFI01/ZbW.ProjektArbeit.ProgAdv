@@ -10,6 +10,7 @@
 // ************************************************************************************
 namespace MonitoringClient.ViewModel
 {
+  using System.Collections.Generic;
   using System.Collections.ObjectModel;
   using System.Reflection;
   using System.Windows;
@@ -25,9 +26,9 @@ namespace MonitoringClient.ViewModel
 
     private const int MaxLengthOfSign = 45;
 
-    private ObservableCollection<int> _deviceIds;
+    private List<int> _deviceIds;
 
-    private ObservableCollection<string> _hostnameItems;
+    private List<string> _hostnameItems;
 
     private string _message;
 
@@ -37,7 +38,7 @@ namespace MonitoringClient.ViewModel
 
     private string _selectedSeverityItem;
 
-    private ObservableCollection<string> _serverityItems;
+    private List<string> _serverityItems;
     private IMonitoringRepository MonitoringRepository { get; set; }
     public AddLogEntryViewModel(IMonitoringRepository monitoringRepository)
     {
@@ -56,9 +57,13 @@ namespace MonitoringClient.ViewModel
     public static DelegateCommand CancelCommand { get; set; }
 
 
-    public ObservableCollection<int> DeviceIds
+    public List<int> DeviceIds
     {
-      get { return _deviceIds; }
+      get
+      {
+        _deviceIds?.Sort();
+        return _deviceIds;
+      }
       set
       {
         SetProperty(ref _deviceIds, value);
@@ -68,7 +73,7 @@ namespace MonitoringClient.ViewModel
 
     public static AddLogEntryViewModel GetAddLogEntryViewModel { get; private set; }
 
-    public ObservableCollection<string> HostnameItems
+    public List<string> HostnameItems
     {
       get { return _hostnameItems; }
       set
@@ -138,7 +143,7 @@ namespace MonitoringClient.ViewModel
     }
 
 
-    public ObservableCollection<string> SeverityItems
+    public List<string> SeverityItems
     {
       get { return _serverityItems; }
       set

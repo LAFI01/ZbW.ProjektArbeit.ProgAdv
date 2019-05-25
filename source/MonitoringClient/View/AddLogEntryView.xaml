@@ -74,7 +74,7 @@
       Grid.Column="1"
       VerticalAlignment="center"
       FontWeight="Bold">
-      Message:
+      Text:
     </Label>
     <TextBox
       Grid.Row="4"

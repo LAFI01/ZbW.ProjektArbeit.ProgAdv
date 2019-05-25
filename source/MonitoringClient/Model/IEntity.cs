@@ -22,12 +22,16 @@ namespace MonitoringClient.Model
 
     string Location { get; set; }
 
-    string Message { get; set; }
+    string Text { get; set; }
 
     string Pod { get; set; }
 
     string Severity { get; set; }
 
     DateTime Timestamp { get; set; }
+
+    bool Equals(object value);
+
+    int GetHashCode();
   }
 }

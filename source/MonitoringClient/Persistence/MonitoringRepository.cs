@@ -10,6 +10,7 @@
 // ************************************************************************************
 namespace MonitoringClient.Persistence
 {
+  using System.Collections.Generic;
   using System.Collections.ObjectModel;
   using System.Data;
   using Model;
@@ -43,7 +44,7 @@ namespace MonitoringClient.Persistence
           MySqlParameter p3 = new MySqlParameter("in_serverity", Mapper.MapSeverityToInt(entity.Severity));
           p3.Direction = ParameterDirection.Input;
           p3.DbType = DbType.Int32;
-          MySqlParameter p4 = new MySqlParameter("in_message", entity.Message);
+          MySqlParameter p4 = new MySqlParameter("in_message", entity.Text);
           p4.Direction = ParameterDirection.Input;
           p4.DbType = DbType.String;
 
@@ -74,9 +75,9 @@ namespace MonitoringClient.Persistence
       }
     }
 
-    public ObservableCollection<int> GetAllDeviceIds()
+    public List<int> GetAllDeviceIds()
     {
-      var deviceIds = new ObservableCollection<int>();
+      var deviceIds = new List<int>();
       using (IDbConnection conn = MySqlConnection)
       {
         conn.Open();
@@ -101,9 +102,9 @@ namespace MonitoringClient.Persistence
       return deviceIds;
     }
 
-    public ObservableCollection<string> GetAllHostname()
+    public List<string> GetAllHostname()
     {
-      var hostnames = new ObservableCollection<string>();
+      var hostnames = new List<string>();
       using (IDbConnection conn = MySqlConnection)
       {
         conn.Open();
@@ -128,9 +129,9 @@ namespace MonitoringClient.Persistence
       return hostnames;
     }
 
-    public ObservableCollection<IEntity> GetAllLogEntries()
+    public List<IEntity> GetAllLogEntries()
     {
-      var logEntries = new ObservableCollection<IEntity>();
+      var logEntries = new List<IEntity>();
       using (IDbConnection conn = MySqlConnection)
       {
         conn.Open();

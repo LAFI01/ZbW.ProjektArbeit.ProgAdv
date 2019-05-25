@@ -11,6 +11,7 @@
 namespace MonitoringClient.Model
 {
   using System;
+  using System.Collections;
   using System.Reflection;
   using Prism.Mvvm;
 
@@ -35,7 +36,7 @@ namespace MonitoringClient.Model
     public LogEntry(string hostename, string message, string severity)
     {
       Hostname = hostename;
-      Message = message;
+      Text = message;
       Severity = severity;
     }
 
@@ -84,7 +85,7 @@ namespace MonitoringClient.Model
       }
     }
 
-    public string Message
+    public string Text
     {
       get { return _message; }
       set
@@ -145,7 +146,7 @@ namespace MonitoringClient.Model
         return true;
       }
 
-      return string.Equals(Severity, logEntry.Severity) && string.Equals(Message, logEntry.Message);
+      return string.Equals(Severity, logEntry.Severity) && string.Equals(Text, logEntry.Text);
     }
 
     public override int GetHashCode()
@@ -156,7 +157,7 @@ namespace MonitoringClient.Model
         const int HashingMultiplier = 16777619;
         var hash = HashingBase;
         hash = (hash * HashingMultiplier) ^ (!ReferenceEquals(null, Severity) ? Severity.GetHashCode() : 0);
-        hash = (hash * HashingMultiplier) ^ (!ReferenceEquals(null, Message) ? Message.GetHashCode() : 0);
+        hash = (hash * HashingMultiplier) ^ (!ReferenceEquals(null, Text) ? Text.GetHashCode() : 0);
 
         return hash;
       }

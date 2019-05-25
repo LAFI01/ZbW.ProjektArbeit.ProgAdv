@@ -2,7 +2,7 @@
 // FileName: Severity.cs
 // Author: 
 // Created on: 12.05.2019
-// Last modified on: 18.05.2019
+// Last modified on: 25.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -10,15 +10,15 @@
 // ************************************************************************************
 namespace MonitoringClient.Model
 {
-  using System.Collections.ObjectModel;
+  using System.Collections.Generic;
 
   public class Severity
   {
-    public static ObservableCollection<string> Severities
+    public static List<string> Severities
     {
       get
       {
-        return new ObservableCollection<string>
+        return new List<string>
         {
           "Error",
           "Warning",

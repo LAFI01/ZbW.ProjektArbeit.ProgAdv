@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿// ************************************************************************************
+// FileName: IMonitoringRepository.cs
+// Author: 
+// Created on: 23.05.2019
+// Last modified on: 25.05.2019
+// Copy Right: JELA Rocks
+// ------------------------------------------------------------------------------------
+// Description: 
+// ------------------------------------------------------------------------------------
+// ************************************************************************************
 namespace MonitoringClient.Persistence
 {
-  using System.Collections.ObjectModel;
+  using System.Collections.Generic;
   using Model;
 
   public interface IMonitoringRepository
@@ -15,17 +19,17 @@ namespace MonitoringClient.Persistence
 
     void ClearLogEntriy(IEntity entity);
 
-    ObservableCollection<int> GetAllDeviceIds();
-
     bool ConnectionTest();
+
+    List<int> GetAllDeviceIds();
+
+    List<string> GetAllHostname();
+
+    List<IEntity> GetAllLogEntries();
 
     string GetConnectionString();
 
 
     void SetConnectionString(string connString);
-
-    ObservableCollection<string> GetAllHostname();
-
-    ObservableCollection<IEntity> GetAllLogEntries();
   }
 }
