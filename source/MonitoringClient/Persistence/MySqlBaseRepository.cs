@@ -2,7 +2,7 @@
 // FileName: MySqlBaseRepository.cs
 // Author: 
 // Created on: 11.05.2019
-// Last modified on: 18.05.2019
+// Last modified on: 26.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -16,23 +16,8 @@ namespace MonitoringClient.Persistence
   using MySql.Data.MySqlClient;
   using Properties;
 
-  public class MySqlBaseRepository 
+  public class MySqlBaseRepository
   {
-    protected MySqlBaseRepository()
-    {
-      
-    }
-
-    public string GetConnectionString()
-    {
-      return Settings.Default.ConnectionString;
-    }
-
-    public void SetConnectionString(string connString)
-    {
-      Settings.Default.ConnectionString = connString;
-    }
-
     protected static IDbConnection MySqlConnection { get; set; }
 
     public bool ConnectionTest()
@@ -46,7 +31,7 @@ namespace MonitoringClient.Persistence
       }
       catch (Exception ex)
       {
-        Debug.Print("Conncetion failed");
+        Debug.Print(string.Format($"Conncetion failed: {ex.Message}"));
       }
       finally
       {
@@ -59,6 +44,11 @@ namespace MonitoringClient.Persistence
       return isConnected;
     }
 
+    public void SetConnectionString(string connString)
+    {
+      Settings.Default.ConnectionString = connString;
+    }
+
     protected IDbCommand CreateCommand(IDbConnection myConnection, CommandType commandType, string coomandText)
     {
       IDbCommand command = MySqlConnection.CreateCommand();
@@ -66,6 +56,11 @@ namespace MonitoringClient.Persistence
       command.CommandText = coomandText;
 
       return command;
+    }
+
+    private string GetConnectionString()
+    {
+      return Settings.Default.ConnectionString;
     }
   }
 }

@@ -2,7 +2,7 @@
 // FileName: MainUserControlViewModel.cs
 // Author: 
 // Created on: 17.05.2019
-// Last modified on: 25.05.2019
+// Last modified on: 26.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 

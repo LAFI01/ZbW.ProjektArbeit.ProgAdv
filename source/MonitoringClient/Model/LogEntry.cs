@@ -2,7 +2,7 @@
 // FileName: LogEntry.cs
 // Author: 
 // Created on: 11.05.2019
-// Last modified on: 21.05.2019
+// Last modified on: 26.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -11,7 +11,6 @@
 namespace MonitoringClient.Model
 {
   using System;
-  using System.Collections;
   using System.Reflection;
   using Prism.Mvvm;
 
@@ -85,17 +84,6 @@ namespace MonitoringClient.Model
       }
     }
 
-    public string Text
-    {
-      get { return _message; }
-      set
-      {
-        SetProperty(ref _message, value);
-
-        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
-      }
-    }
-
     public string Pod
     {
       get { return _pod; }
@@ -113,6 +101,17 @@ namespace MonitoringClient.Model
       set
       {
         SetProperty(ref _severity, value);
+
+        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
+      }
+    }
+
+    public string Text
+    {
+      get { return _message; }
+      set
+      {
+        SetProperty(ref _message, value);
 
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }

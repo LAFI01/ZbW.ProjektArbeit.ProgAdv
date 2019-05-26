@@ -2,7 +2,7 @@
 // FileName: IEntity.cs
 // Author: 
 // Created on: 11.05.2019
-// Last modified on: 25.05.2019
+// Last modified on: 26.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 

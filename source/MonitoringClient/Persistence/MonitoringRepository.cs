@@ -2,7 +2,7 @@
 // FileName: MonitoringRepository.cs
 // Author: 
 // Created on: 11.05.2019
-// Last modified on: 18.05.2019
+// Last modified on: 26.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -11,21 +11,13 @@
 namespace MonitoringClient.Persistence
 {
   using System.Collections.Generic;
-  using System.Collections.ObjectModel;
   using System.Data;
   using Model;
   using MySql.Data.MySqlClient;
-  using Properties;
   using Utilities;
 
   public class MonitoringRepository : MySqlBaseRepository, IMonitoringRepository
   {
-
-    public MonitoringRepository()
-    {
-    }
-
-
     public void AddLogEntriy(IEntity entity)
     {
       using (IDbConnection conn = MySqlConnection)

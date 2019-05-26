@@ -15,10 +15,8 @@
 
   <Grid Background="DeepSkyBlue">
     <Grid.ColumnDefinitions>
-      <!--<ColumnDefinition Width="0.01*" />-->
       <ColumnDefinition Width="0.85*" />
       <ColumnDefinition Width="0.15*" />
-      <!--<ColumnDefinition Width="0.01*" />-->
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition Height="0.05*" />

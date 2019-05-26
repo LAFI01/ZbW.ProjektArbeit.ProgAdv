@@ -2,7 +2,7 @@
 // FileName: AddLogEntryViewModel.cs
 // Author: 
 // Created on: 12.05.2019
-// Last modified on: 25.05.2019
+// Last modified on: 26.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -181,8 +181,6 @@ namespace MonitoringClient.ViewModel
 
     private bool CanSave()
     {
-      var t = Text;
-
       return SelectedHostnameItem != null && SelectedSeverityItem != null && SelectedDeviceId != InitialDeviceId;
     }
 

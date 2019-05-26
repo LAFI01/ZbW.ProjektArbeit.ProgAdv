@@ -2,7 +2,7 @@
 // FileName: MonitoringViewModel.cs
 // Author: 
 // Created on: 11.05.2019
-// Last modified on: 25.05.2019
+// Last modified on: 26.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -41,7 +41,6 @@ namespace MonitoringClient.ViewModel
 
     public DelegateCommand ConfirmCommand { get; set; }
 
-
     public DelegateCommand ConnectCommand { get; set; }
 
 
@@ -58,7 +57,6 @@ namespace MonitoringClient.ViewModel
     public DelegateCommand DuplicatedCommand { get; set; }
 
     public DelegateCommand LoadCommand { get; set; }
-
 
     public List<IEntity> LogEntries
     {
@@ -85,7 +83,6 @@ namespace MonitoringClient.ViewModel
     private bool IsDbConnect { get; set; }
 
     private IMonitoringRepository MonitoringRepository { get; }
-
 
     public bool CanConnectToDb()
     {
@@ -143,7 +140,7 @@ namespace MonitoringClient.ViewModel
       ConfirmCommand = new DelegateCommand(OnCmdConfirm, HasAnyLogEntries);
       LoadCommand = new DelegateCommand(OnCmdLoad, CanUseDb);
       DuplicatedCommand = new DelegateCommand(OnCmdDuplicatCheck, HasAnyLogEntries);
-      ContentTextBox = "Server=localhost;Database=inventarisierungsloesunglfi;Uid=root;pwd=halo1velo";
+      ContentTextBox = "Server=localhost;Database=inventarisierungsloesunglfi;Uid=root;pwd=";
     }
 
     private void OnCmdAdd()
@@ -164,7 +161,6 @@ namespace MonitoringClient.ViewModel
       if (inputConnectionString != null && inputConnectionString.Length < MaxLengthOfConnectionString)
       {
         MonitoringRepository.SetConnectionString(inputConnectionString);
-        ;
         if (!MonitoringRepository.ConnectionTest())
         {
           MessageBox.Show("It coud not connect to your database!");

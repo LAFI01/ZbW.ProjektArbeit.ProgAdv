@@ -2,7 +2,7 @@
 // FileName: IMonitoringRepository.cs
 // Author: 
 // Created on: 23.05.2019
-// Last modified on: 25.05.2019
+// Last modified on: 26.05.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -26,9 +26,6 @@ namespace MonitoringClient.Persistence
     List<string> GetAllHostname();
 
     List<IEntity> GetAllLogEntries();
-
-    string GetConnectionString();
-
 
     void SetConnectionString(string connString);
   }
