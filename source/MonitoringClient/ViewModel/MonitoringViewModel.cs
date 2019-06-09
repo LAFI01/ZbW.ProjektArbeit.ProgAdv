@@ -2,7 +2,7 @@
 // FileName: MonitoringViewModel.cs
 // Author: 
 // Created on: 11.05.2019
-// Last modified on: 26.05.2019
+// Last modified on: 09.06.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -15,7 +15,10 @@ namespace MonitoringClient.ViewModel
   using System.Reflection;
   using System.Windows;
   using DuplicateCheckerLib;
-  using Persistence;
+  using Persistence.Table;
+  using Persistence.Table.Impl;
+  using Persistence.View;
+  using Persistence.View.Impl;
   using Prism.Commands;
   using Prism.Mvvm;
   using IEntity = Model.IEntity;
@@ -30,9 +33,9 @@ namespace MonitoringClient.ViewModel
 
     private IEntity _selectedEntity;
 
-    public MonitoringViewModel(IMonitoringRepository monitoringRepository)
+    public MonitoringViewModel(ILogEntryView logEntryView)
     {
-      MonitoringRepository = monitoringRepository;
+      LogEntryView = logEntryView;
       InitalViewModel();
     }
 
@@ -82,7 +85,9 @@ namespace MonitoringClient.ViewModel
 
     private bool IsDbConnect { get; set; }
 
-    private IMonitoringRepository MonitoringRepository { get; }
+    private ILogEntryView LogEntryView { get; }
+
+    private ILogRepository LogRepository { get; set; }
 
     public bool CanConnectToDb()
     {
@@ -93,7 +98,7 @@ namespace MonitoringClient.ViewModel
     {
       if (Instance == null)
       {
-        IMonitoringRepository monitoringRepository = new MonitoringRepository();
+        LogentriyView monitoringRepository = new LogentriyView();
         Instance = new MonitoringViewModel(monitoringRepository);
       }
 
@@ -109,14 +114,14 @@ namespace MonitoringClient.ViewModel
 
     public void OnCmdLoad()
     {
-      LogEntries = MonitoringRepository.GetAllLogEntries();
+      LogEntries = LogEntryView.GetAllLogEntries();
       ConfirmCommand.RaiseCanExecuteChanged();
       DuplicatedCommand.RaiseCanExecuteChanged();
     }
 
     public void RefreshLogEntries()
     {
-      LogEntries = MonitoringRepository.GetAllLogEntries();
+      LogEntries = LogEntryView.GetAllLogEntries();
       ConfirmCommand.RaiseCanExecuteChanged();
       DuplicatedCommand.RaiseCanExecuteChanged();
     }
@@ -151,7 +156,7 @@ namespace MonitoringClient.ViewModel
 
     private void OnCmdConfirm()
     {
-      MonitoringRepository.ClearLogEntriy(SelectedEntity);
+      LogRepository.ClearLogEntry(SelectedEntity);
       RefreshLogEntries();
     }
 
@@ -160,8 +165,8 @@ namespace MonitoringClient.ViewModel
       var inputConnectionString = ContentTextBox;
       if (inputConnectionString != null && inputConnectionString.Length < MaxLengthOfConnectionString)
       {
-        MonitoringRepository.SetConnectionString(inputConnectionString);
-        if (!MonitoringRepository.ConnectionTest())
+        LogEntryView.SetConnectionString(inputConnectionString);
+        if (!LogEntryView.ConnectionTest())
         {
           MessageBox.Show("It coud not connect to your database!");
         }
@@ -171,6 +176,7 @@ namespace MonitoringClient.ViewModel
           AddCommand.RaiseCanExecuteChanged();
           LoadCommand.RaiseCanExecuteChanged();
           ConnectCommand.RaiseCanExecuteChanged();
+          LogRepository = new LogRepository();
         }
       }
       else

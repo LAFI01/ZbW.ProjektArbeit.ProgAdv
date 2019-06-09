@@ -8,7 +8,7 @@
 // Description: 
 // ------------------------------------------------------------------------------------
 // ************************************************************************************
-namespace MonitoringClient.Model
+namespace MonitoringClient.Model.Impl
 {
   using System;
   using System.Reflection;

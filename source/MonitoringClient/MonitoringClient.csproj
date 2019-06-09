@@ -45,8 +45,7 @@
       <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net47\CommonServiceLocator.dll</HintPath>
     </Reference>
     <Reference Include="DuplicateCheckerLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Users\Larissa\OneDrive\HF_Informatik_ZbW\06_Semester\ProgAdv\Projektarbeit\02-Testat-Equality_26-05-19\DuplicateCheckerLib\DuplicateCheckerLib.dll</HintPath>
+      <HintPath>..\packages\DuplicateCheckerLib.1.0.0\lib\netstandard2.0\DuplicateCheckerLib.dll</HintPath>
     </Reference>
     <Reference Include="Google.Protobuf, Version=3.6.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.6.1\lib\net45\Google.Protobuf.dll</HintPath>
@@ -85,7 +84,19 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\IDevice.cs" />
+    <Compile Include="Model\ILocation.cs" />
+    <Compile Include="Model\Impl\Device.cs" />
+    <Compile Include="Model\Impl\Location.cs" />
+    <Compile Include="Persistence\Table\IDeviceRepository.cs" />
+    <Compile Include="Persistence\Table\ILocationRepository.cs" />
+    <Compile Include="Persistence\Table\ILogRepository.cs" />
+    <Compile Include="Persistence\Table\Impl\DeviceRepository.cs" />
     <Compile Include="Persistence\IMonitoringRepository.cs" />
+    <Compile Include="Persistence\Base\IRepositoryBase.cs" />
+    <Compile Include="Persistence\Table\Impl\LocationRepository.cs" />
+    <Compile Include="Persistence\Table\Impl\LogRepository.cs" />
+    <Compile Include="Persistence\View\ILogEntryView.cs" />
     <Compile Include="View\MonitoringView.xaml.cs">
       <DependentUpon>MonitoringView.xaml</DependentUpon>
     </Compile>
@@ -93,7 +104,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
-    <Compile Include="Model\Severity.cs" />
+    <Compile Include="Model\Impl\Severity.cs" />
     <Compile Include="Utilities\Mapper.cs" />
     <Compile Include="ViewModel\AddLogEntryViewModel.cs" />
     <Compile Include="ViewModel\MainUserControlViewModel.cs" />
@@ -113,7 +124,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\IEntity.cs" />
-    <Compile Include="Model\LogEntry.cs" />
+    <Compile Include="Model\Impl\LogEntry.cs" />
     <Page Include="View\MainUserControlView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -124,8 +135,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Persistence\MonitoringRepository.cs" />
-    <Compile Include="Persistence\MySqlBaseRepository.cs" />
+    <Compile Include="Persistence\View\Impl\LogentriyView.cs" />
+    <Compile Include="Persistence\Base\Impl\MySqlBaseRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -169,6 +180,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\connect.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Persistence\StoreProcedure\Impl\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

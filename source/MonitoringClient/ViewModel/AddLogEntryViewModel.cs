@@ -2,7 +2,7 @@
 // FileName: AddLogEntryViewModel.cs
 // Author: 
 // Created on: 12.05.2019
-// Last modified on: 26.05.2019
+// Last modified on: 09.06.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -14,7 +14,11 @@ namespace MonitoringClient.ViewModel
   using System.Reflection;
   using System.Windows;
   using Model;
-  using Persistence;
+  using Model.Impl;
+  using Persistence.Table;
+  using Persistence.Table.Impl;
+  using Persistence.View;
+  using Persistence.View.Impl;
   using Prism.Commands;
   using Prism.Mvvm;
 
@@ -38,9 +42,9 @@ namespace MonitoringClient.ViewModel
 
     private string _text;
 
-    public AddLogEntryViewModel(IMonitoringRepository monitoringRepository)
+    public AddLogEntryViewModel(ILogEntryView logEntryView)
     {
-      MonitoringRepository = monitoringRepository;
+      LogEntryView = logEntryView;
       InitalView();
     }
 
@@ -146,20 +150,21 @@ namespace MonitoringClient.ViewModel
 
     private static AddLogEntryViewModel Instance { get; set; }
 
-    private IMonitoringRepository MonitoringRepository { get; }
+    private ILogEntryView LogEntryView { get; }
 
     public void FillComboboxen()
     {
-      DeviceIds = MonitoringRepository.GetAllDeviceIds();
-      HostnameItems = MonitoringRepository.GetAllHostname();
+      IDeviceRepository deviceRepo = new DeviceRepository();
+      DeviceIds = deviceRepo.GetDeviceIds();
+      HostnameItems = deviceRepo.GetDeviceHostname();
     }
 
     public static AddLogEntryViewModel GetInstance()
     {
       if (Instance == null)
       {
-        IMonitoringRepository monitoringRepository = new MonitoringRepository();
-        Instance = new AddLogEntryViewModel(monitoringRepository);
+        ILogEntryView logEntryView = new LogentriyView();
+        Instance = new AddLogEntryViewModel(logEntryView);
       }
 
       return Instance;
@@ -194,9 +199,10 @@ namespace MonitoringClient.ViewModel
     {
       if (!string.IsNullOrEmpty(Text))
       {
+        LogRepository logRepo = new LogRepository();
         IEntity entity = new LogEntry(SelectedHostnameItem, Text, SelectedSeverityItem);
         entity.DeviceId = SelectedDeviceId;
-        MonitoringRepository.AddLogEntriy(entity);
+        logRepo.AddLogEntry(entity);
         NavigateToMonitoringView();
         MonitoringViewModel.GetInstance().RefreshLogEntries();
       }

@@ -9,8 +9,8 @@
     <projectUrl>https://github.com/LAFI01/ZbW.ProjektArbeit.ProgAdv.git</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>First project exercise</releaseNotes>
+    <releaseNotes>Second project exercise</releaseNotes>
     <copyright>Copyright 2019</copyright>
-    <tags>monitoringclient lfi</tags>
+    <tags>monitoringClient lfi</tags>
   </metadata>
 </package>
