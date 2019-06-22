@@ -92,11 +92,14 @@
     <Compile Include="Persistence\Table\ILocationRepository.cs" />
     <Compile Include="Persistence\Table\ILogRepository.cs" />
     <Compile Include="Persistence\Table\Impl\DeviceRepository.cs" />
-    <Compile Include="Persistence\IMonitoringRepository.cs" />
     <Compile Include="Persistence\Base\IRepositoryBase.cs" />
     <Compile Include="Persistence\Table\Impl\LocationRepository.cs" />
     <Compile Include="Persistence\Table\Impl\LogRepository.cs" />
     <Compile Include="Persistence\View\ILogEntryView.cs" />
+    <Compile Include="ViewModel\LocationViewModel.cs" />
+    <Compile Include="View\LocationView.xaml.cs">
+      <DependentUpon>LocationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MonitoringView.xaml.cs">
       <DependentUpon>MonitoringView.xaml</DependentUpon>
     </Compile>
@@ -125,6 +128,10 @@
     </Compile>
     <Compile Include="Model\IEntity.cs" />
     <Compile Include="Model\Impl\LogEntry.cs" />
+    <Page Include="View\LocationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainUserControlView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -135,7 +142,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Persistence\View\Impl\LogentriyView.cs" />
+    <Compile Include="Persistence\View\Impl\LogEntryView.cs" />
     <Compile Include="Persistence\Base\Impl\MySqlBaseRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -182,7 +189,7 @@
     <Resource Include="Icons\connect.PNG" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Persistence\StoreProcedure\Impl\" />
+    <Resource Include="Icons\locationTree.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

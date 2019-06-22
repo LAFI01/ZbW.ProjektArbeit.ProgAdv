@@ -42,9 +42,11 @@ namespace MonitoringClient.ViewModel
 
     private string _text;
 
-    public AddLogEntryViewModel(ILogEntryView logEntryView)
+    public AddLogEntryViewModel(ILogEntryView logEntryView, IDeviceRepository deviceRepository, ILogRepository logRepository)
     {
       LogEntryView = logEntryView;
+      DeviceRepository = deviceRepository;
+      LogRepository = logRepository;
       InitalView();
     }
 
@@ -151,20 +153,24 @@ namespace MonitoringClient.ViewModel
     private static AddLogEntryViewModel Instance { get; set; }
 
     private ILogEntryView LogEntryView { get; }
+    private IDeviceRepository DeviceRepository { get; }
+    private ILogRepository LogRepository { get; }
+
 
     public void FillComboboxen()
     {
-      IDeviceRepository deviceRepo = new DeviceRepository();
-      DeviceIds = deviceRepo.GetDeviceIds();
-      HostnameItems = deviceRepo.GetDeviceHostname();
+      DeviceIds = DeviceRepository.GetDeviceIds();
+      HostnameItems = DeviceRepository.GetDeviceHostname();
     }
 
     public static AddLogEntryViewModel GetInstance()
     {
       if (Instance == null)
       {
-        ILogEntryView logEntryView = new LogentriyView();
-        Instance = new AddLogEntryViewModel(logEntryView);
+        ILogEntryView logEntryView = new LogEntryView();
+        IDeviceRepository deviceRepository = new DeviceRepository();
+        ILogRepository logRepository = new LogRepository();
+        Instance = new AddLogEntryViewModel(logEntryView, deviceRepository, logRepository);
       }
 
       return Instance;
@@ -199,10 +205,9 @@ namespace MonitoringClient.ViewModel
     {
       if (!string.IsNullOrEmpty(Text))
       {
-        LogRepository logRepo = new LogRepository();
         IEntity entity = new LogEntry(SelectedHostnameItem, Text, SelectedSeverityItem);
         entity.DeviceId = SelectedDeviceId;
-        logRepo.AddLogEntry(entity);
+        LogRepository.AddLogEntry(entity);
         NavigateToMonitoringView();
         MonitoringViewModel.GetInstance().RefreshLogEntries();
       }

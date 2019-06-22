@@ -11,6 +11,7 @@
 namespace MonitoringClient.Model
 {
   using System;
+  using Impl;
 
   public interface IEntity : DuplicateCheckerLib.IEntity
   {

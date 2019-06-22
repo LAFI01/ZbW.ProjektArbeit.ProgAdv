@@ -37,7 +37,7 @@ namespace MonitoringClientTests.Persistence
     {
       ILogRepository logRepo = new LogRepository();
       logRepo.SetConnectionString(ConnString);
-      ILogEntryView logView = new LogentriyView();
+      ILogEntryView logView = new LogEntryView();
 
       var logEnriesCountBeforeAdd = logView.GetAllLogEntries().Count;
 
@@ -53,7 +53,7 @@ namespace MonitoringClientTests.Persistence
     {
       ILogRepository logRepo = new LogRepository();
       logRepo.SetConnectionString(ConnString);
-      ILogEntryView logView = new LogentriyView();
+      ILogEntryView logView = new LogEntryView();
 
       IEntity newEntity = CreateNewLogEntry(3);
       logRepo.AddLogEntry(newEntity);
@@ -78,7 +78,7 @@ namespace MonitoringClientTests.Persistence
     [Test]
     public void GetAllLogEntries_LoadAllLogEntries_GetAListOfAllLogEntries()
     {
-      ILogEntryView logView = new LogentriyView();
+      ILogEntryView logView = new LogEntryView();
       logView.SetConnectionString(ConnString);
 
       var logEnries = logView.GetAllLogEntries();

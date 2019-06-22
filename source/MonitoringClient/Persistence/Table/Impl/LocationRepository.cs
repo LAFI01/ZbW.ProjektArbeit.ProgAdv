@@ -1,8 +1,8 @@
 ﻿// ************************************************************************************
 // FileName: LocationRepository.cs
 // Author: 
-// Created on: 01.06.2019
-// Last modified on: 01.06.2019
+// Created on: 09.06.2019
+// Last modified on: 22.06.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -16,25 +16,71 @@ namespace MonitoringClient.Persistence.Table.Impl
   using Model;
   using Model.Impl;
 
-  public class LocationRepository : MySqlBaseRepository<ILocation>
+  public class LocationRepository : MySqlBaseRepository<ILocation>, ILocationRepository
   {
+    public override string TableName
+    {
+      get { return "Location"; }
+    }
+
+    public List<ILocation> GetAllLocation()
+    {
+      return GetAll();
+    }
+
+    public List<ILocation> GetLocationsHierarchical()
+    {
+      var allLocations = GetAll();
+      var hirachicalTree = CreateHirachicalTree(allLocations);
+
+      return hirachicalTree;
+    }
+
+
     protected override ILocation CreateEntity(IDataReader r)
     {
-      var entity =
+      Location entity =
         new Location();
       entity.Id = r.GetInt32(0);
       entity.Name = r.GetString(1);
       entity.Fk_Address = r.GetInt32(2);
       entity.Building = r.GetString(3);
       entity.ParentId = r.GetInt32(4);
+
       return entity;
     }
 
-    public override string TableName => "Location";
-
-    public List<ILocation> GetAllLocation()
+    private List<ILocation> CreateHirachicalTree(List<ILocation> locations)
     {
-      return GetAll();
+      var nodes = new List<ILocation>();
+      foreach (ILocation item in locations)
+      {
+        if (item.ParentId == 0)
+        {
+          nodes.Add(item);
+        }
+        else
+        {
+          CreateNode(nodes, item);
+        }
+      }
+
+      return nodes;
+    }
+
+    private void CreateNode(List<ILocation> nodes, ILocation child)
+    {
+      foreach (ILocation node in nodes)
+      {
+        if (node.Id == child.ParentId)
+        {
+          node.Childs.Add(child);
+        }
+        else
+        {
+          CreateNode(node.Childs, child);
+        }
+      }
     }
   }
 }

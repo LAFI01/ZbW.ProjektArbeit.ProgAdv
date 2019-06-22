@@ -156,7 +156,7 @@
         Command="{Binding DuplicatedCommand}"
         FontSize="14"
         TabIndex="2"
-        ToolTip="Add new Log Entry">
+        ToolTip="Show Duplicate Entries">
         <StackPanel Width="89" Orientation="Horizontal">
           <Image
             Width="15"
@@ -169,6 +169,33 @@
             UseLayoutRounding="False" />
           <TextBlock Margin="5,5,5,5" FontSize="14">
             Find Dupl.
+          </TextBlock>
+        </StackPanel>
+      </Button>
+      <Button
+        Name="locationBtn"
+        Width="120"
+        Margin="15,0,5,15"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Background="#FFFFFBFB"
+        BorderThickness="0"
+        Command="{Binding LocationTreeCommand}"
+        FontSize="14"
+        TabIndex="2"
+        ToolTip="Show Location Tree">
+        <StackPanel Width="89" Orientation="Horizontal">
+          <Image
+            Width="15"
+            Height="15"
+            Margin="5,5,5,5"
+            HorizontalAlignment="Left"
+            Opacity="0.5"
+            Source="../Icons/locationTree.PNG"
+            Stretch="Fill"
+            UseLayoutRounding="False" />
+          <TextBlock Margin="5,5,5,5" FontSize="14">
+            L-Tree
           </TextBlock>
         </StackPanel>
       </Button>

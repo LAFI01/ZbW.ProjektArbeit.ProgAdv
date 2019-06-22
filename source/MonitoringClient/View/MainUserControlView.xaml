@@ -12,5 +12,6 @@
   <Grid>
     <local:MonitoringView x:Name="LoggerView" Visibility="{Binding DataContext.MonitoringVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
     <local:AddLogEntryView x:Name="AddLogView" Visibility="{Binding DataContext.AddLogEntryVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
+    <local:LocationView x:Name="LocationView" Visibility="{Binding DataContext.LocationVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
   </Grid>
 </UserControl>

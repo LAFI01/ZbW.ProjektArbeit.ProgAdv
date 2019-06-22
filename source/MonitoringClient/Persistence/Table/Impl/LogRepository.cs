@@ -57,5 +57,7 @@ namespace MonitoringClient.Persistence.Table.Impl
 
       return entity;
     }
+
+
   }
 }

@@ -16,6 +16,7 @@ namespace MonitoringClient.ViewModel
   public class MainUserControlViewModel : BindableBase
   {
     private static Visibility _addLogEntryView = Visibility.Hidden;
+    private static Visibility _locationView = Visibility.Hidden;
 
     private static Visibility _monitoringView = Visibility.Visible;
 
@@ -25,6 +26,11 @@ namespace MonitoringClient.ViewModel
       set { SetProperty(ref _addLogEntryView, value); }
     }
 
+    public Visibility LocationVisibility
+    {
+      get { return _locationView; }
+      set { SetProperty(ref _locationView, value); }
+    }
 
     public Visibility MonitoringVisibility
     {

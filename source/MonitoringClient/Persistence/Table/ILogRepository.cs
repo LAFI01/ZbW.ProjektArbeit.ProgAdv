@@ -12,7 +12,7 @@ namespace MonitoringClient.Persistence.Table
 {
   using Model;
 
-  public interface ILogRepository
+  public interface ILogRepository 
   {
     void AddLogEntry(IEntity entity);
 
