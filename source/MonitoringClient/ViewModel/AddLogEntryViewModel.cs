@@ -2,7 +2,7 @@
 // FileName: AddLogEntryViewModel.cs
 // Author: 
 // Created on: 12.05.2019
-// Last modified on: 09.06.2019
+// Last modified on: 22.06.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -42,7 +42,8 @@ namespace MonitoringClient.ViewModel
 
     private string _text;
 
-    public AddLogEntryViewModel(ILogEntryView logEntryView, IDeviceRepository deviceRepository, ILogRepository logRepository)
+    public AddLogEntryViewModel(ILogEntryView logEntryView, IDeviceRepository deviceRepository,
+      ILogRepository logRepository)
     {
       LogEntryView = logEntryView;
       DeviceRepository = deviceRepository;
@@ -150,10 +151,12 @@ namespace MonitoringClient.ViewModel
       }
     }
 
+    private IDeviceRepository DeviceRepository { get; }
+
     private static AddLogEntryViewModel Instance { get; set; }
 
     private ILogEntryView LogEntryView { get; }
-    private IDeviceRepository DeviceRepository { get; }
+
     private ILogRepository LogRepository { get; }
 
 
@@ -178,12 +181,12 @@ namespace MonitoringClient.ViewModel
 
     public void InitalView()
     {
-      CancelCommand = new DelegateCommand(OnCmdCancel);
+      CancelCommand = new DelegateCommand(OnCmdNavigateToMonitoringView);
       SaveCommand = new DelegateCommand(OnCmdSave, CanSave);
       SeverityItems = Severity.Severities;
     }
 
-    public void NavigateToMonitoringView()
+    public void OnCmdNavigateToMonitoringView()
     {
       MainUserControlViewModel mainUserControl = MainUserControlViewModel.GetInstance();
       mainUserControl.AddLogEntryVisibility = Visibility.Collapsed;
@@ -196,11 +199,6 @@ namespace MonitoringClient.ViewModel
     }
 
 
-    private void OnCmdCancel()
-    {
-      NavigateToMonitoringView();
-    }
-
     private void OnCmdSave()
     {
       if (!string.IsNullOrEmpty(Text))
@@ -208,7 +206,7 @@ namespace MonitoringClient.ViewModel
         IEntity entity = new LogEntry(SelectedHostnameItem, Text, SelectedSeverityItem);
         entity.DeviceId = SelectedDeviceId;
         LogRepository.AddLogEntry(entity);
-        NavigateToMonitoringView();
+        OnCmdNavigateToMonitoringView();
         MonitoringViewModel.GetInstance().RefreshLogEntries();
       }
       else

@@ -2,7 +2,7 @@
 // FileName: MonitoringViewModel.cs
 // Author: 
 // Created on: 11.05.2019
-// Last modified on: 09.06.2019
+// Last modified on: 22.06.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -59,10 +59,11 @@ namespace MonitoringClient.ViewModel
       }
     }
 
-    public DelegateCommand LocationTreeCommand { get; set; }
     public DelegateCommand DuplicatedCommand { get; set; }
 
     public DelegateCommand LoadCommand { get; set; }
+
+    public DelegateCommand LocationTreeCommand { get; set; }
 
     public List<IEntity> LogEntries
     {
@@ -90,7 +91,9 @@ namespace MonitoringClient.ViewModel
 
     private ILogEntryView LogEntryView { get; }
 
-    private ILogRepository LogRepository { get; set; }
+    private ILogRepository LogRepository { get; }
+
+    private MainUserControlViewModel MainUserControl { get; }
 
     public bool CanConnectToDb()
     {
@@ -116,21 +119,20 @@ namespace MonitoringClient.ViewModel
       MainUserControl.LocationVisibility = Visibility.Collapsed;
     }
 
-    private MainUserControlViewModel MainUserControl { get; set; }
-
-    public void NavigateToLocationView()
-    {
-      MainUserControl.AddLogEntryVisibility = Visibility.Collapsed;
-      MainUserControl.MonitoringVisibility = Visibility.Collapsed;
-      MainUserControl.LocationVisibility = Visibility.Visible;
-    }
-
     public void OnCmdLoad()
     {
       LogEntries = LogEntryView.GetAllLogEntries();
       ConfirmCommand.RaiseCanExecuteChanged();
       DuplicatedCommand.RaiseCanExecuteChanged();
       LocationTreeCommand.RaiseCanExecuteChanged();
+    }
+
+    public void OnCmdNavigateToLocationView()
+    {
+      LocationViewModel.GetInstance().LoadLocationTree();
+      MainUserControl.AddLogEntryVisibility = Visibility.Collapsed;
+      MainUserControl.MonitoringVisibility = Visibility.Collapsed;
+      MainUserControl.LocationVisibility = Visibility.Visible;
     }
 
     public void RefreshLogEntries()
@@ -159,14 +161,8 @@ namespace MonitoringClient.ViewModel
       ConfirmCommand = new DelegateCommand(OnCmdConfirm, HasAnyLogEntries);
       LoadCommand = new DelegateCommand(OnCmdLoad, CanUseDb);
       DuplicatedCommand = new DelegateCommand(OnCmdDuplicatCheck, HasAnyLogEntries);
-      LocationTreeCommand = new DelegateCommand(OnCmdShowLocationTree, HasAnyLogEntries);
+      LocationTreeCommand = new DelegateCommand(OnCmdNavigateToLocationView, HasAnyLogEntries);
       ContentTextBox = "Server=localhost;Database=inventarisierungsloesunglfi;Uid=root;pwd=";
-    }
-
-    private void OnCmdShowLocationTree()
-    {
-      LocationViewModel.GetInstance().CreateLocationTree();
-      NavigateToLocationView();
     }
 
     private void OnCmdAdd()

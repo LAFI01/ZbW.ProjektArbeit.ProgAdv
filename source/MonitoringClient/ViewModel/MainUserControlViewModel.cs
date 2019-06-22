@@ -2,7 +2,7 @@
 // FileName: MainUserControlViewModel.cs
 // Author: 
 // Created on: 17.05.2019
-// Last modified on: 26.05.2019
+// Last modified on: 22.06.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -16,6 +16,7 @@ namespace MonitoringClient.ViewModel
   public class MainUserControlViewModel : BindableBase
   {
     private static Visibility _addLogEntryView = Visibility.Hidden;
+
     private static Visibility _locationView = Visibility.Hidden;
 
     private static Visibility _monitoringView = Visibility.Visible;

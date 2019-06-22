@@ -2,7 +2,7 @@
 // FileName: ILogEntryView.cs
 // Author: 
 // Created on: 09.06.2019
-// Last modified on: 09.06.2019
+// Last modified on: 22.06.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -15,9 +15,10 @@ namespace MonitoringClient.Persistence.View
 
   public interface ILogEntryView
   {
-    void SetConnectionString(string connString);
+    bool ConnectionTest();
+
     List<IEntity> GetAllLogEntries();
 
-    bool ConnectionTest();
+    void SetConnectionString(string connString);
   }
 }

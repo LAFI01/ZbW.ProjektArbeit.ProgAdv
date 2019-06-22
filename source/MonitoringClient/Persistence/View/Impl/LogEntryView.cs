@@ -2,7 +2,7 @@
 // FileName: LogEntryView.cs
 // Author: 
 // Created on: 09.06.2019
-// Last modified on: 11.06.2019
+// Last modified on: 22.06.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 

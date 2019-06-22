@@ -1,11 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿// ************************************************************************************
+// FileName: LocationRepositoryIntegrationTest.cs
+// Author: 
+// Created on: 22.06.2019
+// Last modified on: 22.06.2019
+// Copy Right: JELA Rocks
+// ------------------------------------------------------------------------------------
+// Description: 
+// ------------------------------------------------------------------------------------
+// ************************************************************************************
 namespace MonitoringClientTests.Persistence
 {
+  using System.Linq;
   using MonitoringClient.Persistence.Table;
   using MonitoringClient.Persistence.Table.Impl;
   using NUnit.Framework;

@@ -1,8 +1,8 @@
 ﻿// ************************************************************************************
-// FileName: MonitoringRepositoryIntegrationTests.cs
+// FileName: LogRepositoryIntegrationTests.cs
 // Author: 
 // Created on: 12.05.2019
-// Last modified on: 23.05.2019
+// Last modified on: 22.06.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -12,7 +12,6 @@ namespace MonitoringClientTests.Persistence
 {
   using MonitoringClient.Model;
   using MonitoringClient.Model.Impl;
-  using MonitoringClient.Persistence;
   using MonitoringClient.Persistence.Table;
   using MonitoringClient.Persistence.Table.Impl;
   using MonitoringClient.Persistence.View;
@@ -20,13 +19,13 @@ namespace MonitoringClientTests.Persistence
   using NUnit.Framework;
 
   [TestFixture]
-  public class MonitoringRepositoryIntegrationTests
+  public class LogRepositoryIntegrationTests
   {
     private const string ConnString = "Server=localhost;Database=inventarisierungsloesunglfi;Uid=root;Pwd=halo1velo;";
 
     private IEntity CreateNewLogEntry(int deviceId)
     {
-      IEntity entity = new LogEntry("PC1", "Error", "Error");
+      IEntity entity = new LogEntry("PC1", "ErrorMessage", "Error");
       entity.DeviceId = deviceId;
 
       return entity;
@@ -41,7 +40,7 @@ namespace MonitoringClientTests.Persistence
 
       var logEnriesCountBeforeAdd = logView.GetAllLogEntries().Count;
 
-      IEntity newEntity = CreateNewLogEntry(5);
+      IEntity newEntity = CreateNewLogEntry(4);
       logRepo.AddLogEntry(newEntity);
 
       var logEntriesCountAfterAdd = logView.GetAllLogEntries().Count;

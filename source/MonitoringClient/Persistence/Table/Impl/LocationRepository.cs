@@ -32,7 +32,6 @@ namespace MonitoringClient.Persistence.Table.Impl
     {
       var allLocations = GetAll();
       var hirachicalTree = CreateHirachicalTree(allLocations);
-
       return hirachicalTree;
     }
 
