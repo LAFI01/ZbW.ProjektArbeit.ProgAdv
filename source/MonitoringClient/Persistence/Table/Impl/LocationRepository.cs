@@ -25,13 +25,14 @@ namespace MonitoringClient.Persistence.Table.Impl
 
     public List<ILocation> GetAllLocation()
     {
-      return GetAll();
+      //return GetAll();
+      return null;
     }
 
     public List<ILocation> GetLocationsHierarchical()
     {
       var allLocations = GetAll();
-      var hirachicalTree = CreateHirachicalTree(allLocations);
+      var hirachicalTree = CreateHirachicalTree(null);
       return hirachicalTree;
     }
 

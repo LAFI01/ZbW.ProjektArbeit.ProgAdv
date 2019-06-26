@@ -29,7 +29,7 @@ namespace MonitoringClient.Persistence.View.Impl
     {
       var allLogEntries = GetAll();
 
-      return allLogEntries;
+      return null;
     }
 
 

@@ -11,10 +11,14 @@
 namespace MonitoringClient.ViewModel
 {
   using System.Collections.Generic;
+  using System.Collections.Specialized;
+  using System.Configuration;
   using System.Linq;
   using System.Reflection;
   using System.Windows;
   using DuplicateCheckerLib;
+  using LinqToDB.Data;
+  using Persistence.Configuration;
   using Persistence.Table;
   using Persistence.Table.Impl;
   using Persistence.View;
@@ -182,6 +186,16 @@ namespace MonitoringClient.ViewModel
       var inputConnectionString = ContentTextBox;
       if (inputConnectionString != null && inputConnectionString.Length < MaxLengthOfConnectionString)
       {
+        DataConnection.DefaultSettings = new MySettings();
+        //System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+        //var tt = System.Configuration.ConfigurationManager.ConnectionStrings["CharityManagement"];
+        //var hh = ConfigurationManager.ConnectionStrings["inventarisierungsloesunglfi"];
+        //var ff = config.ConnectionStrings.ConnectionStrings["CharityManagement"];
+        //config.ConnectionStrings.ConnectionStrings["inventarisierungsloesunglfi"].ConnectionString = ContentTextBox;
+        //config.Save(ConfigurationSaveMode.Modified);
+        //ConfigurationManager.RefreshSection(config.ConnectionStrings.SectionInformation.Name);
+        //Properties.Settings.Default.Reload();
+
         LogEntryView.SetConnectionString(inputConnectionString);
         if (!LogEntryView.ConnectionTest())
         {

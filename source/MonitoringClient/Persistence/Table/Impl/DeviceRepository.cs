@@ -52,7 +52,7 @@ namespace MonitoringClient.Persistence.Table.Impl
     {
       var allDevices = GetAll();
 
-      return allDevices;
+      return null;
     }
 
     protected override IDevice CreateEntity(IDataReader r)

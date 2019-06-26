@@ -11,6 +11,8 @@
 namespace MonitoringClientTests.Persistence
 {
   using System.Linq;
+  using LinqToDB.Data;
+  using MonitoringClient.Persistence.Configuration;
   using MonitoringClient.Persistence.Table;
   using MonitoringClient.Persistence.Table.Impl;
   using NUnit.Framework;
@@ -24,8 +26,8 @@ namespace MonitoringClientTests.Persistence
     public void GetLocationsHierarchical_GetAllLocationWithThereChilds_CheckSuccess()
     {
       ILocationRepository logRepo = new LocationRepository();
-      logRepo.SetConnectionString(ConnString);
-
+      //logRepo.SetConnectionString(ConnString);
+      DataConnection.DefaultSettings = new MySettings();
       var locationWithChilds = logRepo.GetLocationsHierarchical();
 
       Assert.IsTrue(locationWithChilds.Any());

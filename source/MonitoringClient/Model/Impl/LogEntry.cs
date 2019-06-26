@@ -12,8 +12,10 @@ namespace MonitoringClient.Model.Impl
 {
   using System;
   using System.Reflection;
+  using LinqToDB.Mapping;
   using Prism.Mvvm;
 
+  [Table("log")]
   public class LogEntry : BindableBase, IEntity
   {
     private int _deviceId;
@@ -38,7 +40,7 @@ namespace MonitoringClient.Model.Impl
       Text = message;
       Severity = severity;
     }
-
+    [Column("device_id")]
     public int DeviceId
     {
       get { return _deviceId; }
@@ -49,7 +51,7 @@ namespace MonitoringClient.Model.Impl
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
-
+    [Column("hostname")]
     public string Hostname
     {
       get { return _hostename; }
@@ -61,7 +63,9 @@ namespace MonitoringClient.Model.Impl
       }
     }
 
-
+    [Column("id")]
+    [PrimaryKey]
+    [NotNull]
     public int Id
     {
       get { return _id; }
@@ -94,7 +98,8 @@ namespace MonitoringClient.Model.Impl
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
-
+    
+      [Column("serverity")]
     public string Severity
     {
       get { return _severity; }
@@ -106,6 +111,7 @@ namespace MonitoringClient.Model.Impl
       }
     }
 
+    [Column("message")]
     public string Text
     {
       get { return _message; }
@@ -117,6 +123,7 @@ namespace MonitoringClient.Model.Impl
       }
     }
 
+    [Column("time")]
     public DateTime Timestamp
     {
       get { return _timestamp; }

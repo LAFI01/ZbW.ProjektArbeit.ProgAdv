@@ -17,11 +17,15 @@ namespace MonitoringClient.Persistence.Base.Impl
   using System.Linq;
   using MySql.Data.MySqlClient;
   using Properties;
+  using LinqToDB;
+  using LinqToDB.Mapping;
+  using Model.Impl;
 
-  public abstract class MySqlBaseRepository<M> : IRepositoryBase<M>
+  public abstract class MySqlBaseRepository<TDto> : LinqToDB.Data.DataConnection, IRepositoryBase<TDto> where TDto : class
   {
     private MySqlConnection _mySqlConnection;
 
+    //public MySqlBaseRepository() : base("inventarisierungsloesunglfi") { }
     protected IDbConnection MySqlConnection
     {
       get
@@ -35,7 +39,7 @@ namespace MonitoringClient.Persistence.Base.Impl
       }
     }
 
-    public void Add(M entity)
+    public void Add(TDto entity)
     {
       throw new NotImplementedException();
     }
@@ -59,7 +63,7 @@ namespace MonitoringClient.Persistence.Base.Impl
       }
     }
 
-    public void Delete(M entity)
+    public void Delete(TDto entity)
     {
       throw new NotImplementedException();
     }
@@ -84,55 +88,68 @@ namespace MonitoringClient.Persistence.Base.Impl
       }
     }
 
-    public List<M> GetAll(string whereCondition, Dictionary<string, object> parameterValues)
+    public IQueryable<TDto> GetAll(string whereCondition, Dictionary<string, object> parameterValues)
     {
-      var allEntries = new List<M>();
-      using (IDbConnection conn = MySqlConnection)
+      using (var ctx = new LinqToDB.DataContext("inventarisierungsloesunglfi"))
       {
-        conn.Open();
+        var tables = ctx.GetTable<TDto>();
 
-        var statement = $"select * from {TableName} where {whereCondition}";
-        using (IDbCommand cmd = CreateCommand(MySqlConnection, CommandType.Text, statement))
-        {
-          using (IDataReader r = cmd.ExecuteReader())
-          {
-            while (r.Read())
-            {
-              M entity = CreateEntity(r);
-              allEntries.Add(entity);
-            }
-          }
-        }
+        return tables;
+
       }
 
-      return allEntries;
+      //var allEntries = new List<TDto>();
+      //using (IDbConnection conn = MySqlConnection)
+      //{
+      //  conn.Open();
+
+      //  var statement = $"select * from {TableName} where {whereCondition}";
+      //  using (IDbCommand cmd = CreateCommand(MySqlConnection, CommandType.Text, statement))
+      //  {
+      //    using (IDataReader r = cmd.ExecuteReader())
+      //    {
+      //      while (r.Read())
+      //      {
+      //        TDto entity = CreateEntity(r);
+      //        allEntries.Add(entity);
+      //      }
+      //    }
+      //  }
+      //}
+
+      //return allEntries;
     }
 
-    public List<M> GetAll()
+    public IQueryable<TDto> GetAll()
     {
-      var allEntries = new List<M>();
-      using (IDbConnection conn = MySqlConnection)
+      using (var ctx = new LinqToDB.DataContext("inventarisierungsloesunglfi"))
       {
-        conn.Open();
+        var tables = ctx.GetTable<TDto>();
 
-        var statement = $"select * from {TableName}";
-        using (IDbCommand cmd = CreateCommand(MySqlConnection, CommandType.Text, statement))
-        {
-          using (IDataReader r = cmd.ExecuteReader())
-          {
-            while (r.Read())
-            {
-              M entity = CreateEntity(r);
-              allEntries.Add(entity);
-            }
-          }
-        }
+        return tables;
+      //  var allEntries = new List<TDto>();
+      //using (IDbConnection conn = MySqlConnection)
+      //{
+      //  conn.Open();
+
+      //  var statement = $"select * from {TableName}";
+      //  using (IDbCommand cmd = CreateCommand(MySqlConnection, CommandType.Text, statement))
+      //  {
+      //    using (IDataReader r = cmd.ExecuteReader())
+      //    {
+      //      while (r.Read())
+      //      {
+      //        TDto entity = CreateEntity(r);
+      //        allEntries.Add(entity);
+      //      }
+      //    }
+      //  }
       }
 
-      return allEntries;
+      //return allEntries;
     }
 
-    public M GetSingle<P>(P pkValue)
+    public TDto GetSingle<P>(P pkValue)
     {
       using (IDbConnection conn = MySqlConnection)
       {
@@ -148,7 +165,7 @@ namespace MonitoringClient.Persistence.Base.Impl
           {
             while (r.Read())
             {
-              M entity = CreateEntity(r);
+              TDto entity = CreateEntity(r);
 
               return entity;
             }
@@ -159,14 +176,14 @@ namespace MonitoringClient.Persistence.Base.Impl
       throw new EntryPointNotFoundException();
     }
 
-    public IQueryable<M> Query(string whereCondition, Dictionary<string, object> parameterValues)
+    public IQueryable<TDto> Query(string whereCondition, Dictionary<string, object> parameterValues)
     {
       throw new NotImplementedException();
     }
 
     public abstract string TableName { get; }
 
-    public void Update(M entity)
+    public void Update(TDto entity)
     {
       throw new NotImplementedException();
     }
@@ -209,11 +226,16 @@ namespace MonitoringClient.Persistence.Base.Impl
       return command;
     }
 
-    protected abstract M CreateEntity(IDataReader r);
+    protected abstract TDto CreateEntity(IDataReader r);
 
     private string GetConnectionString()
     {
       return Settings.Default.ConnectionString;
+    }
+
+    IQueryable<TDto> IRepositoryBase<TDto>.GetAll()
+    {
+      throw new NotImplementedException();
     }
   }
 }
