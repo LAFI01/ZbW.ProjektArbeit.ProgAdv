@@ -77,6 +77,7 @@ namespace MonitoringClientTests.Persistence
       ILogEntryView logView = new LogEntryView();
 
       var logEnries = logView.GetAllLogEntries();
+
       Assert.IsTrue(logEnries.Count > 0);
     }
   }

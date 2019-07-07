@@ -25,8 +25,6 @@ namespace MonitoringClient.ViewModel
 
   public class MonitoringViewModel : BindableBase
   {
-    private string _connString;
-
     private List<IEntity> _logEntries;
 
     private IEntity _selectedEntity;
@@ -45,17 +43,6 @@ namespace MonitoringClient.ViewModel
     public DelegateCommand ConfirmCommand { get; set; }
 
     public DelegateCommand ConnectCommand { get; set; }
-
-
-    public string ContentTextBox
-    {
-      get { return _connString; }
-      set
-      {
-        SetProperty(ref _connString, value);
-        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
-      }
-    }
 
     public DelegateCommand DuplicatedCommand { get; set; }
 
@@ -160,7 +147,6 @@ namespace MonitoringClient.ViewModel
       LoadCommand = new DelegateCommand(OnCmdLoad, CanUseDb);
       DuplicatedCommand = new DelegateCommand(OnCmdDuplicatCheck, HasAnyLogEntries);
       LocationTreeCommand = new DelegateCommand(OnCmdNavigateToLocationView, HasAnyLogEntries);
-      ContentTextBox = "Server=localhost;Database=inventarisierungsloesunglfi;Uid=root;pwd=";
     }
 
     private void OnCmdAdd()
@@ -177,18 +163,18 @@ namespace MonitoringClient.ViewModel
 
     private void OnCmdConncet()
     {
-      //if (!LogEntryView.ConnectionTest())
-      //{
-      //  MessageBox.Show(
-      //    "It coud not connect to your database! Please check the Connection String in your app.config file");
-      //}
-      //else
-      //{
+      if (!LogEntryView.ConnectionTest())
+      {
+        MessageBox.Show(
+          "It coud not connect to your database! Please check the Connection String in your app.config file");
+      }
+      else
+      {
         IsDbConnect = true;
         AddCommand.RaiseCanExecuteChanged();
         LoadCommand.RaiseCanExecuteChanged();
         ConnectCommand.RaiseCanExecuteChanged();
-      //}
+      }
     }
 
     private void OnCmdDuplicatCheck()

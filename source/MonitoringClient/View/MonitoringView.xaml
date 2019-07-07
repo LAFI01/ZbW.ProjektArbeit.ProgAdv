@@ -27,19 +27,7 @@
     <StackPanel
       Grid.Row="1"
       Grid.Column="0"
-      Orientation="Horizontal">
-      <Label
-        Margin="5,0,0,0"
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center">
-        DB-Connection:
-      </Label>
-      <TextBox
-        Width="615"
-        VerticalAlignment="Center"
-        Text="{Binding ContentTextBox}" />
-
-    </StackPanel>
+      Orientation="Horizontal"/>
     <StackPanel
       Grid.Row="2"
       Grid.Column="1"
