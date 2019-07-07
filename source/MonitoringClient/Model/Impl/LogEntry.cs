@@ -1,8 +1,8 @@
 ﻿// ************************************************************************************
 // FileName: LogEntry.cs
 // Author: 
-// Created on: 11.05.2019
-// Last modified on: 26.05.2019
+// Created on: 01.06.2019
+// Last modified on: 06.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -15,7 +15,6 @@ namespace MonitoringClient.Model.Impl
   using LinqToDB.Mapping;
   using Prism.Mvvm;
 
-  [Table("log")]
   public class LogEntry : BindableBase, IEntity
   {
     private int _deviceId;
@@ -40,7 +39,7 @@ namespace MonitoringClient.Model.Impl
       Text = message;
       Severity = severity;
     }
-    [Column("device_id")]
+
     public int DeviceId
     {
       get { return _deviceId; }
@@ -51,7 +50,7 @@ namespace MonitoringClient.Model.Impl
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
-    [Column("hostname")]
+
     public string Hostname
     {
       get { return _hostename; }
@@ -63,9 +62,6 @@ namespace MonitoringClient.Model.Impl
       }
     }
 
-    [Column("id")]
-    [PrimaryKey]
-    [NotNull]
     public int Id
     {
       get { return _id; }
@@ -98,8 +94,7 @@ namespace MonitoringClient.Model.Impl
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
-    
-      [Column("serverity")]
+
     public string Severity
     {
       get { return _severity; }
@@ -111,7 +106,7 @@ namespace MonitoringClient.Model.Impl
       }
     }
 
-    [Column("message")]
+
     public string Text
     {
       get { return _message; }
@@ -123,7 +118,7 @@ namespace MonitoringClient.Model.Impl
       }
     }
 
-    [Column("time")]
+
     public DateTime Timestamp
     {
       get { return _timestamp; }

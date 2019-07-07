@@ -1,8 +1,8 @@
 ﻿// ************************************************************************************
 // FileName: IRepositoryBase.cs
 // Author: 
-// Created on: 01.06.2019
-// Last modified on: 09.06.2019
+// Created on: 09.06.2019
+// Last modified on: 07.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -10,18 +10,13 @@
 // ************************************************************************************
 namespace MonitoringClient.Persistence.Base
 {
-  using System.Collections.Generic;
-  using System.Data;
+  using System;
   using System.Linq;
-  using MySql.Data.MySqlClient;
+  using System.Linq.Expressions;
+  using LinqToDB.Data;
 
   public interface IRepositoryBase<M>
   {
-    /// <summary>
-    ///   Gibt den Tabellennamen zurück, auf die sich das Repository bezieht
-    /// </summary>
-    string TableName { get; }
-
     /// <summary>
     ///   Fügt das Model-Objekt zur Datenbank hinzu (Insert)
     /// </summary>
@@ -32,16 +27,12 @@ namespace MonitoringClient.Persistence.Base
     ///   Zählt in der Datenbank die Anzahl Model-Objekte vom Typ M, die der
     ///   Where-Bedingung entsprechen
     /// </summary>
-    /// <param name="whereCondition">
+    /// <param name="whereClause">
     ///   WhereBedingung als string
     ///   z.B. "NetPrice > @netPrice and Active = @active and Description like @desc
     /// </param>
-    /// <param name="parameterValues">
-    ///   Parameter-Werte für die Wherebedingung
-    ///   bspw: {{"netPrice", 10.5}, {"active", true}, {"desc", "Wolle%"}}
-    /// </param>
     /// <returns></returns>
-    long Count(string whereCondition, Dictionary<string, object> parameterValues);
+    long Count(Expression<Func<M, bool>> whereClause);
 
     /// <summary>
     ///   Zählt alle Model-Objekte vom Typ M
@@ -56,37 +47,24 @@ namespace MonitoringClient.Persistence.Base
     void Delete(M entity);
 
     /// <summary>
-    ///   Hier wird ein Store Procedure ausgeführt. Ess muss eine Liste von Input Keys mitgegeben werden, sowie dazugehörigen
-    ///   Parameter.
+    ///   Hier wird ein Store Procedure ausgeführt. Es muss eine Liste von Daten Parameter mitgegeben werden, sowie
+    ///   dazugehörigen
+    ///   Store Procedure name.
     /// </summary>
-    /// <param name="procedureName">
+    /// <param name="storeProcedureName">
     ///   Name des Store Procedure
     /// </param>
-    /// <param name="mySqlParameters">
-    ///   Input Parameter-Werte für das Store Procedure
+    /// <param name="dataParameters">
+    ///   Parameter-Werte für das Store Procedure
     /// </param>
-    /// <param name="dbTypes">
-    ///   Liste von Dbtypes von den Paramter Werten
-    /// </param>
-    void ExecuteStoreProcedur(string procedureName, List<MySqlParameter> mySqlParameters, List<DbType> dbTypes);
+    void ExecuteStoreProcedur(string storeProcedureName, DataParameter[] dataParameters);
 
     /// <summary>
-    ///   Gibt eine Liste von Model-Objekten vom Typ M zurück,
-    ///   die gemäss der WhereBedingung geladen wurden. Die Werte der
-    ///   Where-Bedingung können als separat übergeben werden,
-    ///   damit diese für PreparedStatements verwendet werden können.
-    ///   (Verhinderung von SQL-Injection)
+    ///   Liefert ein Liste von Entries, welche der where clause entsprechen
     /// </summary>
-    /// <param name="whereCondition">
-    ///   WhereBedingung als string
-    ///   z.B. "NetPrice > @netPrice and Active = @active and Description like @desc
-    /// </param>
-    /// <param name="parameterValues">
-    ///   Parameter-Werte für die Wherebedingung
-    ///   bspw: {{"netPrice", 10.5}, {"active", true}, {"desc", "Wolle%"}}
-    /// </param>
-    /// <returns></returns>
-    IQueryable<M> GetAll(string whereCondition, Dictionary<string, object> parameterValues);
+    /// <param name="whereClause">WhereClausey</param>
+    /// <returns>gefundenes Model-Objekt, ansonsten null</returns>
+    IQueryable<M> GetAll(Expression<Func<M, bool>> whereClause);
 
     /// <summary>
     ///   Gibt eine Liste aller in der DB vorhandenen Model-Objekte vom Typ M zurück
@@ -103,7 +81,12 @@ namespace MonitoringClient.Persistence.Base
     /// <returns>gefundenes Model-Objekt, ansonsten null</returns>
     M GetSingle<P>(P pkValue);
 
-    IQueryable<M> Query(string whereCondition, Dictionary<string, object> parameterValues);
+    /// <summary>
+    ///   Liefert ein Liste von Entries, welche der where clause entsprechen
+    /// </summary>
+    /// <param name="whereClause">WhereClausey</param>
+    /// <returns>gefundenes Model-Objekt, ansonsten null</returns>
+    IQueryable<M> Query(Expression<Func<M, bool>> whereClause);
 
     /// <summary>
     ///   Aktualisiert das Model-Objekt in der Datenbank hinzu (Update)

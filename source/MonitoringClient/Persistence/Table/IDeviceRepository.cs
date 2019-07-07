@@ -21,6 +21,5 @@ namespace MonitoringClient.Persistence.Table
 
     List<IDevice> GetDevices();
 
-    void SetConnectionString(string connString);
   }
 }

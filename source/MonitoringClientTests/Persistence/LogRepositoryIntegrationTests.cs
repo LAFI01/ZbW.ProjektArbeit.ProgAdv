@@ -2,7 +2,7 @@
 // FileName: LogRepositoryIntegrationTests.cs
 // Author: 
 // Created on: 12.05.2019
-// Last modified on: 22.06.2019
+// Last modified on: 07.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -21,8 +21,6 @@ namespace MonitoringClientTests.Persistence
   [TestFixture]
   public class LogRepositoryIntegrationTests
   {
-    private const string ConnString = "Server=localhost;Database=inventarisierungsloesunglfi;Uid=root;Pwd=halo1velo;";
-
     private IEntity CreateNewLogEntry(int deviceId)
     {
       IEntity entity = new LogEntry("PC1", "ErrorMessage", "Error");
@@ -35,7 +33,6 @@ namespace MonitoringClientTests.Persistence
     public void AddLogEntry_AddNewLogEntry_LogEntryIsInDbAdded()
     {
       ILogRepository logRepo = new LogRepository();
-      logRepo.SetConnectionString(ConnString);
       ILogEntryView logView = new LogEntryView();
 
       var logEnriesCountBeforeAdd = logView.GetAllLogEntries().Count;
@@ -51,7 +48,6 @@ namespace MonitoringClientTests.Persistence
     public void ClearLogEntriy_QuitOneLogEntry_LogEntriesListShouldBeSamller()
     {
       ILogRepository logRepo = new LogRepository();
-      logRepo.SetConnectionString(ConnString);
       ILogEntryView logView = new LogEntryView();
 
       IEntity newEntity = CreateNewLogEntry(3);
@@ -69,8 +65,9 @@ namespace MonitoringClientTests.Persistence
     public void GetAllHostname_LoadAllHostnames_GetAListOfAllHostname()
     {
       IDeviceRepository deviceRepo = new DeviceRepository();
-      deviceRepo.SetConnectionString(ConnString);
+
       var deviceEntries = deviceRepo.GetDevices();
+
       Assert.IsTrue(deviceEntries.Count > 0);
     }
 
@@ -78,7 +75,6 @@ namespace MonitoringClientTests.Persistence
     public void GetAllLogEntries_LoadAllLogEntries_GetAListOfAllLogEntries()
     {
       ILogEntryView logView = new LogEntryView();
-      logView.SetConnectionString(ConnString);
 
       var logEnries = logView.GetAllLogEntries();
       Assert.IsTrue(logEnries.Count > 0);

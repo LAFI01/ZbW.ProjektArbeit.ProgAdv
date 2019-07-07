@@ -2,7 +2,7 @@
 // FileName: MonitoringViewModel.cs
 // Author: 
 // Created on: 11.05.2019
-// Last modified on: 22.06.2019
+// Last modified on: 07.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -11,14 +11,10 @@
 namespace MonitoringClient.ViewModel
 {
   using System.Collections.Generic;
-  using System.Collections.Specialized;
-  using System.Configuration;
   using System.Linq;
   using System.Reflection;
   using System.Windows;
   using DuplicateCheckerLib;
-  using LinqToDB.Data;
-  using Persistence.Configuration;
   using Persistence.Table;
   using Persistence.Table.Impl;
   using Persistence.View;
@@ -29,8 +25,6 @@ namespace MonitoringClient.ViewModel
 
   public class MonitoringViewModel : BindableBase
   {
-    private const int MaxLengthOfConnectionString = 100;
-
     private string _connString;
 
     private List<IEntity> _logEntries;
@@ -183,36 +177,18 @@ namespace MonitoringClient.ViewModel
 
     private void OnCmdConncet()
     {
-      var inputConnectionString = ContentTextBox;
-      if (inputConnectionString != null && inputConnectionString.Length < MaxLengthOfConnectionString)
-      {
-        DataConnection.DefaultSettings = new MySettings();
-        //System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-        //var tt = System.Configuration.ConfigurationManager.ConnectionStrings["CharityManagement"];
-        //var hh = ConfigurationManager.ConnectionStrings["inventarisierungsloesunglfi"];
-        //var ff = config.ConnectionStrings.ConnectionStrings["CharityManagement"];
-        //config.ConnectionStrings.ConnectionStrings["inventarisierungsloesunglfi"].ConnectionString = ContentTextBox;
-        //config.Save(ConfigurationSaveMode.Modified);
-        //ConfigurationManager.RefreshSection(config.ConnectionStrings.SectionInformation.Name);
-        //Properties.Settings.Default.Reload();
-
-        LogEntryView.SetConnectionString(inputConnectionString);
-        if (!LogEntryView.ConnectionTest())
-        {
-          MessageBox.Show("It coud not connect to your database!");
-        }
-        else
-        {
-          IsDbConnect = true;
-          AddCommand.RaiseCanExecuteChanged();
-          LoadCommand.RaiseCanExecuteChanged();
-          ConnectCommand.RaiseCanExecuteChanged();
-        }
-      }
-      else
-      {
-        MessageBox.Show("Your input connection string is not correct");
-      }
+      //if (!LogEntryView.ConnectionTest())
+      //{
+      //  MessageBox.Show(
+      //    "It coud not connect to your database! Please check the Connection String in your app.config file");
+      //}
+      //else
+      //{
+        IsDbConnect = true;
+        AddCommand.RaiseCanExecuteChanged();
+        LoadCommand.RaiseCanExecuteChanged();
+        ConnectCommand.RaiseCanExecuteChanged();
+      //}
     }
 
     private void OnCmdDuplicatCheck()

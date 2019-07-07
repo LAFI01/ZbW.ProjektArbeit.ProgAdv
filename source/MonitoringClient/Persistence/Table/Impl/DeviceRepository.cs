@@ -2,7 +2,7 @@
 // FileName: DeviceRepository.cs
 // Author: 
 // Created on: 09.06.2019
-// Last modified on: 22.06.2019
+// Last modified on: 07.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -11,61 +11,43 @@
 namespace MonitoringClient.Persistence.Table.Impl
 {
   using System.Collections.Generic;
-  using System.Data;
+  using System.Linq;
   using Base.Impl;
+  using DbDtos;
   using Model;
   using Model.Impl;
 
-  public class DeviceRepository : MySqlBaseRepository<IDevice>, IDeviceRepository
+  public class DeviceRepository : MySqlBaseRepository<DeviceDto, int>, IDeviceRepository
   {
-    public override string TableName
-    {
-      get { return "Device"; }
-    }
-
     public List<string> GetDeviceHostname()
     {
-      var devices = GetDevices();
-      var hostname = new List<string>();
-      foreach (IDevice d in devices)
-      {
-        hostname.Add(d.Hostname);
-      }
+      var deviceDtos = GetAll();
+      var deviceHostname = deviceDtos.Select(d => d.Hostname).ToList();
 
-      return hostname;
+      return deviceHostname;
     }
 
     public List<int> GetDeviceIds()
     {
-      var devices = GetDevices();
-      var ids = new List<int>();
-      foreach (IDevice d in devices)
-      {
-        ids.Add(d.Id);
-      }
+      var deviceDtos = GetAll();
+      var deviceIds = deviceDtos.Select(d => d.Id).ToList();
 
-      return ids;
+      return deviceIds;
     }
-
 
     public List<IDevice> GetDevices()
     {
-      var allDevices = GetAll();
+      var deviceDtos = GetAll();
+      var devices = deviceDtos.Select(d => (IDevice) new Device
+      {
+        Categorie = d.Categorie,
+        Fk_LocationId = d.Fk_LocationId,
+        Hostname = d.Hostname,
+        Id = d.Id,
+        Ip_Address = d.Ip_Address
+      }).ToList();
 
-      return null;
-    }
-
-    protected override IDevice CreateEntity(IDataReader r)
-    {
-      Device entity =
-        new Device();
-      entity.Id = r.GetInt32(0);
-      entity.Hostname = r.GetString(1);
-      entity.Ip_Address = r.GetString(2);
-      entity.Categorie = r.GetString(3);
-      entity.Fk_LocationId = r.GetInt32(4);
-
-      return entity;
+      return devices;
     }
   }
 }

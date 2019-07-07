@@ -2,7 +2,7 @@
 // FileName: LogEntryView.cs
 // Author: 
 // Created on: 09.06.2019
-// Last modified on: 22.06.2019
+// Last modified on: 07.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -11,38 +11,27 @@
 namespace MonitoringClient.Persistence.View.Impl
 {
   using System.Collections.Generic;
-  using System.Data;
+  using System.Linq;
   using Base.Impl;
+  using DbDtos;
   using Model;
   using Model.Impl;
   using Utilities;
 
-  public class LogEntryView : MySqlBaseRepository<IEntity>, ILogEntryView
+  public class LogEntryView : MySqlBaseRepository<ViewLogEntryDto, int>, ILogEntryView
   {
-    public override string TableName
-    {
-      get { return "v_logentries"; }
-    }
-
-
     public List<IEntity> GetAllLogEntries()
     {
-      var allLogEntries = GetAll();
+      var viewLogentries = GetAll();
+      var logentries = viewLogentries.Select(e => (IEntity) new LogEntry(e.Hostname, e.Text, Mapper.MapSeverityToString(e.Severity))
+      {
+        Id = e.Id,
+        Pod = e.Pod,
+        Location = e.Location,
+        Timestamp = e.Timestamp
+      }).ToList();
 
-      return null;
-    }
-
-
-    protected override IEntity CreateEntity(IDataReader r)
-    {
-      LogEntry entity =
-        new LogEntry(r.GetString(3), r.GetString(6), Mapper.MapSeverityToString(r.GetInt32(4)));
-      entity.Id = r.GetInt32(0);
-      entity.Pod = r.GetString(1);
-      entity.Location = r.GetString(2);
-      entity.Timestamp = r.GetDateTime(5);
-
-      return entity;
+      return logentries;
     }
   }
 }

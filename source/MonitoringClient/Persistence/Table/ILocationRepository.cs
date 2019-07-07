@@ -2,7 +2,7 @@
 // FileName: ILocationRepository.cs
 // Author: 
 // Created on: 09.06.2019
-// Last modified on: 22.06.2019
+// Last modified on: 06.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -19,6 +19,5 @@ namespace MonitoringClient.Persistence.Table
 
     List<ILocation> GetLocationsHierarchical();
 
-    void SetConnectionString(string connString);
   }
 }

@@ -1,22 +1,17 @@
 ﻿// ************************************************************************************
-// FileName: ILogRepository.cs
+// FileName: DtoBase.cs
 // Author: 
-// Created on: 09.06.2019
-// Last modified on: 22.06.2019
+// Created on: 07.07.2019
+// Last modified on: 07.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
 // ------------------------------------------------------------------------------------
 // ************************************************************************************
-namespace MonitoringClient.Persistence.Table
+namespace MonitoringClient.Persistence.DbDtos
 {
-  using Model;
-
-  public interface ILogRepository
+  public abstract class DtoBase<TId>
   {
-    void AddLogEntry(IEntity entity);
-
-    void ClearLogEntry(IEntity entity);
-
+    public abstract TId Id { get; set; }
   }
 }

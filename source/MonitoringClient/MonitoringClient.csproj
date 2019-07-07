@@ -93,6 +93,11 @@
     <Compile Include="Model\Impl\Location.cs" />
     <Compile Include="Persistence\Configuration\ConnectionStringSettings.cs" />
     <Compile Include="Persistence\Configuration\MySettings.cs" />
+    <Compile Include="Persistence\DbDtos\DeviceDto.cs" />
+    <Compile Include="Persistence\DbDtos\DtoBase.cs" />
+    <Compile Include="Persistence\DbDtos\LocationDto.cs" />
+    <Compile Include="Persistence\DbDtos\LogDto.cs" />
+    <Compile Include="Persistence\DbDtos\ViewLogEntryDto.cs" />
     <Compile Include="Persistence\Table\IDeviceRepository.cs" />
     <Compile Include="Persistence\Table\ILocationRepository.cs" />
     <Compile Include="Persistence\Table\ILogRepository.cs" />
@@ -196,5 +201,6 @@
   <ItemGroup>
     <Resource Include="Icons\locationTree.PNG" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

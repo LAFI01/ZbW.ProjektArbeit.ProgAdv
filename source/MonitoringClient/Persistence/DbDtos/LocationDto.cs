@@ -1,37 +1,36 @@
 ﻿// ************************************************************************************
-// FileName: Location.cs
+// FileName: LocationDto.cs
 // Author: 
-// Created on: 01.06.2019
-// Last modified on: 06.07.2019
+// Created on: 06.07.2019
+// Last modified on: 07.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
 // ------------------------------------------------------------------------------------
 // ************************************************************************************
-namespace MonitoringClient.Model.Impl
+namespace MonitoringClient.Persistence.DbDtos
 {
-  using System.Collections.Generic;
+  using LinqToDB.Mapping;
 
-  public class Location : ILocation
+  [Table("location")]
+  public class LocationDto : DtoBase<int>
   {
-    public Location()
-    {
-      Childs = new List<ILocation>();
-    }
-
+    [Column("building")]
     public string Building { get; set; }
 
-    public List<ILocation> Childs { get; set; }
 
+    [Column("address_id")]
     public int Fk_Address { get; set; }
 
+    [Column("id")]
+    [PrimaryKey]
+    [NotNull]
+    public override int Id { get; set; }
 
-    public int Id { get; set; }
-
-    public List<ILocation> Locations { get; set; }
-
+    [Column("name")]
     public string Name { get; set; }
 
+    [Column("parentId")]
     public int ParentId { get; set; }
   }
 }

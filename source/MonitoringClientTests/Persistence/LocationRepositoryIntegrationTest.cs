@@ -2,7 +2,7 @@
 // FileName: LocationRepositoryIntegrationTest.cs
 // Author: 
 // Created on: 22.06.2019
-// Last modified on: 22.06.2019
+// Last modified on: 07.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -11,8 +11,6 @@
 namespace MonitoringClientTests.Persistence
 {
   using System.Linq;
-  using LinqToDB.Data;
-  using MonitoringClient.Persistence.Configuration;
   using MonitoringClient.Persistence.Table;
   using MonitoringClient.Persistence.Table.Impl;
   using NUnit.Framework;
@@ -20,14 +18,21 @@ namespace MonitoringClientTests.Persistence
   [TestFixture]
   public class LocationRepositoryIntegrationTest
   {
-    private const string ConnString = "Server=localhost;Database=inventarisierungsloesunglfi;Uid=root;Pwd=halo1velo;";
+    [Test]
+    public void GetAllLocation_GetAllLocations_CheckSuccess()
+    {
+      ILocationRepository logRepo = new LocationRepository();
+
+      var locationWithChilds = logRepo.GetAllLocation();
+
+      Assert.IsTrue(locationWithChilds.Any());
+    }
 
     [Test]
     public void GetLocationsHierarchical_GetAllLocationWithThereChilds_CheckSuccess()
     {
       ILocationRepository logRepo = new LocationRepository();
-      //logRepo.SetConnectionString(ConnString);
-      DataConnection.DefaultSettings = new MySettings();
+
       var locationWithChilds = logRepo.GetLocationsHierarchical();
 
       Assert.IsTrue(locationWithChilds.Any());

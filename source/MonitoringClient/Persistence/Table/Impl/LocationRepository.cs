@@ -2,7 +2,7 @@
 // FileName: LocationRepository.cs
 // Author: 
 // Created on: 09.06.2019
-// Last modified on: 22.06.2019
+// Last modified on: 06.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -11,43 +11,35 @@
 namespace MonitoringClient.Persistence.Table.Impl
 {
   using System.Collections.Generic;
-  using System.Data;
+  using System.Linq;
   using Base.Impl;
+  using DbDtos;
   using Model;
   using Model.Impl;
 
-  public class LocationRepository : MySqlBaseRepository<ILocation>, ILocationRepository
+  public class LocationRepository : MySqlBaseRepository<LocationDto, int>, ILocationRepository
   {
-    public override string TableName
-    {
-      get { return "Location"; }
-    }
-
     public List<ILocation> GetAllLocation()
     {
-      //return GetAll();
-      return null;
+      var locationDtos = GetAll();
+      var locations = locationDtos.Select(l => (ILocation) new Location
+      {
+        Building = l.Building,
+        Fk_Address = l.Fk_Address,
+        Id = l.Id,
+        Name = l.Name,
+        ParentId = l.ParentId
+      }).ToList();
+
+      return locations;
     }
 
     public List<ILocation> GetLocationsHierarchical()
     {
-      var allLocations = GetAll();
-      var hirachicalTree = CreateHirachicalTree(null);
+      var locations = GetAllLocation();
+      var hirachicalTree = CreateHirachicalTree(locations);
+
       return hirachicalTree;
-    }
-
-
-    protected override ILocation CreateEntity(IDataReader r)
-    {
-      Location entity =
-        new Location();
-      entity.Id = r.GetInt32(0);
-      entity.Name = r.GetString(1);
-      entity.Fk_Address = r.GetInt32(2);
-      entity.Building = r.GetString(3);
-      entity.ParentId = r.GetInt32(4);
-
-      return entity;
     }
 
     private List<ILocation> CreateHirachicalTree(List<ILocation> locations)

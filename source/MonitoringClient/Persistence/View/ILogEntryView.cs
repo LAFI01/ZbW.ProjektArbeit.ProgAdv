@@ -19,6 +19,5 @@ namespace MonitoringClient.Persistence.View
 
     List<IEntity> GetAllLogEntries();
 
-    void SetConnectionString(string connString);
   }
 }
