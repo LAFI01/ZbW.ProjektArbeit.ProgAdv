@@ -9,7 +9,7 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:viewModel="clr-namespace:MonitoringClient.ViewModel"
   xmlns:visualBasic="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic"
-  d:DesignHeight="450"
+  d:DesignHeight="500"
   d:DesignWidth="850"
   mc:Ignorable="d">
 
@@ -20,14 +20,14 @@
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition Height="0.05*" />
-      <RowDefinition Height="0.1*" />
+      <RowDefinition Height="0.05*" />
       <RowDefinition Height="0.5*" />
       <RowDefinition Height="0.05*" />
     </Grid.RowDefinitions>
     <StackPanel
       Grid.Row="1"
       Grid.Column="0"
-      Orientation="Horizontal"/>
+      Orientation="Horizontal" />
     <StackPanel
       Grid.Row="2"
       Grid.Column="1"
@@ -184,6 +184,33 @@
             UseLayoutRounding="False" />
           <TextBlock Margin="5,5,5,5" FontSize="14">
             L-Tree
+          </TextBlock>
+        </StackPanel>
+      </Button>
+      <Button
+        Name="customerBtn"
+        Width="120"
+        Margin="15,0,5,15"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Background="#FFFFFBFB"
+        BorderThickness="0"
+        Command="{Binding CustomerCommand}"
+        FontSize="14"
+        TabIndex="2"
+        ToolTip="Show Customer List">
+        <StackPanel Width="89" Orientation="Horizontal">
+          <Image
+            Width="15"
+            Height="15"
+            Margin="5,5,5,5"
+            HorizontalAlignment="Left"
+            Opacity="0.5"
+            Source="../Icons/customer.PNG"
+            Stretch="Fill"
+            UseLayoutRounding="False" />
+          <TextBlock Margin="5,5,5,5" FontSize="14">
+            Customer
           </TextBlock>
         </StackPanel>
       </Button>

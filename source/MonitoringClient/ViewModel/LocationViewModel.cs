@@ -66,7 +66,6 @@ namespace MonitoringClient.ViewModel
     {
       MainUserControlViewModel mainUserControl = MainUserControlViewModel.GetInstance();
       mainUserControl.LocationVisibility = Visibility.Collapsed;
-      mainUserControl.AddLogEntryVisibility = Visibility.Collapsed;
       mainUserControl.MonitoringVisibility = Visibility.Visible;
     }
   }

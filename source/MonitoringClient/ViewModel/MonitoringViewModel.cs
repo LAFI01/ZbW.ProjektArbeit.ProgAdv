@@ -2,7 +2,7 @@
 // FileName: MonitoringViewModel.cs
 // Author: 
 // Created on: 11.05.2019
-// Last modified on: 07.07.2019
+// Last modified on: 22.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -37,12 +37,13 @@ namespace MonitoringClient.ViewModel
       InitalViewModel();
     }
 
-
     public DelegateCommand AddCommand { get; set; }
 
     public DelegateCommand ConfirmCommand { get; set; }
 
     public DelegateCommand ConnectCommand { get; set; }
+
+    public DelegateCommand CustomerCommand { get; set; }
 
     public DelegateCommand DuplicatedCommand { get; set; }
 
@@ -97,12 +98,6 @@ namespace MonitoringClient.ViewModel
       return Instance;
     }
 
-    public void NavigateToLogView()
-    {
-      MainUserControl.AddLogEntryVisibility = Visibility.Visible;
-      MainUserControl.MonitoringVisibility = Visibility.Collapsed;
-      MainUserControl.LocationVisibility = Visibility.Collapsed;
-    }
 
     public void OnCmdLoad()
     {
@@ -112,13 +107,21 @@ namespace MonitoringClient.ViewModel
       LocationTreeCommand.RaiseCanExecuteChanged();
     }
 
+
+    public void OnCmdNavigateToCustomerView()
+    {
+      //CustomerViewModel.GetInstance();
+      MainUserControl.MonitoringVisibility = Visibility.Collapsed;
+      MainUserControl.CustomerVisibility = Visibility.Visible;
+    }
+
     public void OnCmdNavigateToLocationView()
     {
       LocationViewModel.GetInstance().LoadLocationTree();
-      MainUserControl.AddLogEntryVisibility = Visibility.Collapsed;
       MainUserControl.MonitoringVisibility = Visibility.Collapsed;
       MainUserControl.LocationVisibility = Visibility.Visible;
     }
+
 
     public void RefreshLogEntries()
     {
@@ -141,18 +144,20 @@ namespace MonitoringClient.ViewModel
     private void InitalViewModel()
     {
       LogEntries = new List<IEntity>();
-      ConnectCommand = new DelegateCommand(OnCmdConncet, CanConnectToDb);
+      ConnectCommand = new DelegateCommand(OnCmdConnect, CanConnectToDb);
       AddCommand = new DelegateCommand(OnCmdAdd, CanUseDb);
       ConfirmCommand = new DelegateCommand(OnCmdConfirm, HasAnyLogEntries);
       LoadCommand = new DelegateCommand(OnCmdLoad, CanUseDb);
       DuplicatedCommand = new DelegateCommand(OnCmdDuplicatCheck, HasAnyLogEntries);
       LocationTreeCommand = new DelegateCommand(OnCmdNavigateToLocationView, HasAnyLogEntries);
+      CustomerCommand = new DelegateCommand(OnCmdNavigateToCustomerView, CanUseDb);
     }
 
     private void OnCmdAdd()
     {
       AddLogEntryViewModel.GetInstance().FillComboboxen();
-      NavigateToLogView();
+      MainUserControl.AddLogEntryVisibility = Visibility.Visible;
+      MainUserControl.MonitoringVisibility = Visibility.Collapsed;
     }
 
     private void OnCmdConfirm()
@@ -161,7 +166,7 @@ namespace MonitoringClient.ViewModel
       RefreshLogEntries();
     }
 
-    private void OnCmdConncet()
+    private void OnCmdConnect()
     {
       if (!LogEntryView.ConnectionTest())
       {
@@ -174,6 +179,7 @@ namespace MonitoringClient.ViewModel
         AddCommand.RaiseCanExecuteChanged();
         LoadCommand.RaiseCanExecuteChanged();
         ConnectCommand.RaiseCanExecuteChanged();
+        CustomerCommand.RaiseCanExecuteChanged();
       }
     }
 

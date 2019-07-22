@@ -5,7 +5,7 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:local="clr-namespace:MonitoringClient.View"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-  d:DesignHeight="450"
+  d:DesignHeight="500"
   d:DesignWidth="800"
   mc:Ignorable="d">
 
@@ -13,5 +13,7 @@
     <local:MonitoringView x:Name="LoggerView" Visibility="{Binding DataContext.MonitoringVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
     <local:AddLogEntryView x:Name="AddLogView" Visibility="{Binding DataContext.AddLogEntryVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
     <local:LocationView x:Name="LocationView" Visibility="{Binding DataContext.LocationVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
+    <local:CustomerView x:Name="CustomerView" Visibility="{Binding DataContext.CustomerVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
+    <local:CustomerView x:Name="CustomerDetailView" Visibility="{Binding DataContext.CustomerDetailVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
   </Grid>
 </UserControl>
