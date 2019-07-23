@@ -1,8 +1,8 @@
 ﻿// ************************************************************************************
 // FileName: LogRepositoryIntegrationTests.cs
 // Author: 
-// Created on: 12.05.2019
-// Last modified on: 07.07.2019
+// Created on: 23.07.2019
+// Last modified on: 23.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -10,26 +10,18 @@
 // ************************************************************************************
 namespace MonitoringClientTests.Persistence
 {
+  using Microsoft.VisualStudio.TestTools.UnitTesting;
   using MonitoringClient.Model;
   using MonitoringClient.Model.Impl;
   using MonitoringClient.Persistence.Table;
   using MonitoringClient.Persistence.Table.Impl;
   using MonitoringClient.Persistence.View;
   using MonitoringClient.Persistence.View.Impl;
-  using NUnit.Framework;
 
-  [TestFixture]
+  [TestClass]
   public class LogRepositoryIntegrationTests
   {
-    private IEntity CreateNewLogEntry(int deviceId)
-    {
-      IEntity entity = new LogEntry("PC1", "ErrorMessage", "Error");
-      entity.DeviceId = deviceId;
-
-      return entity;
-    }
-
-    [Test]
+    [TestMethod]
     public void AddLogEntry_AddNewLogEntry_LogEntryIsInDbAdded()
     {
       ILogRepository logRepo = new LogRepository();
@@ -44,7 +36,7 @@ namespace MonitoringClientTests.Persistence
       Assert.IsTrue(logEnriesCountBeforeAdd < logEntriesCountAfterAdd);
     }
 
-    [Test]
+    [TestMethod]
     public void ClearLogEntriy_QuitOneLogEntry_LogEntriesListShouldBeSamller()
     {
       ILogRepository logRepo = new LogRepository();
@@ -61,7 +53,7 @@ namespace MonitoringClientTests.Persistence
       Assert.IsTrue(logEnriesCountAfterClear < logEnriesCountAfterAdd);
     }
 
-    [Test]
+    [TestMethod]
     public void GetAllHostname_LoadAllHostnames_GetAListOfAllHostname()
     {
       IDeviceRepository deviceRepo = new DeviceRepository();
@@ -71,7 +63,7 @@ namespace MonitoringClientTests.Persistence
       Assert.IsTrue(deviceEntries.Count > 0);
     }
 
-    [Test]
+    [TestMethod]
     public void GetAllLogEntries_LoadAllLogEntries_GetAListOfAllLogEntries()
     {
       ILogEntryView logView = new LogEntryView();
@@ -79,6 +71,14 @@ namespace MonitoringClientTests.Persistence
       var logEnries = logView.GetAllLogEntries();
 
       Assert.IsTrue(logEnries.Count > 0);
+    }
+
+    private IEntity CreateNewLogEntry(int deviceId)
+    {
+      IEntity entity = new LogEntry("PC1", "ErrorMessage", "Error");
+      entity.DeviceId = deviceId;
+
+      return entity;
     }
   }
 }

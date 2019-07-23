@@ -1,5 +1,5 @@
 ﻿// ************************************************************************************
-// FileName: EncryptTests.cs
+// FileName: EncryptIntegrationTests.cs
 // Author: 
 // Created on: 23.07.2019
 // Last modified on: 23.07.2019
@@ -10,20 +10,31 @@
 // ************************************************************************************
 namespace MonitoringClientTests.Utilities
 {
+  using Microsoft.VisualStudio.TestTools.UnitTesting;
   using MonitoringClient.Utilities;
-  using NUnit.Framework;
 
-  [TestFixture]
-  public class EncryptTests
+  [TestClass]
+  public class EncryptIntegrationTests
   {
-    [Test]
+    [TestMethod]
     public void Encrypt_EncryptAnString_CheckSuccess()
     {
       var password = "ichwerdeverschluesselt";
 
-      var encryptedPassword = Encryption.Encrypt(password);
+      string encryptedPassword = Encryption.Encrypt(password);
 
       Assert.AreNotEqual(encryptedPassword, password);
+    }
+
+    [TestMethod]
+    public void Dencrypt_DencryptAnString_CheckSuccess()
+    {
+      var password = "ichwerdeverschluesselt";
+      var encryptedPassword = Encryption.Encrypt(password);
+
+      var decryptPassword = Encryption.Decrypt(encryptedPassword);
+
+      Assert.AreEqual(decryptPassword, password);
     }
   }
 }

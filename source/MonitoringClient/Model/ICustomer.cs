@@ -1,5 +1,5 @@
 ﻿// ************************************************************************************
-// FileName: ICustomerRepository.cs
+// FileName: ICustomer.cs
 // Author: 
 // Created on: 23.07.2019
 // Last modified on: 23.07.2019
@@ -8,19 +8,32 @@
 // Description: 
 // ------------------------------------------------------------------------------------
 // ************************************************************************************
-namespace MonitoringClient.Persistence.Table
+namespace MonitoringClient.Model
 {
-  using System.Collections.Generic;
-  using Model;
-
-  public interface ICustomerRepository
+  public interface ICustomer
   {
-    void AddCustomer(ICustomer customer);
+    string CustomerNumber { get; set; }
 
-    void DeleteCustomer(ICustomer customer);
+    string Email { get; set; }
 
-    List<ICustomer> GetAllCustomer();
 
-    void UpdateCustomer(ICustomer customer);
+    string Firstname { get; set; }
+
+
+    int Fk_AddressId { get; set; }
+
+
+    int Id { get; set; }
+
+
+    string Lastname { get; set; }
+
+
+    string Password { get; set; }
+
+
+    string Phone { get; set; }
+
+    string Website { get; set; }
   }
 }

@@ -22,7 +22,7 @@ namespace MonitoringClient.Persistence.Base.Impl
   {
     protected const string RepositoryName = "inventarisierungsloesunglfi";
 
-    public MySqlBaseRepository() : base(RepositoryName)
+    protected MySqlBaseRepository() : base(RepositoryName)
     {
     }
 

@@ -2,7 +2,7 @@
 // FileName: LocationRepository.cs
 // Author: 
 // Created on: 09.06.2019
-// Last modified on: 06.07.2019
+// Last modified on: 23.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -22,14 +22,7 @@ namespace MonitoringClient.Persistence.Table.Impl
     public List<ILocation> GetAllLocation()
     {
       var locationDtos = GetAll();
-      var locations = locationDtos.Select(l => (ILocation) new Location
-      {
-        Building = l.Building,
-        Fk_Address = l.Fk_Address,
-        Id = l.Id,
-        Name = l.Name,
-        ParentId = l.ParentId
-      }).ToList();
+      var locations = locationDtos.Select(l => LocationDtoToLocation(l)).ToList();
 
       return locations;
     }
@@ -73,6 +66,20 @@ namespace MonitoringClient.Persistence.Table.Impl
           CreateNode(node.Childs, child);
         }
       }
+    }
+
+    private ILocation LocationDtoToLocation(LocationDto l)
+    {
+      Location location = new Location
+      {
+        Building = l.Building,
+        Fk_Address = l.Fk_Address,
+        Id = l.Id,
+        Name = l.Name,
+        ParentId = l.ParentId
+      };
+
+      return location;
     }
   }
 }

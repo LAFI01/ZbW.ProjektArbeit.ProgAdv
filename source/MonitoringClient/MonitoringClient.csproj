@@ -106,8 +106,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\ICustomer.cs" />
     <Compile Include="Model\IDevice.cs" />
     <Compile Include="Model\ILocation.cs" />
+    <Compile Include="Model\Impl\Customer.cs" />
     <Compile Include="Model\Impl\Device.cs" />
     <Compile Include="Model\Impl\Location.cs" />
     <Compile Include="Persistence\DbDtos\CustomerDto.cs" />

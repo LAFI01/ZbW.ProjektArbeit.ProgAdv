@@ -2,7 +2,7 @@
 // FileName: DeviceRepository.cs
 // Author: 
 // Created on: 09.06.2019
-// Last modified on: 07.07.2019
+// Last modified on: 23.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -38,16 +38,23 @@ namespace MonitoringClient.Persistence.Table.Impl
     public List<IDevice> GetDevices()
     {
       var deviceDtos = GetAll();
-      var devices = deviceDtos.Select(d => (IDevice) new Device
+      var devices = deviceDtos.Select(d => DeviceDtoToDevice(d)).ToList();
+
+      return devices;
+    }
+
+    private IDevice DeviceDtoToDevice(DeviceDto d)
+    {
+      Device device = new Device
       {
         Categorie = d.Categorie,
         Fk_LocationId = d.Fk_LocationId,
         Hostname = d.Hostname,
         Id = d.Id,
         Ip_Address = d.Ip_Address
-      }).ToList();
+      };
 
-      return devices;
+      return device;
     }
   }
 }

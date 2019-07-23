@@ -1,5 +1,5 @@
 ﻿// ************************************************************************************
-// FileName: CustomerDto.cs
+// FileName: Customer.cs
 // Author: 
 // Created on: 23.07.2019
 // Last modified on: 23.07.2019
@@ -8,40 +8,32 @@
 // Description: 
 // ------------------------------------------------------------------------------------
 // ************************************************************************************
-namespace MonitoringClient.Persistence.DbDtos
+namespace MonitoringClient.Model.Impl
 {
-  using LinqToDB.Mapping;
-
-  [Table("customer")]
-  public class CustomerDto : DtoBase<int>
+  public class Customer : ICustomer
   {
-    [Column("kundenNr")]
     public string CustomerNumber { get; set; }
 
-    [Column("email")]
     public string Email { get; set; }
 
-    [Column("surname")]
+
     public string Firstname { get; set; }
 
-    [Column("address_id")]
+
     public int Fk_AddressId { get; set; }
 
-    [Column("id")]
-    [PrimaryKey]
-    [NotNull]
-    public override int Id { get; set; }
 
-    [Column("name")]
+    public int Id { get; set; }
+
+
     public string Lastname { get; set; }
 
-    [Column("password")]
+
     public string Password { get; set; }
 
-    [Column("phone")]
+
     public string Phone { get; set; }
 
-    [Column("website")]
     public string Website { get; set; }
   }
 }
