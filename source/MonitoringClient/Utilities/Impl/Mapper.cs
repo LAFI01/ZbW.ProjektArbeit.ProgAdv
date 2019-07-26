@@ -8,7 +8,7 @@
 // Description: 
 // ------------------------------------------------------------------------------------
 // ************************************************************************************
-namespace MonitoringClient.Utilities
+namespace MonitoringClient.Utilities.Impl
 {
   public static class Mapper
   {

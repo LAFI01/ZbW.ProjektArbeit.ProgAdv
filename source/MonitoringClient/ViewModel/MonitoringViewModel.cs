@@ -110,7 +110,7 @@ namespace MonitoringClient.ViewModel
 
     public void OnCmdNavigateToCustomerView()
     {
-      //CustomerViewModel.GetInstance();
+      CustomerViewModel.GetInstance().LoadCustomers();
       MainUserControl.MonitoringVisibility = Visibility.Collapsed;
       MainUserControl.CustomerVisibility = Visibility.Visible;
     }
@@ -123,7 +123,7 @@ namespace MonitoringClient.ViewModel
     }
 
 
-    public void RefreshLogEntries()
+    public void RefreshView()
     {
       LogEntries = LogEntryView.GetAllLogEntries();
       ConfirmCommand.RaiseCanExecuteChanged();
@@ -163,7 +163,7 @@ namespace MonitoringClient.ViewModel
     private void OnCmdConfirm()
     {
       LogRepository.ClearLogEntry(SelectedEntity);
-      RefreshLogEntries();
+      RefreshView();
     }
 
     private void OnCmdConnect()

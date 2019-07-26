@@ -15,6 +15,7 @@ namespace MonitoringClient.Persistence.Table.Impl
   using LinqToDB.Data;
   using Model;
   using Utilities;
+  using Utilities.Impl;
 
   public class LogRepository : MySqlBaseRepository<LogDto, int>, ILogRepository
   {

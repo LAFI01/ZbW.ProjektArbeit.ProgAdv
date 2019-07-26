@@ -6,19 +6,154 @@
   xmlns:local="clr-namespace:MonitoringClient.View"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   d:DesignHeight="450"
-  d:DesignWidth="800"
+  d:DesignWidth="300"
   mc:Ignorable="d">
   <Grid Background="DeepSkyBlue">
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="0.85*" />
-      <ColumnDefinition Width="0.15*" />
+      <ColumnDefinition Width="0.3*" />
+      <ColumnDefinition Width="0.4*" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
-      <RowDefinition Height="0.05*" />
       <RowDefinition Height="0.1*" />
-      <RowDefinition Height="0.5*" />
-      <RowDefinition Height="0.05*" />
-    </Grid.RowDefinitions>
+      <RowDefinition Height="0.1*" />
+      <RowDefinition Height="0.1*" />
+      <RowDefinition Height="0.1*" />
+      <RowDefinition Height="0.1*" />
+      <RowDefinition Height="0.1*" />
+      <RowDefinition Height="0.1*" />
+      <RowDefinition Height="0.1*" />
 
+    </Grid.RowDefinitions>
+    <Label
+      Grid.Row="0"
+      Grid.Column="0"
+      VerticalAlignment="center"
+      FontWeight="Bold">
+      Customer Nr.:
+    </Label>
+    <TextBox
+      Grid.Row="0"
+      Grid.Column="1"
+      Width="auto"
+      Height="20"
+      VerticalAlignment="center"
+      IsEnabled="False"
+      Text="{Binding CustomerNumber, Mode=TwoWay}" />
+    <Label
+      Grid.Row="1"
+      Grid.Column="0"
+      VerticalAlignment="center"
+      FontWeight="Bold">
+      Lastname:
+    </Label>
+    <TextBox
+      Grid.Row="1"
+      Grid.Column="1"
+      Width="auto"
+      Height="20"
+      VerticalAlignment="center"
+      Text="{Binding Lastname, Mode=TwoWay}" />
+    <Label
+      Grid.Row="2"
+      Grid.Column="0"
+      VerticalAlignment="center"
+      FontWeight="Bold">
+      Firstname:
+    </Label>
+    <TextBox
+      Grid.Row="2"
+      Grid.Column="1"
+      Width="auto"
+      Height="20"
+      VerticalAlignment="center"
+      Text="{Binding Firstname, Mode=TwoWay}" />
+    <Label
+      Grid.Row="3"
+      Grid.Column="0"
+      VerticalAlignment="center"
+      FontWeight="Bold">
+      Phone:
+    </Label>
+    <TextBox
+      Grid.Row="3"
+      Grid.Column="1"
+      Width="auto"
+      Height="20"
+      VerticalAlignment="center"
+      Text="{Binding Phone, Mode=TwoWay}" />
+    <Label
+      Grid.Row="4"
+      Grid.Column="0"
+      VerticalAlignment="center"
+      FontWeight="Bold">
+      E-Mail:
+    </Label>
+    <TextBox
+      Grid.Row="4"
+      Grid.Column="1"
+      Width="auto"
+      Height="20"
+      VerticalAlignment="center"
+      Text="{Binding Email, Mode=TwoWay}" />
+    <Label
+      Grid.Row="5"
+      Grid.Column="0"
+      VerticalAlignment="center"
+      FontWeight="Bold">
+      Website:
+    </Label>
+    <TextBox
+      Grid.Row="5"
+      Grid.Column="1"
+      Width="auto"
+      Height="20"
+      VerticalAlignment="center"
+      Text="{Binding Website, Mode=TwoWay}" />
+    <Label
+      Grid.Row="6"
+      Grid.Column="0"
+      VerticalAlignment="center"
+      FontWeight="Bold">
+      Password:
+    </Label>
+    <TextBox
+      Grid.Row="6"
+      Grid.Column="1"
+      Width="auto"
+      Height="20"
+      VerticalAlignment="center"
+      Text="{Binding Password, Mode=TwoWay}" />
+    <Button
+      Name="cancelBtn"
+      Grid.Row="7"
+      Grid.Column="0"
+      Width="100"
+      Padding="5,5,5,5"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Background="#FFFFFBFB"
+      BorderThickness="0"
+      Command="{Binding CancelCommand}"
+      FontSize="12"
+      TabIndex="0"
+      ToolTip="go back to Custromer View">
+      Go Back
+    </Button>
+    <Button
+      Name="saveBtn"
+      Grid.Row="7"
+      Grid.Column="1"
+      Width="100"
+      Padding="5,5,5,5"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Background="#FFFFFBFB"
+      BorderThickness="0"
+      Command="{Binding SaveCommand}"
+      FontSize="12"
+      TabIndex="0"
+      ToolTip="Save">
+      Save
+    </Button>
   </Grid>
 </UserControl>

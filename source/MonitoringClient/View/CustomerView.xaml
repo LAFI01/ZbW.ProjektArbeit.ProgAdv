@@ -1,11 +1,13 @@
-﻿<UserControl x:Class="MonitoringClient.View.CustomerView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MonitoringClient.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+  x:Class="MonitoringClient.View.CustomerView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:local="clr-namespace:MonitoringClient.View"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  d:DesignHeight="450"
+  d:DesignWidth="800"
+  mc:Ignorable="d">
   <Grid Background="DeepSkyBlue">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="0.85*" />
@@ -13,10 +15,158 @@
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition Height="0.05*" />
-      <RowDefinition Height="0.1*" />
+      <RowDefinition Height="0.05*" />
       <RowDefinition Height="0.5*" />
       <RowDefinition Height="0.05*" />
     </Grid.RowDefinitions>
 
+    <StackPanel
+      Grid.Row="2"
+      Grid.Column="1"
+      Orientation="Vertical">
+      <Button
+        Name="addBtn"
+        Width="120"
+        Margin="15,0,5,15"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Background="#FFFFFBFB"
+        BorderThickness="0"
+        Command="{Binding AddCommand}"
+        FontSize="14"
+        TabIndex="0"
+        ToolTip="Add a new customer">
+        <StackPanel Width="80" Orientation="Horizontal">
+          <Image
+            Width="15"
+            Height="15"
+            Margin="0,5,5,5"
+            HorizontalAlignment="Left"
+            Opacity="0.5"
+            Source="../Icons/add.png"
+            Stretch="Fill" />
+          <TextBlock Margin="5,5,5,5"><Run Text="Add" /></TextBlock>
+        </StackPanel>
+      </Button>
+      <Button
+        Name="updateBtn"
+        Width="120"
+        Margin="15,0,5,15"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Background="#FFFFFBFB"
+        BorderThickness="0"
+        Command="{Binding UpdateCommand}"
+        FontSize="14"
+        TabIndex="0"
+        ToolTip="Update a customer">
+        <StackPanel Width="80" Orientation="Horizontal">
+          <Image
+            Width="15"
+            Height="15"
+            Margin="0,5,5,5"
+            HorizontalAlignment="Left"
+            Opacity="0.5"
+            Source="../Icons/update.png"
+            Stretch="Fill" />
+          <TextBlock Margin="5,5,5,5"><Run Text="Update" /></TextBlock>
+        </StackPanel>
+      </Button>
+      <Button
+        Name="deleteBtn"
+        Width="120"
+        Margin="15,0,5,15"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Background="#FFFFFBFB"
+        BorderThickness="0"
+        Command="{Binding DeleteCommand}"
+        FontSize="14"
+        TabIndex="1"
+        ToolTip="Delete a customer">
+        <StackPanel Orientation="Horizontal">
+          <Image
+            Width="15"
+            Height="15"
+            Margin="0,5,5,5"
+            HorizontalAlignment="Left"
+            Opacity="0.5"
+            Source="../Icons/delete.PNG"
+            Stretch="Fill" />
+          <TextBlock Margin="5,5,5,5">
+            Delete
+          </TextBlock>
+        </StackPanel>
+      </Button>
+      <Button
+        Name="goBackBtn"
+        Width="120"
+        Margin="15,0,5,15"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Background="#FFFFFBFB"
+        BorderThickness="0"
+        Command="{Binding GoBackCommand}"
+        FontSize="14"
+        TabIndex="1"
+        ToolTip="Delete a customer">
+        <StackPanel Orientation="Horizontal">
+          <Image
+            Width="15"
+            Height="15"
+            Margin="0,5,5,5"
+            HorizontalAlignment="Left"
+            Opacity="0.5"
+            Source="../Icons/next.PNG"
+            Stretch="Fill" />
+          <TextBlock Margin="5,5,5,5">
+            Go Back
+          </TextBlock>
+        </StackPanel>
+      </Button>
+    </StackPanel>
+    <ListView
+      Name="CustomerGrid"
+      Grid.Row="2"
+      Grid.Column="0"
+      Margin="5,0,0,0"
+      HorizontalContentAlignment="Stretch"
+      IsSynchronizedWithCurrentItem="True"
+      ItemsSource="{Binding Customers}"
+      SelectedIndex="0"
+      SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}">
+      <ListView.View>
+        <GridView x:Name="customerGrid">
+          <GridViewColumn
+            Width="75"
+            DisplayMemberBinding="{Binding CustomerNumber}"
+            Header="Customer Nr." />
+          <GridViewColumn
+            Width="75"
+            DisplayMemberBinding="{Binding Lastname}"
+            Header="Lastname" />
+          <GridViewColumn
+            Width="75"
+            DisplayMemberBinding="{Binding Firstname}"
+            Header="Firstname" />
+          <GridViewColumn
+            Width="100"
+            DisplayMemberBinding="{Binding Phone}"
+            Header="Phone" />
+          <GridViewColumn
+            Width="75"
+            DisplayMemberBinding="{Binding Email}"
+            Header="Email" />
+          <GridViewColumn
+            Width="150"
+            DisplayMemberBinding="{Binding Website}"
+            Header="Website" />
+          <GridViewColumn
+            Width="100"
+            DisplayMemberBinding="{Binding Password}"
+            Header="Password" />
+        </GridView>
+      </ListView.View>
+    </ListView>
   </Grid>
 </UserControl>

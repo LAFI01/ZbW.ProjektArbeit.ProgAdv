@@ -12,6 +12,7 @@ namespace MonitoringClientTests.Utilities
 {
   using Microsoft.VisualStudio.TestTools.UnitTesting;
   using MonitoringClient.Utilities;
+  using MonitoringClient.Utilities.Impl;
 
   [TestClass]
   public class EncryptIntegrationTests

@@ -17,6 +17,7 @@ namespace MonitoringClient.Persistence.View.Impl
   using Model;
   using Model.Impl;
   using Utilities;
+  using Utilities.Impl;
 
   public class LogEntryView : MySqlBaseRepository<ViewLogEntryDto, int>, ILogEntryView
   {

@@ -128,7 +128,14 @@
     <Compile Include="Persistence\Table\Impl\LocationRepository.cs" />
     <Compile Include="Persistence\Table\Impl\LogRepository.cs" />
     <Compile Include="Persistence\View\ILogEntryView.cs" />
-    <Compile Include="Utilities\Encryption.cs" />
+    <Compile Include="Utilities\Impl\ConstantValue.cs" />
+    <Compile Include="Utilities\Impl\Encryption.cs" />
+    <Compile Include="Utilities\IMessagerLogger.cs" />
+    <Compile Include="Utilities\Impl\ErrorMessage.cs" />
+    <Compile Include="Utilities\Impl\MessagerLogger.cs" />
+    <Compile Include="Validation\Impl\CustomerValidation.cs" />
+    <Compile Include="Validation\IValidation.cs" />
+    <Compile Include="Utilities\Impl\MyRegex.cs" />
     <Compile Include="ViewModel\CustomerDetailViewModel.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\LocationViewModel.cs" />
@@ -149,7 +156,7 @@
       <SubType>Designer</SubType>
     </None>
     <Compile Include="Model\Impl\Severity.cs" />
-    <Compile Include="Utilities\Mapper.cs" />
+    <Compile Include="Utilities\Impl\Mapper.cs" />
     <Compile Include="ViewModel\AddLogEntryViewModel.cs" />
     <Compile Include="ViewModel\MainUserControlViewModel.cs" />
     <Compile Include="ViewModel\MonitoringViewModel.cs" />
@@ -243,5 +250,12 @@
   <ItemGroup>
     <Resource Include="Icons\customer.PNG" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\update.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\delete.PNG" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

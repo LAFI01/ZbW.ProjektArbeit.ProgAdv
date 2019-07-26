@@ -2,7 +2,7 @@
 // FileName: CustomerRepository.cs
 // Author: 
 // Created on: 23.07.2019
-// Last modified on: 23.07.2019
+// Last modified on: 26.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -11,11 +11,15 @@
 namespace MonitoringClient.Persistence.Table.Impl
 {
   using System.Collections.Generic;
+  using System.Diagnostics;
   using System.Linq;
   using Base.Impl;
   using DbDtos;
   using Model;
   using Model.Impl;
+  using MySql.Data.MySqlClient;
+  using Utilities;
+  using Utilities.Impl;
 
   public class CustomerRepository : MySqlBaseRepository<CustomerDto, int>, ICustomerRepository
   {
@@ -25,18 +29,30 @@ namespace MonitoringClient.Persistence.Table.Impl
       Add(customerDto);
     }
 
+    public bool DeleteCustomer(ICustomer customer)
+    {
+      CustomerDto customerDto = CustomerToCustomerDto(customer);
+      var isDeleted = false;
+      try
+      {
+        Delete(customerDto);
+        isDeleted = true;
+        
+      }
+      catch (MySqlException mySqlException)
+      {
+        Debug.Print(string.Format($"Entity could not be deleted: {mySqlException.Message}"));
+      }
+
+      return isDeleted;
+    }
+
     public List<ICustomer> GetAllCustomer()
     {
       var customerDtos = GetAll();
       var customers = customerDtos.Select(c => CustomerDtoToCustomer(c)).ToList();
 
       return customers;
-    }
-
-    public void DeleteCustomer(ICustomer customer)
-    {
-      CustomerDto customerDto = CustomerToCustomerDto(customer);
-      Delete(customerDto);
     }
 
     public void UpdateCustomer(ICustomer customer)
@@ -54,9 +70,10 @@ namespace MonitoringClient.Persistence.Table.Impl
         Firstname = c.Firstname,
         Lastname = c.Lastname,
         Id = c.Id,
-        Password = c.Password,
+        Password = Encryption.Decrypt(c.Password),
         Phone = c.Phone,
-        Website = c.Website
+        Website = c.Website,
+        Fk_AddressId = c.Fk_AddressId
       };
 
       return customerDto;
@@ -72,9 +89,10 @@ namespace MonitoringClient.Persistence.Table.Impl
         Firstname = c.Firstname,
         Lastname = c.Lastname,
         Id = c.Id,
-        Password = c.Password,
+        Password = Encryption.Encrypt(c.Password),
         Phone = c.Phone,
-        Website = c.Website
+        Website = c.Website,
+        Fk_AddressId = 2
       };
 
       return customerDto;

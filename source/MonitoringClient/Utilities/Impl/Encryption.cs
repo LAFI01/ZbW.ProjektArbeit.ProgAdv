@@ -8,7 +8,7 @@
 // Description: 
 // ------------------------------------------------------------------------------------
 // ************************************************************************************
-namespace MonitoringClient.Utilities
+namespace MonitoringClient.Utilities.Impl
 {
   using System;
   using System.IO;
@@ -24,12 +24,25 @@ namespace MonitoringClient.Utilities
     private const int BytePermutation4 = 0x41;
     public static string Encrypt(string strData)
     {
-      return Convert.ToBase64String(Encrypt(Encoding.UTF8.GetBytes(strData)));
+      if (strData != null)
+      {
+        var encoding = Encoding.UTF8.GetBytes(strData);
+        var encrypt = Encrypt(encoding);
+        return Convert.ToBase64String(encrypt);
+      }
+
+      return null;
     }
 
     public static string Decrypt(string strData)
     {
-      return Encoding.UTF8.GetString(Decrypt(Convert.FromBase64String(strData)));
+      if (strData != null)
+      {
+        var convert = Convert.FromBase64String(strData);
+        var decrypt = Decrypt(convert);
+        return Encoding.UTF8.GetString(decrypt);
+      }
+      return null;
     }
 
     private static byte[] Encrypt(byte[] strData)

@@ -48,10 +48,10 @@ namespace MonitoringClient.ViewModel
       LogEntryView = logEntryView;
       DeviceRepository = deviceRepository;
       LogRepository = logRepository;
-      InitalView();
+      InitialViewModel();
     }
 
-    public static DelegateCommand CancelCommand { get; set; }
+    public  DelegateCommand CancelCommand { get; set; }
 
 
     public List<int> DeviceIds
@@ -179,7 +179,7 @@ namespace MonitoringClient.ViewModel
       return Instance;
     }
 
-    public void InitalView()
+    public void InitialViewModel()
     {
       CancelCommand = new DelegateCommand(OnCmdNavigateToMonitoringView);
       SaveCommand = new DelegateCommand(OnCmdSave, CanSave);
@@ -207,7 +207,7 @@ namespace MonitoringClient.ViewModel
         entity.DeviceId = SelectedDeviceId;
         LogRepository.AddLogEntry(entity);
         OnCmdNavigateToMonitoringView();
-        MonitoringViewModel.GetInstance().RefreshLogEntries();
+        MonitoringViewModel.GetInstance().RefreshView();
       }
       else
       {

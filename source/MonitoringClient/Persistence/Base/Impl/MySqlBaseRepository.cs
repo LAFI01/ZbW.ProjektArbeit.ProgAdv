@@ -2,7 +2,7 @@
 // FileName: MySqlBaseRepository.cs
 // Author: 
 // Created on: 09.06.2019
-// Last modified on: 07.07.2019
+// Last modified on: 26.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
