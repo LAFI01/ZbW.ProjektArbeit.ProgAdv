@@ -1,5 +1,5 @@
 ﻿// ************************************************************************************
-// FileName: PhoneNumberTransformer.cs
+// FileName: PhoneNumberDivider.cs
 // Author: 
 // Created on: 27.07.2019
 // Last modified on: 28.07.2019
@@ -13,9 +13,9 @@ namespace MonitoringClient.Utilities.Impl
   using System;
   using System.Text.RegularExpressions;
 
-  public class PhoneNumberTransformer
+  public class PhoneNumberDivider
   {
-    public PhoneNumberTransformer(string phoneNumber)
+    public PhoneNumberDivider(string phoneNumber)
     {
       DividedPhoneNumberInHerParts(phoneNumber);
     }
@@ -86,7 +86,7 @@ namespace MonitoringClient.Utilities.Impl
       GroupCollection groups = matches[0].Groups;
       var phoneNumber = groups[0].Value;
       InternationAreaCode = groups[1].Value;
-      var numberWithoutAreaCodes = Regex.Replace(phoneNumber, @"(00423|\+423)\s?", "");
+      var numberWithoutAreaCodes = MyRegex.IsLiechtensteinAreaCode.Replace(phoneNumber, "");
       CallNumber = numberWithoutAreaCodes.Trim();
     }
 
@@ -104,7 +104,7 @@ namespace MonitoringClient.Utilities.Impl
           AreaCode = AreaCode.Insert(0, "0");
         }
 
-        var numberWithoutAreaCodes = Regex.Replace(phoneNumber, @"(0041|041|\+41)\s?(\([0-9]\)[0-9]{2}|[0-9]{2})", "");
+        var numberWithoutAreaCodes = MyRegex.IsSwissAreaCode.Replace(phoneNumber, "");
         CallNumber = numberWithoutAreaCodes.Trim();
         if (CallNumber.Contains("-"))
         {

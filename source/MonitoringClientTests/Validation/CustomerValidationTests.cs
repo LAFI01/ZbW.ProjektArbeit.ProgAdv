@@ -2,7 +2,7 @@
 // FileName: CustomerValidationTests.cs
 // Author: 
 // Created on: 26.07.2019
-// Last modified on: 26.07.2019
+// Last modified on: 28.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -10,7 +10,6 @@
 // ************************************************************************************
 namespace MonitoringClientTests.Validation
 {
-  using System.Linq;
   using Microsoft.VisualStudio.TestTools.UnitTesting;
   using MonitoringClient.Model;
   using MonitoringClient.Model.Impl;
@@ -53,8 +52,13 @@ namespace MonitoringClientTests.Validation
     [DataRow("", true)]
     [DataRow("lf@gmail.com", true)]
     [DataRow("lf2@lafi02.onmicrosoft.com", true)]
-    [DataRow("l-f_2@hotmail.com", true)]
+    [DataRow("l-f_2@hot-mail.com", true)]
     [DataRow("hallo@gmail_g.ch", true)]
+    [DataRow("testü@!.ch", false)]
+    [DataRow("testü@hallo.c!h", false)]
+    [DataRow("testü@hal%lo.ch", false)]
+    [DataRow("testü@hallo.ch/", false)]
+    [DataRow("testü@hal/lo.ch", false)]
     [DataRow("testü@.c", false)]
     [DataRow("testü@.ch", false)]
     [DataRow("test@gg@.ff.ch", false)]
@@ -66,7 +70,8 @@ namespace MonitoringClientTests.Validation
     [DataRow("hallo@je bla.ch ", false)]
     [DataRow("hallo@jebla.c h", false)]
     [DataRow("hallo@jebla.ch ", false)]
-    [DataRow("emailemailemailemailemailemailemailemailemailemailemailemailemailemailemailemailemailemail1@domain.com", false)]
+    [DataRow("emailemailemailemailemailemailemailemailemailemailemailemailemailemailemailemailemailemail1@domain.com",
+      false)]
     public void CustomerValidation_CheckIfEmailAddressValid_CheckSucess(string email, bool expectedValidation)
     {
       var customerValidation = GetCustomerValidation();
@@ -92,7 +97,9 @@ namespace MonitoringClientTests.Validation
     [DataRow("!!!!!!!!!", false)]
     [DataRow("12345678", false)]
     [DataRow("1?Po", false)]
-    [DataRow("MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!2", false)]
+    [DataRow(
+      "MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!2",
+      false)]
     public void CustomerValidation_CheckIfPasswordValid_CheckSucess(string password, bool expectedValidation)
     {
       var customerValidation = GetCustomerValidation();
@@ -182,7 +189,9 @@ namespace MonitoringClientTests.Validation
     [DataRow("htt://policies.google.com ", false)]
     [DataRow("https://+policies.google.com  ", false)]
     [DataRow("https:///policies.google.com/technologies/voice?hl=de&gl=ch ", false)]
-    [DataRow("http://www.l.com/teiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii1", false)]
+    [DataRow(
+      "http://www.l.com/teiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii1",
+      false)]
     public void CustomerValidation_CheckIfWebsiteLinkValid_CheckSucess(string website, bool expectedValidation)
     {
       var customerValidation = GetCustomerValidation();
@@ -216,7 +225,7 @@ namespace MonitoringClientTests.Validation
       }
     }
 
-   
+
     [DataTestMethod]
     [DataRow("lf@gmail.com", "")]
     [DataRow("hallo@jebla.c h", ErrorMessage.EmailAdressIsNotValid)]

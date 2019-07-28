@@ -185,18 +185,26 @@ namespace MonitoringClient.ViewModel
       Email = customer.Email;
       Website = customer.Website;
       Password = customer.Password;
+      Id = customer.Id;
     }
 
     private ICustomer CreateNewCustomer()
     {
       Customer c = new Customer();
-      c.CustomerNumber = string.Concat(ConstantValue.PraefixCustomer, ConstantValue.GetRandomNumberAsString());
+      var customerNumber = CustomerNumber;
+      if (string.IsNullOrEmpty(CustomerNumber))
+      {
+        customerNumber = string.Concat(ConstantValue.PraefixCustomer, ConstantValue.GetRandomCustomerNumberAsString());
+      }
+
+      c.CustomerNumber = customerNumber;
       c.Lastname = Lastname;
       c.Firstname = Firstname;
       c.Email = Email;
       c.Phone = Phone;
       c.Password = Password;
       c.Website = Website;
+      c.Id = Id;
 
       return c;
     }
@@ -242,11 +250,11 @@ namespace MonitoringClient.ViewModel
       string msg;
       try
       {
-        PhoneNumberTransformer phoneTransformer = new PhoneNumberTransformer(Phone);
+        PhoneNumberDivider phoneDivider = new PhoneNumberDivider(Phone);
         msg = string.Format(
           "International area code: {0} \n Area code: {1}, \n Call number: {2} \n Direct dialing-in: {3}",
-          phoneTransformer.InternationAreaCode, phoneTransformer.AreaCode, phoneTransformer.CallNumber,
-          phoneTransformer.DirectDialingIn);
+          phoneDivider.InternationAreaCode, phoneDivider.AreaCode, phoneDivider.CallNumber,
+          phoneDivider.DirectDialingIn);
       }
       catch (ArgumentException argumentException)
       {

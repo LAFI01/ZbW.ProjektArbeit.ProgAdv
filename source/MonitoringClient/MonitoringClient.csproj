@@ -136,7 +136,7 @@
     <Compile Include="Utilities\IMessagerLogger.cs" />
     <Compile Include="Utilities\Impl\ErrorMessage.cs" />
     <Compile Include="Utilities\Impl\MessagerLogger.cs" />
-    <Compile Include="Utilities\Impl\PhoneNumberTransformer.cs" />
+    <Compile Include="Utilities\Impl\PhoneNumberDivider.cs" />
     <Compile Include="Validation\Impl\CustomerValidation.cs" />
     <Compile Include="Validation\IValidation.cs" />
     <Compile Include="Utilities\Impl\MyRegex.cs" />

@@ -2,7 +2,7 @@
 // FileName: MyRegex.cs
 // Author: 
 // Created on: 26.07.2019
-// Last modified on: 26.07.2019
+// Last modified on: 28.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -15,6 +15,10 @@ namespace MonitoringClient.Utilities.Impl
   public static class MyRegex
   {
     public static Regex IsEmailValid = new Regex(@"^[A-Za-z0-9\-_\.]+\@[A-Za-z0-9\._\-]+[A-Za-z]{2,}$");
+
+    public static Regex IsLiechtensteinAreaCode = new Regex(@"(00423|\+423)\s?");
+
+    public static Regex IsSwissAreaCode = new Regex(@"(0041|041|\+41)\s?(\([0-9]\)[0-9]{2}|[0-9]{2})");
 
     public static Regex IsValidCustomerNumber = new Regex(@"^CU[0-9]{5}$");
 

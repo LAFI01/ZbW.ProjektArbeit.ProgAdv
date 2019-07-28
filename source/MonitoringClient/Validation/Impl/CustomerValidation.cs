@@ -80,7 +80,7 @@ namespace MonitoringClient.Validation.Impl
 
     private bool IsEmailValid(string email)
     {
-      //Es wird nicht überprüft, ob es die Domain wirklich gibt. Route Domain kann   ein _ enthalten
+      //Es wird nicht überprüft, ob es die Domain wirklich gibt und die Route Domain kann ein _ enthalten
       Regex regex = MyRegex.IsEmailValid;
 
       return !IsInputStringTooLong(email, ConstantValue.MaximumHunderdSigns) &&

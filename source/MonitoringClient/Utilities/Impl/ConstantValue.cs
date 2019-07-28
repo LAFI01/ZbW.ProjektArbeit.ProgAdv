@@ -17,7 +17,7 @@ namespace MonitoringClient.Utilities.Impl
     private const int LengthOfACustomerNumber = 5;
     public const string PraefixCustomer = "CU";
 
-    public static string GetRandomNumberAsString()
+    public static string GetRandomCustomerNumberAsString()
     {
       var random = new Random();
       string numberAsString = random.Next(1, 9).ToString();

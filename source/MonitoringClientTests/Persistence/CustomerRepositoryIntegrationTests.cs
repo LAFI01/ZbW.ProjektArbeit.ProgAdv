@@ -62,7 +62,7 @@ namespace MonitoringClientTests.Persistence
     {
       Customer customer = new Customer
       {
-        CustomerNumber = string.Concat(ConstantValue.PraefixCustomer, ConstantValue.GetRandomNumberAsString()),
+        CustomerNumber = string.Concat(ConstantValue.PraefixCustomer, ConstantValue.GetRandomCustomerNumberAsString()),
         Fk_AddressId = 2,
         Email = string.Concat(DateTime.Now.ToString(), "@time.ch"),
         Firstname = "Pascal",

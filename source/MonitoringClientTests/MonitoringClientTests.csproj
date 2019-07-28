@@ -80,7 +80,7 @@
     <Compile Include="Persistence\LogRepositoryIntegrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\EncryptIntegrationTests.cs" />
-    <Compile Include="Utilities\PhoneNumberTransformerTests.cs" />
+    <Compile Include="Utilities\PhoneNumberDividerTests.cs" />
     <Compile Include="Validation\CustomerValidationTests.cs" />
   </ItemGroup>
   <ItemGroup>

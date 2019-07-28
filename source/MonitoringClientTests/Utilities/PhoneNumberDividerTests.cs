@@ -1,5 +1,5 @@
 ﻿// ************************************************************************************
-// FileName: PhoneNumberTransformerTests.cs
+// FileName: PhoneNumberDividerTests.cs
 // Author: 
 // Created on: 27.07.2019
 // Last modified on: 28.07.2019
@@ -15,14 +15,14 @@ namespace MonitoringClientTests.Utilities
   using MonitoringClient.Utilities.Impl;
 
   [TestClass]
-  public class PhoneNumberTransformerTests
+  public class PhoneNumberDividerTests
   {
     [TestMethod]
     [ExpectedException(typeof(ArgumentException))]
     public void DividesPhoneNumberInHerParts__NumberIsInvalid_ThrowException()
     {
       var phoneNumber = "777 888 999 10";
-      PhoneNumberTransformer p = new PhoneNumberTransformer(phoneNumber);
+      PhoneNumberDivider p = new PhoneNumberDivider(phoneNumber);
 
       //Assert is Argument Exception
     }
@@ -43,7 +43,7 @@ namespace MonitoringClientTests.Utilities
 
 
     {
-      PhoneNumberTransformer p = new PhoneNumberTransformer(phoneNumber);
+      PhoneNumberDivider p = new PhoneNumberDivider(phoneNumber);
 
       Assert.AreEqual(expectedInternationalAreaCode, p.InternationAreaCode);
       Assert.AreEqual(expectedAreaCode, p.AreaCode);
