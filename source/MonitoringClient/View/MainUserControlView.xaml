@@ -14,6 +14,6 @@
     <local:AddLogEntryView x:Name="AddLogView" Visibility="{Binding DataContext.AddLogEntryVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
     <local:LocationView x:Name="LocationView" Visibility="{Binding DataContext.LocationVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
     <local:CustomerView x:Name="CustomerView" Visibility="{Binding DataContext.CustomerVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
-    <local:CustomerView x:Name="CustomerDetailView" Visibility="{Binding DataContext.CustomerDetailVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
+    <local:CustomerDetailView x:Name="CustomerDetailView" Visibility="{Binding DataContext.CustomerDetailVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" />
   </Grid>
 </UserControl>

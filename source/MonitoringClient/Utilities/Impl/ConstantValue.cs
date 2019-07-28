@@ -28,5 +28,14 @@ namespace MonitoringClient.Utilities.Impl
 
       return numberAsString;
     }
+
+    public const int MaximumFiveHunderdSigns = 500;
+    public const int MaximumHunderdSigns = 100;
+    public const int MaximumFourthyFiveSigns = 45;
+
+    public const string InternationAreCodeSwiss = "+41";
+
+
+
   }
 }

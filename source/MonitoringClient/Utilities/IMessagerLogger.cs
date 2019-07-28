@@ -14,6 +14,8 @@ namespace MonitoringClient.Utilities
 
   public interface IMessagerLogger
   {
-    IList<string> Messages { get; set; }
+    IList<string> AddMessages { get; set; }
+
+    string GetMessages();
   }
 }

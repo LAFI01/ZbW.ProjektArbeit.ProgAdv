@@ -2,7 +2,7 @@
 // FileName: CustomerRepository.cs
 // Author: 
 // Created on: 23.07.2019
-// Last modified on: 26.07.2019
+// Last modified on: 27.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -18,7 +18,6 @@ namespace MonitoringClient.Persistence.Table.Impl
   using Model;
   using Model.Impl;
   using MySql.Data.MySqlClient;
-  using Utilities;
   using Utilities.Impl;
 
   public class CustomerRepository : MySqlBaseRepository<CustomerDto, int>, ICustomerRepository
@@ -37,7 +36,6 @@ namespace MonitoringClient.Persistence.Table.Impl
       {
         Delete(customerDto);
         isDeleted = true;
-        
       }
       catch (MySqlException mySqlException)
       {

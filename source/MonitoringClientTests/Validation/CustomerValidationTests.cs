@@ -10,6 +10,7 @@
 // ************************************************************************************
 namespace MonitoringClientTests.Validation
 {
+  using System.Linq;
   using Microsoft.VisualStudio.TestTools.UnitTesting;
   using MonitoringClient.Model;
   using MonitoringClient.Model.Impl;
@@ -41,6 +42,7 @@ namespace MonitoringClientTests.Validation
       var customerValidation = GetCustomerValidation();
       Customer customer = new Customer();
       customer.CustomerNumber = customerNumber;
+      customer.Password = "meinSuperPasswort123!";
 
       var isValid = customerValidation.DoValidation(customer);
 
@@ -64,12 +66,14 @@ namespace MonitoringClientTests.Validation
     [DataRow("hallo@je bla.ch ", false)]
     [DataRow("hallo@jebla.c h", false)]
     [DataRow("hallo@jebla.ch ", false)]
+    [DataRow("emailemailemailemailemailemailemailemailemailemailemailemailemailemailemailemailemailemail1@domain.com", false)]
     public void CustomerValidation_CheckIfEmailAddressValid_CheckSucess(string email, bool expectedValidation)
     {
       var customerValidation = GetCustomerValidation();
       Customer customer = new Customer();
       customer.CustomerNumber = string.Concat(ConstantValue.PraefixCustomer, "12345");
       customer.Email = email;
+      customer.Password = "meinSuperPasswort123!";
 
       var isValid = customerValidation.DoValidation(customer);
 
@@ -79,12 +83,16 @@ namespace MonitoringClientTests.Validation
     [DataTestMethod]
     [DataRow("ProgrammingAdvanced2!", true)]
     [DataRow("p1zza!P0", true)]
+    [DataRow(" ", false)]
+    [DataRow("", false)]
+    [DataRow(null, false)]
     [DataRow("alleskleingeschrieben", false)]
     [DataRow("ALLESGROSSGESCHRIEBEN", false)]
     [DataRow("Meine Pizza12!", false)]
     [DataRow("!!!!!!!!!", false)]
     [DataRow("12345678", false)]
     [DataRow("1?Po", false)]
+    [DataRow("MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!MeinSuper1!2", false)]
     public void CustomerValidation_CheckIfPasswordValid_CheckSucess(string password, bool expectedValidation)
     {
       var customerValidation = GetCustomerValidation();
@@ -152,6 +160,7 @@ namespace MonitoringClientTests.Validation
       var customerValidation = GetCustomerValidation();
       Customer customer = new Customer();
       customer.CustomerNumber = string.Concat(ConstantValue.PraefixCustomer, "12345");
+      customer.Password = "meinSuperPasswort123!";
       customer.Phone = phoneNumber;
 
       var isValid = customerValidation.DoValidation(customer);
@@ -173,11 +182,13 @@ namespace MonitoringClientTests.Validation
     [DataRow("htt://policies.google.com ", false)]
     [DataRow("https://+policies.google.com  ", false)]
     [DataRow("https:///policies.google.com/technologies/voice?hl=de&gl=ch ", false)]
+    [DataRow("http://www.l.com/teiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii1", false)]
     public void CustomerValidation_CheckIfWebsiteLinkValid_CheckSucess(string website, bool expectedValidation)
     {
       var customerValidation = GetCustomerValidation();
       Customer customer = new Customer();
       customer.CustomerNumber = string.Concat(ConstantValue.PraefixCustomer, "12345");
+      customer.Password = "meinSuperPasswort123!";
       customer.Website = website;
 
       var isValid = customerValidation.DoValidation(customer);
@@ -194,11 +205,12 @@ namespace MonitoringClientTests.Validation
     {
       var customerValidation = GetCustomerValidation();
       Customer customer = new Customer();
+      customer.Password = "meinSuperPasswort123!";
       customer.CustomerNumber = customerNumber;
 
       var isValid = customerValidation.DoValidation(customer);
 
-      foreach (var msg in MessageLogger.Messages)
+      foreach (var msg in MessageLogger.AddMessages)
       {
         Assert.AreEqual(expectedErrorMessage, msg);
       }
@@ -214,11 +226,12 @@ namespace MonitoringClientTests.Validation
       var customerValidation = GetCustomerValidation();
       Customer customer = new Customer();
       customer.CustomerNumber = string.Concat(ConstantValue.PraefixCustomer, "12345");
+      customer.Password = "meinSuperPasswort123!";
       customer.Email = email;
 
       var isValid = customerValidation.DoValidation(customer);
 
-      foreach (var msg in MessageLogger.Messages)
+      foreach (var msg in MessageLogger.AddMessages)
       {
         Assert.AreEqual(expectedErrorMessage, msg);
       }
@@ -233,11 +246,12 @@ namespace MonitoringClientTests.Validation
       var customerValidation = GetCustomerValidation();
       Customer customer = new Customer();
       customer.CustomerNumber = string.Concat(ConstantValue.PraefixCustomer, "12345");
+      customer.Password = "meinSuperPasswort123!";
       customer.Password = password;
 
       var isValid = customerValidation.DoValidation(customer);
 
-      foreach (var msg in MessageLogger.Messages)
+      foreach (var msg in MessageLogger.AddMessages)
       {
         Assert.AreEqual(expectedErrorMessage, msg);
       }
@@ -252,11 +266,12 @@ namespace MonitoringClientTests.Validation
       var customerValidation = GetCustomerValidation();
       Customer customer = new Customer();
       customer.CustomerNumber = string.Concat(ConstantValue.PraefixCustomer, "12345");
+      customer.Password = "meinSuperPasswort123!";
       customer.Phone = phoneNumber;
 
       var isValid = customerValidation.DoValidation(customer);
 
-      foreach (var msg in MessageLogger.Messages)
+      foreach (var msg in MessageLogger.AddMessages)
       {
         Assert.AreEqual(expectedErrorMessage, msg);
       }
@@ -271,11 +286,12 @@ namespace MonitoringClientTests.Validation
       var customerValidation = GetCustomerValidation();
       Customer customer = new Customer();
       customer.CustomerNumber = string.Concat(ConstantValue.PraefixCustomer, "12345");
+      customer.Password = "meinSuperPasswort123!";
       customer.Website = website;
 
       var isValid = customerValidation.DoValidation(customer);
 
-      foreach (var msg in MessageLogger.Messages)
+      foreach (var msg in MessageLogger.AddMessages)
       {
         Assert.AreEqual(expectedErrorMessage, msg);
       }

@@ -2,7 +2,7 @@
 // FileName: CustomerValidation.cs
 // Author: 
 // Created on: 26.07.2019
-// Last modified on: 26.07.2019
+// Last modified on: 28.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -30,42 +30,52 @@ namespace MonitoringClient.Validation.Impl
       if (!IsCustomerNumberValid(customer.CustomerNumber))
       {
         isValid = false;
-        MessagerLogger.Messages.Add(ErrorMessage.CustomerNumberIsNotValid);
+        MessagerLogger.AddMessages.Add(ErrorMessage.CustomerNumberIsNotValid);
       }
 
       if (!IsPhoneNumberValid(customer.Phone))
       {
         isValid = false;
-        MessagerLogger.Messages.Add(ErrorMessage.PhoneNumberIsNotValid);
+        MessagerLogger.AddMessages.Add(ErrorMessage.PhoneNumberIsNotValid);
       }
 
       if (!IsEmailValid(customer.Email))
       {
         isValid = false;
-        MessagerLogger.Messages.Add(ErrorMessage.EmailAdressIsNotValid);
+        MessagerLogger.AddMessages.Add(ErrorMessage.EmailAdressIsNotValid);
       }
 
       if (!IsWebsiteLinkValid(customer.Website))
       {
         isValid = false;
-        MessagerLogger.Messages.Add(ErrorMessage.WebsiteIsNotValid);
+        MessagerLogger.AddMessages.Add(ErrorMessage.WebsiteIsNotValid);
       }
 
       if (!IsPasswordValid(customer.Password))
       {
         isValid = false;
-        MessagerLogger.Messages.Add(ErrorMessage.PasswordIsNotValid);
+        MessagerLogger.AddMessages.Add(ErrorMessage.PasswordIsNotValid);
+      }
+
+      if (IsInputStringTooLong(customer.Lastname, ConstantValue.MaximumFourthyFiveSigns))
+      {
+        isValid = false;
+      }
+
+      if (IsInputStringTooLong(customer.Firstname, ConstantValue.MaximumFourthyFiveSigns))
+      {
+        isValid = false;
       }
 
       return isValid;
     }
 
+
     private bool IsCustomerNumberValid(string customerNumber)
     {
       Regex regex = MyRegex.IsValidCustomerNumber;
-      var isMatch = regex.IsMatch(customerNumber);
 
-      return isMatch;
+      return !string.IsNullOrEmpty(customerNumber) && regex.IsMatch(customerNumber);
     }
 
     private bool IsEmailValid(string email)
@@ -73,7 +83,8 @@ namespace MonitoringClient.Validation.Impl
       //Es wird nicht überprüft, ob es die Domain wirklich gibt. Route Domain kann   ein _ enthalten
       Regex regex = MyRegex.IsEmailValid;
 
-      return string.IsNullOrEmpty(email) || regex.IsMatch(email);
+      return !IsInputStringTooLong(email, ConstantValue.MaximumHunderdSigns) &&
+             (string.IsNullOrEmpty(email) || regex.IsMatch(email));
     }
 
     private bool IsGermanNumberValid(string phoneNumber)
@@ -84,6 +95,18 @@ namespace MonitoringClient.Validation.Impl
       return isMatch;
     }
 
+    private bool IsInputStringTooLong(string input, int maximumOfSigns)
+    {
+      if (string.IsNullOrEmpty(input) || input.Length < maximumOfSigns)
+      {
+        return false;
+      }
+
+      MessagerLogger.AddMessages.Add(string.Concat(ErrorMessage.InputStringTooLong, maximumOfSigns));
+
+      return true;
+    }
+
     private bool IsLiechtenSteinNumberValid(string phoneNumber)
     {
       Regex liechtensteinRegex = MyRegex.IsValidLiechtensteinNumber;
@@ -92,9 +115,10 @@ namespace MonitoringClient.Validation.Impl
       return isMatch;
     }
 
-    private bool IsPasswordValid(string email)
+    private bool IsPasswordValid(string password)
     {
-      return string.IsNullOrEmpty(email) || MyRegex.IsValidPassword.IsMatch(email);
+      return !IsInputStringTooLong(password, ConstantValue.MaximumHunderdSigns) && !string.IsNullOrEmpty(password) &&
+             MyRegex.IsValidPassword.IsMatch(password);
     }
 
     private bool IsPhoneNumberValid(string phoneNumber)
@@ -124,7 +148,8 @@ namespace MonitoringClient.Validation.Impl
     {
       Regex regex = MyRegex.IsWebsiteLinkValid;
 
-      return string.IsNullOrEmpty(website) || regex.IsMatch(website);
+      return !IsInputStringTooLong(website, ConstantValue.MaximumFiveHunderdSigns) &&
+             (string.IsNullOrEmpty(website) || regex.IsMatch(website));
     }
   }
 }

@@ -2,7 +2,7 @@
 // FileName: CustomerRepositoryIntegrationTests.cs
 // Author: 
 // Created on: 23.07.2019
-// Last modified on: 24.07.2019
+// Last modified on: 27.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -17,7 +17,6 @@ namespace MonitoringClientTests.Persistence
   using MonitoringClient.Model.Impl;
   using MonitoringClient.Persistence.Table;
   using MonitoringClient.Persistence.Table.Impl;
-  using MonitoringClient.Utilities;
   using MonitoringClient.Utilities.Impl;
 
   [TestClass]
@@ -66,8 +65,8 @@ namespace MonitoringClientTests.Persistence
         CustomerNumber = string.Concat(ConstantValue.PraefixCustomer, ConstantValue.GetRandomNumberAsString()),
         Fk_AddressId = 2,
         Email = string.Concat(DateTime.Now.ToString(), "@time.ch"),
-        Firstname = "Jerome",
-        Lastname = "Blaser",
+        Firstname = "Pascal",
+        Lastname = "Fitze",
         Password = "myPassword1dd23456!"
       };
 

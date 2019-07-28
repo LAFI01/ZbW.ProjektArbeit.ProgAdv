@@ -2,7 +2,7 @@
 // FileName: AddLogEntryViewModel.cs
 // Author: 
 // Created on: 12.05.2019
-// Last modified on: 22.06.2019
+// Last modified on: 27.07.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -21,12 +21,11 @@ namespace MonitoringClient.ViewModel
   using Persistence.View.Impl;
   using Prism.Commands;
   using Prism.Mvvm;
+  using Utilities.Impl;
 
   public class AddLogEntryViewModel : BindableBase
   {
     private const int InitialDeviceId = 0;
-
-    private const int MaxLengthOfSign = 45;
 
     private List<int> _deviceIds;
 
@@ -51,7 +50,7 @@ namespace MonitoringClient.ViewModel
       InitialViewModel();
     }
 
-    public  DelegateCommand CancelCommand { get; set; }
+    public DelegateCommand CancelCommand { get; set; }
 
 
     public List<int> DeviceIds
@@ -139,9 +138,9 @@ namespace MonitoringClient.ViewModel
       get { return _text; }
       set
       {
-        if (value.Length > MaxLengthOfSign)
+        if (value.Length > ConstantValue.MaximumFourthyFiveSigns)
         {
-          MessageBox.Show(string.Format($"Text is too long. Maximum {MaxLengthOfSign} signs"));
+          MessageBox.Show(string.Concat(ErrorMessage.InputStringTooLong, ConstantValue.MaximumFourthyFiveSigns));
         }
         else
         {
@@ -211,7 +210,7 @@ namespace MonitoringClient.ViewModel
       }
       else
       {
-        MessageBox.Show("Please enter a message");
+        MessageBox.Show(ErrorMessage.PleaseEnterMessage);
       }
     }
   }

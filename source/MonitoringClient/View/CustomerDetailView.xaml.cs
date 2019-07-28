@@ -1,5 +1,5 @@
 ﻿// ************************************************************************************
-// FileName: CustomerDetail.xaml.cs
+// FileName: CustomerDetailView.xaml.cs
 // Author: 
 // Created on: 22.07.2019
 // Last modified on: 22.07.2019
@@ -14,11 +14,11 @@ namespace MonitoringClient.View
   using ViewModel;
 
   /// <summary>
-  ///   Interaction logic for CustomerDetail.xaml
+  ///   Interaction logic for CustomerDetailView.xaml
   /// </summary>
-  public partial class CustomerDetail : UserControl
+  public partial class CustomerDetailView : UserControl
   {
-    public CustomerDetail()
+    public CustomerDetailView()
     {
       InitializeComponent();
       DataContext = CustomerDetailViewModel.GetInstance();

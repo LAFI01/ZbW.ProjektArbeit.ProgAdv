@@ -16,9 +16,20 @@ namespace MonitoringClient.Utilities.Impl
   {
     public MessagerLogger()
     {
-      Messages = new List<string>();
+      AddMessages = new List<string>();
     }
 
-    public IList<string> Messages { get; set; }
+    public IList<string> AddMessages { get; set; }
+
+    public string GetMessages()
+    {
+      var errorMessages = "";
+      foreach (var msg in AddMessages)
+      {
+        errorMessages += string.Concat(msg, ";");
+      }
+      AddMessages.Clear();
+      return errorMessages;
+    }
   }
 }

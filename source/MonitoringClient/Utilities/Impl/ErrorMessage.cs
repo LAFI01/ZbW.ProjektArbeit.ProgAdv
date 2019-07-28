@@ -19,6 +19,10 @@ namespace MonitoringClient.Utilities.Impl
     public const string WebsiteIsNotValid = "The website link is not valid";
     public const string PasswordIsNotValid = "The password is not valid";
 
+    public const string InputStringTooLong = "The input string is too long.Maximum of signs is ";
+    public const string EntityCouldNotBeDeleted = "Entity could not be deleted";
+
+    public const string PleaseEnterMessage = "Please enter a message";
 
   }
 }
