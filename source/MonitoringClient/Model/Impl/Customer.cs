@@ -67,7 +67,7 @@ namespace MonitoringClient.Model.Impl
     }
 
 
-    public int Fk_AddressId { get; set; }
+    public int? Fk_AddressId { get; set; }
 
 
     public int Id

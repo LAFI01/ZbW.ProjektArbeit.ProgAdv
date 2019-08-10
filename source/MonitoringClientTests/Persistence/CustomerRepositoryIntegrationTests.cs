@@ -2,7 +2,7 @@
 // FileName: CustomerRepositoryIntegrationTests.cs
 // Author: 
 // Created on: 23.07.2019
-// Last modified on: 27.07.2019
+// Last modified on: 10.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 

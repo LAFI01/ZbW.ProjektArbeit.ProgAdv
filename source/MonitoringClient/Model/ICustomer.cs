@@ -20,7 +20,7 @@ namespace MonitoringClient.Model
     string Firstname { get; set; }
 
 
-    int Fk_AddressId { get; set; }
+    int? Fk_AddressId { get; set; }
 
 
     int Id { get; set; }

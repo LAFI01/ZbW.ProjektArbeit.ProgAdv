@@ -2,7 +2,7 @@
 // FileName: CustomerRepository.cs
 // Author: 
 // Created on: 23.07.2019
-// Last modified on: 27.07.2019
+// Last modified on: 10.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -10,87 +10,107 @@
 // ************************************************************************************
 namespace MonitoringClient.Persistence.Table.Impl
 {
+  using System;
   using System.Collections.Generic;
-  using System.Diagnostics;
   using System.Linq;
-  using Base.Impl;
-  using DbDtos;
+  using EntityFramework;
   using Model;
   using Model.Impl;
-  using MySql.Data.MySqlClient;
   using Utilities.Impl;
 
-  public class CustomerRepository : MySqlBaseRepository<CustomerDto, int>, ICustomerRepository
+  public class CustomerRepository : ICustomerRepository
   {
     public void AddCustomer(ICustomer customer)
     {
-      CustomerDto customerDto = CustomerToCustomerDto(customer);
-      Add(customerDto);
+      customer customerToCreate = CustomerToCustomerDto(customer);
+      using (InvDb ctx = new InvDb())
+      {
+        customer customers = ctx.customers.Add(customerToCreate);
+        var b = ctx.SaveChanges();
+      }
     }
 
     public bool DeleteCustomer(ICustomer customer)
     {
-      CustomerDto customerDto = CustomerToCustomerDto(customer);
-      var isDeleted = false;
-      try
+      using (InvDb ctx = new InvDb())
       {
-        Delete(customerDto);
-        isDeleted = true;
-      }
-      catch (MySqlException mySqlException)
-      {
-        Debug.Print(string.Format($"Entity could not be deleted: {mySqlException.Message}"));
-      }
+        customer customerToDelete = ctx.customers.Find(customer.Id);
+        if (customerToDelete != null)
+        {
+          customer customers = ctx.customers.Remove(customerToDelete);
+          var b = ctx.SaveChanges();
 
-      return isDeleted;
+          return true;
+        }
+
+        throw new ArgumentException("Customer does not exist");
+      }
     }
 
     public List<ICustomer> GetAllCustomer()
     {
-      var customerDtos = GetAll();
-      var customers = customerDtos.Select(c => CustomerDtoToCustomer(c)).ToList();
+      using (InvDb ctx = new InvDb())
+      {
+        var customersDb = ctx.customers.ToList();
+        var customers = customersDb.Select(CustomerDtoToCustomer).ToList();
 
-      return customers;
+        return customers;
+      }
     }
 
-    public void UpdateCustomer(ICustomer customer)
+    public void UpdateCustomer(ICustomer c)
     {
-      CustomerDto customerDto = CustomerToCustomerDto(customer);
-      Update(customerDto);
+      using (InvDb ctx = new InvDb())
+      {
+        customer customerToUpdate = ctx.customers.Find(c.Id);
+        if (customerToUpdate != null)
+        {
+          customerToUpdate.kundenNr = c.CustomerNumber;
+          customerToUpdate.email = c.Email;
+          customerToUpdate.surname = c.Firstname;
+          customerToUpdate.name = c.Lastname;
+          customerToUpdate.id = c.Id;
+          customerToUpdate.password = Encryption.Encrypt(c.Password);
+          customerToUpdate.phone = c.Phone;
+          customerToUpdate.website = c.Website;
+          customerToUpdate.address_id = c.Fk_AddressId;
+          ctx.SaveChanges();
+        }
+      }
     }
 
-    private ICustomer CustomerDtoToCustomer(CustomerDto c)
+    private ICustomer CustomerDtoToCustomer(customer c)
     {
       Customer customerDto = new Customer
       {
-        CustomerNumber = c.CustomerNumber,
-        Email = c.Email,
-        Firstname = c.Firstname,
-        Lastname = c.Lastname,
-        Id = c.Id,
-        Password = Encryption.Decrypt(c.Password),
-        Phone = c.Phone,
-        Website = c.Website,
-        Fk_AddressId = c.Fk_AddressId
+        CustomerNumber = c.kundenNr,
+        Email = c.email,
+        Firstname = c.surname,
+        Lastname = c.name,
+        Id = c.id,
+        Password = Encryption.Decrypt(c.password),
+        Phone = c.phone,
+        Website = c.website,
+        Fk_AddressId = c.address_id
       };
 
       return customerDto;
     }
 
 
-    private CustomerDto CustomerToCustomerDto(ICustomer c)
+    private customer CustomerToCustomerDto(ICustomer c)
     {
-      CustomerDto customerDto = new CustomerDto
+      customer customerDto = new customer
       {
-        CustomerNumber = c.CustomerNumber,
-        Email = c.Email,
-        Firstname = c.Firstname,
-        Lastname = c.Lastname,
-        Id = c.Id,
-        Password = Encryption.Encrypt(c.Password),
-        Phone = c.Phone,
-        Website = c.Website,
-        Fk_AddressId = 2
+        kundenNr = c.CustomerNumber,
+        email = c.Email,
+        surname = c.Firstname,
+        name = c.Lastname,
+        id = c.Id,
+        password = Encryption.Encrypt(c.Password),
+        phone = c.Phone,
+        website = c.Website,
+        address_id = 2
       };
 
       return customerDto;

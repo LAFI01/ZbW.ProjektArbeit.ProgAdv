@@ -2,7 +2,7 @@
 // FileName: CustomerDetailViewModel.cs
 // Author: 
 // Created on: 22.07.2019
-// Last modified on: 28.07.2019
+// Last modified on: 10.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 

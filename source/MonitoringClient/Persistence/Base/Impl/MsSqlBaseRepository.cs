@@ -1,42 +1,39 @@
-﻿// ************************************************************************************
-// FileName: MySqlBaseRepository.cs
-// Author: 
-// Created on: 09.06.2019
-// Last modified on: 10.08.2019
-// Copy Right: JELA Rocks
-// ------------------------------------------------------------------------------------
-// Description: 
-// ------------------------------------------------------------------------------------
-// ************************************************************************************
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace MonitoringClient.Persistence.Base.Impl
 {
-  using System;
-  using System.Linq;
+  using System.Diagnostics;
   using System.Linq.Expressions;
   using DbDtos;
+  using EntityFramework;
   using LinqToDB;
   using LinqToDB.Data;
 
-  public abstract class MySqlBaseRepository<TDto, TId> : DataConnection, IRepositoryBase<TDto> where TDto : DtoBase<TId>
+  public abstract class MsSqlBaseRepository<TDto, TId, TDbSet> : DataConnection, IRepositoryBase<TDto> where TDto : DtoBase<TId>
   {
-    protected const string RepositoryName = "inventarisierungsloesunglfi";
+    //protected const string RepositoryName = "inventarisierungsloesunglfi";
 
-    protected MySqlBaseRepository() : base(RepositoryName)
+    protected MsSqlBaseRepository()
     {
     }
 
-
+    protected abstract void E(InvDb ctx);
     public void Add(TDto entity)
     {
-      using (DataContext ctx = new DataContext(RepositoryName))
+      using (InvDb ctx = new InvDb())
       {
-        ctx.Insert(entity);
+        E(ctx);
+        ctx.SaveChanges();
       }
     }
 
     public long Count(Expression<Func<TDto, bool>> whereClause)
     {
-      using (DataContext db = new DataContext(RepositoryName))
+      using (DataContext db = new DataContext())
       {
         var entities = db.GetTable<TDto>().Where(whereClause);
 
@@ -53,7 +50,7 @@ namespace MonitoringClient.Persistence.Base.Impl
 
     public void Delete(TDto entity)
     {
-      using (DataContext ctx = new DataContext(RepositoryName))
+      using (DataContext ctx = new DataContext())
       {
         TDto toDeleteEntry = GetAll(e => e.Id.Equals(entity.Id)).FirstOrDefault();
         if (toDeleteEntry != null)
@@ -65,7 +62,7 @@ namespace MonitoringClient.Persistence.Base.Impl
 
     public void ExecuteStoreProcedur(string storeProcedureName, DataParameter[] dataParameters)
     {
-      using (DataConnection db = new DataConnection(RepositoryName))
+      using (DataConnection db = new DataConnection())
       {
         db.QueryProc<TDto>(storeProcedureName, dataParameters);
       }
@@ -74,7 +71,7 @@ namespace MonitoringClient.Persistence.Base.Impl
     public IQueryable<TDto> GetAll(Expression<Func<TDto, bool>> whereClause)
     {
       var entities = Enumerable.Empty<TDto>().AsQueryable();
-      using (DataContext db = new DataContext(RepositoryName))
+      using (DataContext db = new DataContext())
       {
         entities = db.GetTable<TDto>().Where(whereClause);
 
@@ -85,7 +82,7 @@ namespace MonitoringClient.Persistence.Base.Impl
 
     public IQueryable<TDto> GetAll()
     {
-      using (DataContext ctx = new DataContext(RepositoryName))
+      using (DataContext ctx = new DataContext())
       {
         var entries = ctx.GetTable<TDto>();
 
@@ -96,7 +93,7 @@ namespace MonitoringClient.Persistence.Base.Impl
 
     public TDto GetSingle<P>(P pkValue)
     {
-      using (DataContext ctx = new DataContext(RepositoryName))
+      using (DataContext ctx = new DataContext())
       {
         TDto entry = ctx.GetTable<TDto>().FirstOrDefault(e => e.Id.Equals(pkValue));
 
@@ -106,7 +103,7 @@ namespace MonitoringClient.Persistence.Base.Impl
 
     public IQueryable<TDto> Query(Expression<Func<TDto, bool>> whereClause)
     {
-      using (DataContext db = new DataContext(RepositoryName))
+      using (DataContext db = new DataContext())
       {
         var entities = db.GetTable<TDto>().Where(whereClause);
 
@@ -117,7 +114,7 @@ namespace MonitoringClient.Persistence.Base.Impl
 
     public void Update(TDto entity)
     {
-      using (DataContext ctx = new DataContext(RepositoryName))
+      using (DataContext ctx = new DataContext())
       {
         ctx.Update(entity);
       }
@@ -129,7 +126,7 @@ namespace MonitoringClient.Persistence.Base.Impl
       var isConnected = false;
       try
       {
-        using (DataContext db = new DataContext(RepositoryName))
+        using (DataContext db = new DataContext())
         {
           var entities = db.GetTable<DeviceDto>();
           isConnected = entities.Any();
@@ -137,10 +134,11 @@ namespace MonitoringClient.Persistence.Base.Impl
       }
       catch (Exception ex)
       {
-        throw ex;
+        Debug.Print(string.Format($"Conncetion failed: {ex.Message}"));
       }
 
       return isConnected;
     }
   }
 }
+

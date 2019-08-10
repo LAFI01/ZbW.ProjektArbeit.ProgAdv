@@ -2,7 +2,7 @@
 // FileName: LogRepository.cs
 // Author: 
 // Created on: 09.06.2019
-// Last modified on: 07.07.2019
+// Last modified on: 10.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -14,7 +14,6 @@ namespace MonitoringClient.Persistence.Table.Impl
   using DbDtos;
   using LinqToDB.Data;
   using Model;
-  using Utilities;
   using Utilities.Impl;
 
   public class LogRepository : MySqlBaseRepository<LogDto, int>, ILogRepository
@@ -22,6 +21,7 @@ namespace MonitoringClient.Persistence.Table.Impl
     private const string LogClear = "LogClear";
 
     private const string LogMessageAdd = "logMessageAdd";
+
 
     public void AddLogEntry(IEntity entry)
     {

@@ -2,7 +2,7 @@
 // FileName: LocationViewModel.cs
 // Author: 
 // Created on: 18.06.2019
-// Last modified on: 22.06.2019
+// Last modified on: 10.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 

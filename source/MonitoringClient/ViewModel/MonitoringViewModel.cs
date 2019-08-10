@@ -2,7 +2,7 @@
 // FileName: MonitoringViewModel.cs
 // Author: 
 // Created on: 11.05.2019
-// Last modified on: 22.07.2019
+// Last modified on: 10.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -10,6 +10,7 @@
 // ************************************************************************************
 namespace MonitoringClient.ViewModel
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using System.Reflection;
@@ -168,18 +169,19 @@ namespace MonitoringClient.ViewModel
 
     private void OnCmdConnect()
     {
-      if (!LogEntryView.ConnectionTest())
+      try
       {
-        MessageBox.Show(
-          "It coud not connect to your database! Please check the Connection String in your app.config file");
-      }
-      else
-      {
+        LogEntryView.ConnectionTest();
         IsDbConnect = true;
         AddCommand.RaiseCanExecuteChanged();
         LoadCommand.RaiseCanExecuteChanged();
         ConnectCommand.RaiseCanExecuteChanged();
         CustomerCommand.RaiseCanExecuteChanged();
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(
+          ex.Message);
       }
     }
 

@@ -2,7 +2,7 @@
 // FileName: LocationRepository.cs
 // Author: 
 // Created on: 09.06.2019
-// Last modified on: 23.07.2019
+// Last modified on: 10.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 

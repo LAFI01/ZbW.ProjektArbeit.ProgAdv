@@ -65,6 +65,12 @@
     <Reference Include="DuplicateCheckerLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DuplicateCheckerLib.1.0.0\lib\netstandard2.0\DuplicateCheckerLib.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Protobuf, Version=3.8.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.8.0\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
@@ -93,6 +99,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -115,12 +123,30 @@
     <Compile Include="Model\Impl\Customer.cs" />
     <Compile Include="Model\Impl\Device.cs" />
     <Compile Include="Model\Impl\Location.cs" />
-    <Compile Include="Persistence\DbDtos\CustomerDto.cs" />
+    <Compile Include="Persistence\Base\Impl\MsSqlBaseRepository.cs" />
     <Compile Include="Persistence\DbDtos\DeviceDto.cs" />
     <Compile Include="Persistence\DbDtos\DtoBase.cs" />
     <Compile Include="Persistence\DbDtos\LocationDto.cs" />
     <Compile Include="Persistence\DbDtos\LogDto.cs" />
     <Compile Include="Persistence\DbDtos\ViewLogEntryDto.cs" />
+    <Compile Include="Persistence\EntityFramework\customer.cs">
+      <DependentUpon>InventarisierungDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\EntityFramework\InventarisierungDb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventarisierungDb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\EntityFramework\InventarisierungDb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventarisierungDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\EntityFramework\InventarisierungDb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventarisierungDb.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Persistence\Table\ICustomerRepository.cs" />
     <Compile Include="Persistence\Table\IDeviceRepository.cs" />
     <Compile Include="Persistence\Table\ILocationRepository.cs" />
@@ -222,6 +248,13 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <EntityDeploy Include="Persistence\EntityFramework\InventarisierungDb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>InventarisierungDb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Persistence\EntityFramework\InventarisierungDb.edmx.diagram">
+      <DependentUpon>InventarisierungDb.edmx</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -260,6 +293,21 @@
   <ItemGroup>
     <Resource Include="Icons\delete.PNG" />
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="Persistence\EntityFramework\InventarisierungDb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InventarisierungDb.edmx</DependentUpon>
+      <LastGenOutput>InventarisierungDb.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Persistence\EntityFramework\InventarisierungDb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InventarisierungDb.edmx</DependentUpon>
+      <LastGenOutput>InventarisierungDb.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

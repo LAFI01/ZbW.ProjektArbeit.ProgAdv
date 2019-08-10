@@ -2,7 +2,7 @@
 // FileName: CustomerViewModel.cs
 // Author: 
 // Created on: 22.07.2019
-// Last modified on: 27.07.2019
+// Last modified on: 10.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -24,6 +24,8 @@ namespace MonitoringClient.ViewModel
   {
     private List<ICustomer> _customers;
 
+    private string _filterText;
+
     private ICustomer _selectedCustomer;
 
     public CustomerViewModel(ICustomerRepository customerRepository)
@@ -34,6 +36,8 @@ namespace MonitoringClient.ViewModel
     }
 
     public DelegateCommand AddCommand { get; set; }
+
+    public DelegateCommand ClearCommand { get; set; }
 
     public List<ICustomer> Customers
     {
@@ -47,7 +51,19 @@ namespace MonitoringClient.ViewModel
 
     public DelegateCommand DeleteCommand { get; set; }
 
+    public string FilterText
+    {
+      get { return _filterText; }
+      set
+      {
+        SetProperty(ref _filterText, value);
+        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
+      }
+    }
+
     public DelegateCommand GoBackCommand { get; set; }
+
+    public DelegateCommand SearchCommand { get; set; }
 
     public ICustomer SelectedCustomer
     {
@@ -62,6 +78,8 @@ namespace MonitoringClient.ViewModel
     public DelegateCommand UpdateCommand { get; set; }
 
     private ICustomerRepository CustomerRepository { get; }
+
+    private List<ICustomer> FilterdCustomerList { get; set; }
 
     private static CustomerViewModel Instance { get; set; }
 
@@ -91,7 +109,7 @@ namespace MonitoringClient.ViewModel
 
     public void RefreshView()
     {
-      Customers = CustomerRepository.GetAllCustomer();
+      LoadCustomers();
       UpdateCommand.RaiseCanExecuteChanged();
       DeleteCommand.RaiseCanExecuteChanged();
     }
@@ -101,14 +119,31 @@ namespace MonitoringClient.ViewModel
       return Customers.Count > 0;
     }
 
+    private bool HasCustomerForFilteredText(ICustomer c)
+    {
+      var filterText = FilterText.ToUpper();
+      var isInFilteredText1 = c.Firstname.ToUpper().Contains(filterText) || c.Lastname.ToUpper().Contains(filterText) ||
+                              c.CustomerNumber.ToUpper().Contains(filterText);
+      var isInFilteredText2 = !string.IsNullOrEmpty(c.Email) && c.Email.ToUpper().Contains(filterText);
+      var isInFilteredText3 = !string.IsNullOrEmpty(c.Phone) && c.Phone.Contains(filterText);
+      var isInFilteredText4 = !string.IsNullOrEmpty(c.Password) && c.Password.ToUpper().Contains(filterText);
+      var isInFilteredText5 = !string.IsNullOrEmpty(c.Website) && c.Website.ToUpper().Contains(filterText);
+
+      return isInFilteredText1 || isInFilteredText2 || isInFilteredText3 || isInFilteredText4 || isInFilteredText5;
+    }
+
     private void InitialViewModel()
     {
-      Customers = CustomerRepository.GetAllCustomer();
+      LoadCustomers();
+      FilterdCustomerList = new List<ICustomer>();
       GoBackCommand = new DelegateCommand(OnCmdNavigateToMonitoringView);
       AddCommand = new DelegateCommand(OnCmdAddCustomer);
       UpdateCommand = new DelegateCommand(OnCmdUpdateCustomer, HasAnyCustomers);
       DeleteCommand = new DelegateCommand(OnCmdDeleteCustomer, HasAnyCustomers);
+      SearchCommand = new DelegateCommand(OnCmdSearchCustomer);
+      ClearCommand = new DelegateCommand(OnCmdClearSearchFilter);
     }
+
 
     private void NavigateToCustomerDetailView()
     {
@@ -119,6 +154,12 @@ namespace MonitoringClient.ViewModel
     private void OnCmdAddCustomer()
     {
       NavigateToCustomerDetailView();
+    }
+
+    private void OnCmdClearSearchFilter()
+    {
+      LoadCustomers();
+      FilterText = "";
     }
 
     private void OnCmdDeleteCustomer()
@@ -135,6 +176,29 @@ namespace MonitoringClient.ViewModel
     {
       MainUserControl.CustomerVisibility = Visibility.Collapsed;
       MainUserControl.MonitoringVisibility = Visibility.Visible;
+    }
+
+
+    private void OnCmdSearchCustomer()
+    {
+      LoadCustomers();
+      FilterdCustomerList.Clear();
+      if (string.IsNullOrEmpty(FilterText))
+      {
+        MessageBox.Show("Please enter a search text!");
+      }
+      else
+      {
+        foreach (ICustomer c in Customers)
+        {
+          if (HasCustomerForFilteredText(c))
+          {
+            FilterdCustomerList.Add(c);
+          }
+        }
+
+        Customers = FilterdCustomerList;
+      }
     }
   }
 }
