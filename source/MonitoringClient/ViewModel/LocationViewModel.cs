@@ -2,7 +2,7 @@
 // FileName: LocationViewModel.cs
 // Author: 
 // Created on: 18.06.2019
-// Last modified on: 10.08.2019
+// Last modified on: 16.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -17,7 +17,7 @@ namespace MonitoringClient.ViewModel
   using Persistence.Table;
   using Persistence.Table.Impl;
   using Prism.Commands;
-  using Prism.Mvvm;
+  using Utilities.Impl;
 
   public class LocationViewModel : BindableBase
   {

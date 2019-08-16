@@ -19,15 +19,56 @@
       <ColumnDefinition Width="0.15*" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
-      <RowDefinition Height="0.05*" />
-      <RowDefinition Height="0.05*" />
+      <RowDefinition Height="0.005*" />
+      <RowDefinition Height="0.1*" />
       <RowDefinition Height="0.5*" />
       <RowDefinition Height="0.05*" />
     </Grid.RowDefinitions>
     <StackPanel
       Grid.Row="1"
       Grid.Column="0"
-      Orientation="Horizontal" />
+      Orientation="Horizontal">
+      <TextBox
+        x:Name="destinationPath"
+        Width="450"
+        Height="25"
+        Margin="5"
+        Text="{Binding DestinationPath}" />
+      <Button
+        x:Name="toCsv"
+        Width="55"
+        Height="25"
+        Margin="5"
+        Background="#FFFFFBFB"
+        Command="{Binding ToCsvCommand}"
+        Content="To CSV"
+        FontSize="14"
+        TabIndex="0"
+        ToolTip="Export all logentries to a csv file" />
+      <Button
+        x:Name="toJson"
+        Width="55"
+        Height="25"
+        Margin="5"
+        Background="#FFFFFBFB"
+        Command="{Binding ToJsonCommand}"
+        Content="To JSON"
+        FontSize="14"
+        TabIndex="1"
+        ToolTip="Export all logentries to a json file" />
+      <Button
+        x:Name="toTxt"
+        Width="55"
+        Height="25"
+        Margin="5"
+        Background="#FFFFFBFB"
+        Command="{Binding ToTxtCommand}"
+        Content="To TXT"
+        FontSize="14"
+        TabIndex="2"
+        ToolTip="Export all logentries to a txt file" />
+    </StackPanel>
+
     <StackPanel
       Grid.Row="2"
       Grid.Column="1"
@@ -42,7 +83,7 @@
         BorderThickness="0"
         Command="{Binding ConnectCommand}"
         FontSize="14"
-        TabIndex="0"
+        TabIndex="4"
         ToolTip="Connect to DB">
         <StackPanel Width="80" Orientation="Horizontal">
           <Image
@@ -66,7 +107,7 @@
         BorderThickness="0"
         Command="{Binding LoadCommand}"
         FontSize="14"
-        TabIndex="0"
+        TabIndex="5"
         ToolTip="Load all Log Entries">
         <StackPanel Width="80" Orientation="Horizontal">
           <Image
@@ -90,7 +131,7 @@
         BorderThickness="0"
         Command="{Binding ConfirmCommand}"
         FontSize="14"
-        TabIndex="1"
+        TabIndex="6"
         ToolTip="Quit a Log Entry">
         <StackPanel Orientation="Horizontal">
           <Image
@@ -116,7 +157,7 @@
         BorderThickness="0"
         Command="{Binding AddCommand}"
         FontSize="14"
-        TabIndex="2"
+        TabIndex="7"
         ToolTip="Add new Log Entry">
         <StackPanel Width="89" Orientation="Horizontal">
           <Image
@@ -143,7 +184,7 @@
         BorderThickness="0"
         Command="{Binding DuplicatedCommand}"
         FontSize="14"
-        TabIndex="2"
+        TabIndex="8"
         ToolTip="Show Duplicate Entries">
         <StackPanel Width="89" Orientation="Horizontal">
           <Image
@@ -170,7 +211,7 @@
         BorderThickness="0"
         Command="{Binding LocationTreeCommand}"
         FontSize="14"
-        TabIndex="2"
+        TabIndex="9"
         ToolTip="Show Location Tree">
         <StackPanel Width="89" Orientation="Horizontal">
           <Image
@@ -197,7 +238,7 @@
         BorderThickness="0"
         Command="{Binding CustomerCommand}"
         FontSize="14"
-        TabIndex="2"
+        TabIndex="10"
         ToolTip="Show Customer List">
         <StackPanel Width="89" Orientation="Horizontal">
           <Image

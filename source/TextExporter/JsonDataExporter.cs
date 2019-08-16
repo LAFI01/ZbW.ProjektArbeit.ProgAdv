@@ -10,17 +10,27 @@
 // ************************************************************************************
 namespace TextExporter
 {
-  using System;
   using System.Collections;
+  using System.IO;
+  using Newtonsoft.Json;
   using PluginContracts;
 
   public class JsonDataExporter : IDataExportPlugin
   {
-    public void Export(IEnumerable data, string destinationPath)
+    public void Export<T>(IEnumerable data, string destinationPath)
     {
-      throw new NotImplementedException();
+      JsonSerializer serializer = new JsonSerializer();
+      var path = string.Concat(destinationPath, "JSON.txt");
+      using (StreamWriter s = File.CreateText(path))
+      {
+        serializer.Serialize(s, data);
+        s.Close();
+      }
     }
 
-    public string Name { get; }
+    public string Name
+    {
+      get { return GetType().Name; }
+    }
   }
 }

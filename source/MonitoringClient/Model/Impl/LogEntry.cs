@@ -14,7 +14,10 @@ namespace MonitoringClient.Model.Impl
   using System.Reflection;
   using LinqToDB.Mapping;
   using Prism.Mvvm;
+  using Utilities.Impl;
+  using BindableBase = Utilities.Impl.BindableBase;
 
+  [Serializable]
   public class LogEntry : BindableBase, IEntity
   {
     private int _deviceId;

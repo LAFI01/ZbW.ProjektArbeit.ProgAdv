@@ -10,20 +10,28 @@
 // ************************************************************************************
 namespace BinaryExporter
 {
-  using System;
   using System.Collections;
+  using System.IO;
+  using System.Runtime.Serialization;
+  using System.Runtime.Serialization.Formatters.Binary;
   using PluginContracts;
 
   public class BinaryDataExporter : IDataExportPlugin
   {
-    public void Export(IEnumerable data, string destinationPath)
+    public void Export<T>(IEnumerable data, string destinationPath)
     {
-      throw new NotImplementedException();
+      IFormatter f = new BinaryFormatter();
+      var path = string.Concat(destinationPath, "-BinaryDataExport.txt");
+      using (FileStream s = new FileStream(path, FileMode.Create))
+      {
+        f.Serialize(s, data);
+        s.Close();
+      }
     }
 
     public string Name
     {
-      get { throw new NotImplementedException(); }
+      get { return GetType().Name; }
     }
   }
 }

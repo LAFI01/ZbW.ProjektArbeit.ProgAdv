@@ -2,7 +2,7 @@
 // FileName: CustomerViewModel.cs
 // Author: 
 // Created on: 22.07.2019
-// Last modified on: 10.08.2019
+// Last modified on: 16.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -10,19 +10,23 @@
 // ************************************************************************************
 namespace MonitoringClient.ViewModel
 {
+  using System;
   using System.Collections.Generic;
   using System.Reflection;
   using System.Windows;
   using Model;
+  using Model.Impl;
   using Persistence.Table;
   using Persistence.Table.Impl;
+  using PluginLoader;
   using Prism.Commands;
-  using Prism.Mvvm;
   using Utilities.Impl;
 
   public class CustomerViewModel : BindableBase
   {
     private List<ICustomer> _customers;
+
+    private string _destinationPath;
 
     private string _filterText;
 
@@ -51,6 +55,16 @@ namespace MonitoringClient.ViewModel
 
     public DelegateCommand DeleteCommand { get; set; }
 
+    public string DestinationPath
+    {
+      get { return _destinationPath; }
+      set
+      {
+        SetProperty(ref _destinationPath, value);
+        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
+      }
+    }
+
     public string FilterText
     {
       get { return _filterText; }
@@ -74,6 +88,12 @@ namespace MonitoringClient.ViewModel
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
+
+    public DelegateCommand ToCsvCommand { get; set; }
+
+    public DelegateCommand ToJsonCommand { get; set; }
+
+    public DelegateCommand ToTxtCommand { get; set; }
 
     public DelegateCommand UpdateCommand { get; set; }
 
@@ -110,8 +130,22 @@ namespace MonitoringClient.ViewModel
     public void RefreshView()
     {
       LoadCustomers();
-      UpdateCommand.RaiseCanExecuteChanged();
-      DeleteCommand.RaiseCanExecuteChanged();
+      RaisCanExecuteChangeHasAnyCustomers();
+    }
+
+    private void ExportFile(DataExporter dataExporter)
+    {
+      try
+      {
+        var msg = PluginLoader.ExportFile<LogEntry>(Customers, DestinationPath, dataExporter)
+          ? "Export Success"
+          : "Export faild";
+        MessageBox.Show(msg);
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(ex.Message);
+      }
     }
 
     private bool HasAnyCustomers()
@@ -142,8 +176,10 @@ namespace MonitoringClient.ViewModel
       DeleteCommand = new DelegateCommand(OnCmdDeleteCustomer, HasAnyCustomers);
       SearchCommand = new DelegateCommand(OnCmdSearchCustomer);
       ClearCommand = new DelegateCommand(OnCmdClearSearchFilter);
+      ToCsvCommand = new DelegateCommand(OnCmdToCsv, HasAnyCustomers);
+      ToJsonCommand = new DelegateCommand(OnCmdToJson, HasAnyCustomers);
+      ToTxtCommand = new DelegateCommand(OnCmdToTxt, HasAnyCustomers);
     }
-
 
     private void NavigateToCustomerDetailView()
     {
@@ -199,6 +235,30 @@ namespace MonitoringClient.ViewModel
 
         Customers = FilterdCustomerList;
       }
+    }
+
+    private void OnCmdToCsv()
+    {
+      ExportFile(DataExporter.CsvDataExporter);
+    }
+
+    private void OnCmdToJson()
+    {
+      ExportFile(DataExporter.JsonDataExporter);
+    }
+
+    private void OnCmdToTxt()
+    {
+      ExportFile(DataExporter.BinaryDataExporter);
+    }
+
+    private void RaisCanExecuteChangeHasAnyCustomers()
+    {
+      UpdateCommand.RaiseCanExecuteChanged();
+      DeleteCommand.RaiseCanExecuteChanged();
+      ToCsvCommand.RaiseCanExecuteChanged();
+      ToJsonCommand.RaiseCanExecuteChanged();
+      ToTxtCommand.RaiseCanExecuteChanged();
     }
   }
 }

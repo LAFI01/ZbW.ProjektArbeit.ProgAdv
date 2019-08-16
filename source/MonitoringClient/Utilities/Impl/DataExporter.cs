@@ -1,5 +1,5 @@
 ﻿// ************************************************************************************
-// FileName: IDataExportPlugin.cs
+// FileName: DataExporter.cs
 // Author: 
 // Created on: 16.08.2019
 // Last modified on: 16.08.2019
@@ -8,14 +8,14 @@
 // Description: 
 // ------------------------------------------------------------------------------------
 // ************************************************************************************
-namespace PluginContracts
+namespace MonitoringClient.Utilities.Impl
 {
-  using System.Collections;
-
-  public interface IDataExportPlugin
+  public enum DataExporter
   {
-    string Name { get; }
+    BinaryDataExporter,
 
-    void Export<T>(IEnumerable data, string destinationPath);
+    JsonDataExporter,
+
+    CsvDataExporter
   }
 }

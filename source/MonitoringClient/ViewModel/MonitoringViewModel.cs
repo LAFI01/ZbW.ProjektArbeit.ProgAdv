@@ -2,7 +2,7 @@
 // FileName: MonitoringViewModel.cs
 // Author: 
 // Created on: 11.05.2019
-// Last modified on: 10.08.2019
+// Last modified on: 16.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -16,16 +16,20 @@ namespace MonitoringClient.ViewModel
   using System.Reflection;
   using System.Windows;
   using DuplicateCheckerLib;
+  using Model.Impl;
   using Persistence.Table;
   using Persistence.Table.Impl;
   using Persistence.View;
   using Persistence.View.Impl;
+  using PluginLoader;
   using Prism.Commands;
-  using Prism.Mvvm;
+  using Utilities.Impl;
   using IEntity = Model.IEntity;
 
   public class MonitoringViewModel : BindableBase
   {
+    private string _destinationPath;
+
     private List<IEntity> _logEntries;
 
     private IEntity _selectedEntity;
@@ -45,6 +49,16 @@ namespace MonitoringClient.ViewModel
     public DelegateCommand ConnectCommand { get; set; }
 
     public DelegateCommand CustomerCommand { get; set; }
+
+    public string DestinationPath
+    {
+      get { return _destinationPath; }
+      set
+      {
+        SetProperty(ref _destinationPath, value);
+        RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
+      }
+    }
 
     public DelegateCommand DuplicatedCommand { get; set; }
 
@@ -71,6 +85,12 @@ namespace MonitoringClient.ViewModel
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
+
+    public DelegateCommand ToCsvCommand { get; set; }
+
+    public DelegateCommand ToJsonCommand { get; set; }
+
+    public DelegateCommand ToTxtCommand { get; set; }
 
     private static MonitoringViewModel Instance { get; set; }
 
@@ -103,8 +123,7 @@ namespace MonitoringClient.ViewModel
     public void OnCmdLoad()
     {
       LogEntries = LogEntryView.GetAllLogEntries();
-      ConfirmCommand.RaiseCanExecuteChanged();
-      DuplicatedCommand.RaiseCanExecuteChanged();
+      RaisCanExecuteChangeHasAnyLogEntries();
     }
 
 
@@ -126,14 +145,28 @@ namespace MonitoringClient.ViewModel
     public void RefreshView()
     {
       LogEntries = LogEntryView.GetAllLogEntries();
-      ConfirmCommand.RaiseCanExecuteChanged();
-      DuplicatedCommand.RaiseCanExecuteChanged();
+      RaisCanExecuteChangeHasAnyLogEntries();
     }
 
 
     private bool CanUseDb()
     {
       return IsDbConnect;
+    }
+
+    private void ExportFile(DataExporter dataExporter)
+    {
+      try
+      {
+        var msg = PluginLoader.ExportFile<LogEntry>(LogEntries, DestinationPath, dataExporter)
+          ? "Export Success"
+          : "Export faild";
+        MessageBox.Show(msg);
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(ex.Message);
+      }
     }
 
     private bool HasAnyLogEntries()
@@ -151,6 +184,9 @@ namespace MonitoringClient.ViewModel
       DuplicatedCommand = new DelegateCommand(OnCmdDuplicatCheck, HasAnyLogEntries);
       LocationTreeCommand = new DelegateCommand(OnCmdNavigateToLocationView, CanUseDb);
       CustomerCommand = new DelegateCommand(OnCmdNavigateToCustomerView, CanUseDb);
+      ToCsvCommand = new DelegateCommand(OnCmdToCsv, HasAnyLogEntries);
+      ToJsonCommand = new DelegateCommand(OnCmdToJson, HasAnyLogEntries);
+      ToTxtCommand = new DelegateCommand(OnCmdToTxt, HasAnyLogEntries);
     }
 
     private void OnCmdAdd()
@@ -204,6 +240,30 @@ namespace MonitoringClient.ViewModel
       {
         MessageBox.Show("There are no duplicated Log Entries");
       }
+    }
+
+    private void OnCmdToCsv()
+    {
+      ExportFile(DataExporter.CsvDataExporter);
+    }
+
+    private void OnCmdToJson()
+    {
+      ExportFile(DataExporter.JsonDataExporter);
+    }
+
+    private void OnCmdToTxt()
+    {
+      ExportFile(DataExporter.BinaryDataExporter);
+    }
+
+    private void RaisCanExecuteChangeHasAnyLogEntries()
+    {
+      ConfirmCommand.RaiseCanExecuteChanged();
+      DuplicatedCommand.RaiseCanExecuteChanged();
+      ToCsvCommand.RaiseCanExecuteChanged();
+      ToJsonCommand.RaiseCanExecuteChanged();
+      ToTxtCommand.RaiseCanExecuteChanged();
     }
   }
 }

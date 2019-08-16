@@ -2,7 +2,7 @@
 // FileName: MainUserControlViewModel.cs
 // Author: 
 // Created on: 17.05.2019
-// Last modified on: 22.07.2019
+// Last modified on: 16.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -11,7 +11,7 @@
 namespace MonitoringClient.ViewModel
 {
   using System.Windows;
-  using Prism.Mvvm;
+  using Utilities.Impl;
 
   public class MainUserControlViewModel : BindableBase
   {

@@ -1,61 +1,75 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿// ************************************************************************************
+// FileName: PluginLoader.cs
+// Author: 
+// Created on: 16.08.2019
+// Last modified on: 16.08.2019
+// Copy Right: JELA Rocks
+// ------------------------------------------------------------------------------------
+// Description: 
+// ------------------------------------------------------------------------------------
+// ************************************************************************************
 namespace MonitoringClient.PluginLoader
 {
+  using System;
   using System.Collections;
   using System.ComponentModel;
   using System.IO;
+  using System.Linq;
   using System.Reflection;
   using System.Security;
   using PluginContracts;
+  using Utilities.Impl;
 
-  public class PluginLoader
+  public static class PluginLoader
   {
-    public void ExportFile(IEnumerable data, string destinationPath)
+    public static bool ExportFile<T>(IEnumerable data, string destinationPath, DataExporter dataExporter)
     {
-      var files = Directory.GetFiles(@".\plugins\", "*.dll");
-
+      var files = Directory.GetFiles(@"D:\ProjectE\ZbW.Projektarbeit.ProgAdv\source\MonitoringClient\bin\Debug\plugins",
+        "*.dll");
       foreach (var file in files.Select(Path.GetFullPath))
       {
         try
         {
-          // TODO:
-          // 1) Assembly laden (siehe Klasse Assembly)
-          // 2) prüfen, ob es einen Typ gibt, der das Interface IPlugin implementiert (siehe Methode Type.IsAssignableFrom())
-          // 3) sofern ein Typ gefunden, soll dieser instanziiert werden (siehe Activator.CreateInstance())
-          // 4) Methode Execute() ausführen
-
-          // Ignore assemblies we can't load. They could be native, etc...
-          var assembly = Assembly.LoadFile(file);
-          foreach (var t in assembly.GetTypes().Where(t => t != typeof(IDataExportPlugin) && typeof(IDataExportPlugin).IsAssignableFrom(t)))
+          Assembly assembly = Assembly.LoadFile(file);
+          foreach (Type t in assembly.GetTypes().Where(t =>
+            t != typeof(IDataExportPlugin) && typeof(IDataExportPlugin).IsAssignableFrom(t)))
           {
-            var plugin = (IDataExportPlugin)Activator.CreateInstance(t);
-            plugin.Export(data, destinationPath);
+            IDataExportPlugin plugin = (IDataExportPlugin) Activator.CreateInstance(t);
+            if (plugin.Name.Equals(dataExporter.ToString()))
+            {
+              plugin.Export<T>(data, destinationPath);
+
+              return true;
+            }
           }
         }
-        catch (Win32Exception)
+        catch (Win32Exception win32Exception)
         {
+          throw win32Exception;
         }
-        catch (ArgumentException)
+        catch (ArgumentException argumentException)
         {
+          throw argumentException;
         }
-        catch (FileNotFoundException)
+        catch (FileNotFoundException fileNotFoundException)
         {
+          throw fileNotFoundException;
         }
-        catch (PathTooLongException)
+        catch (PathTooLongException pathTooLongException)
         {
+          throw pathTooLongException;
         }
-        catch (BadImageFormatException)
+        catch (BadImageFormatException badImageFormatException)
         {
+          throw badImageFormatException;
         }
-        catch (SecurityException)
+        catch (SecurityException securityException)
         {
+          throw securityException;
         }
       }
+
+      return false;
     }
   }
 }

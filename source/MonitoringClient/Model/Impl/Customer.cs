@@ -2,7 +2,7 @@
 // FileName: Customer.cs
 // Author: 
 // Created on: 23.07.2019
-// Last modified on: 24.07.2019
+// Last modified on: 16.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -10,9 +10,11 @@
 // ************************************************************************************
 namespace MonitoringClient.Model.Impl
 {
+  using System;
   using System.Reflection;
-  using Prism.Mvvm;
+  using Utilities.Impl;
 
+  [Serializable]
   public class Customer : BindableBase, ICustomer
   {
     private string _customerNumber;

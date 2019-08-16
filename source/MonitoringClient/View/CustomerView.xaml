@@ -16,6 +16,8 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="0.05*" />
       <RowDefinition Height="0.005*" />
+      <RowDefinition Height="0.05*" />
+      <RowDefinition Height="0.005*" />
       <RowDefinition Height="0.5*" />
       <RowDefinition Height="0.005*" />
     </Grid.RowDefinitions>
@@ -24,15 +26,60 @@
       Grid.Column="0"
       Orientation="Horizontal">
       <TextBox
+        x:Name="destinationPath"
+        Width="450"
+        Height="25"
+        Margin="5"
+        Text="{Binding DestinationPath}" />
+      <Button
+        x:Name="toCsv"
+        Width="55"
+        Height="25"
+        Margin="5"
+        Background="#FFFFFBFB"
+        Command="{Binding ToCsvCommand}"
+        Content="To CSV"
+        FontSize="14"
+        TabIndex="0"
+        ToolTip="Export all logentries to a csv file" />
+      <Button
+        x:Name="toJson"
+        Width="55"
+        Height="25"
+        Margin="5"
+        Background="#FFFFFBFB"
+        Command="{Binding ToJsonCommand}"
+        Content="To JSON"
+        FontSize="14"
+        TabIndex="1"
+        ToolTip="Export all logentries to a json file" />
+      <Button
+        x:Name="toTxt"
+        Width="55"
+        Height="25"
+        Margin="5"
+        Background="#FFFFFBFB"
+        Command="{Binding ToTxtCommand}"
+        Content="To TXT"
+        FontSize="14"
+        TabIndex="2"
+        ToolTip="Export all logentries to a txt file" />
+
+    </StackPanel>
+    <StackPanel
+      Grid.Row="2"
+      Grid.Column="0"
+      Orientation="Horizontal">
+      <TextBox
         Width="300"
-        Height="20"
+        Height="25"
         Margin="5,5,0,0"
         HorizontalAlignment="Left"
         DockPanel.Dock="Top"
         Text="{Binding FilterText}" />
       <Button
         Name="searchBtn"
-        Width="100"
+        Width="55"
         Height="25"
         Margin="15,5,0,0"
         HorizontalAlignment="Left"
@@ -42,11 +89,11 @@
         Command="{Binding SearchCommand}"
         Content="Search"
         FontSize="14"
-        TabIndex="0"
+        TabIndex="4"
         ToolTip="Search Customer/s" />
       <Button
         Name="clearBtn"
-        Width="100"
+        Width="55"
         Height="25"
         Margin="15,5,0,0"
         HorizontalAlignment="Center"
@@ -56,12 +103,12 @@
         Command="{Binding ClearCommand}"
         Content="Clear"
         FontSize="14"
-        TabIndex="1"
+        TabIndex="5"
         ToolTip="Clear customer search filter" />
     </StackPanel>
 
     <StackPanel
-      Grid.Row="2"
+      Grid.Row="4"
       Grid.Column="1"
       Orientation="Vertical">
       <Button
@@ -74,7 +121,7 @@
         BorderThickness="0"
         Command="{Binding AddCommand}"
         FontSize="14"
-        TabIndex="0"
+        TabIndex="6"
         ToolTip="Add a new customer">
         <StackPanel Width="80" Orientation="Horizontal">
           <Image
@@ -98,7 +145,7 @@
         BorderThickness="0"
         Command="{Binding UpdateCommand}"
         FontSize="14"
-        TabIndex="0"
+        TabIndex="7"
         ToolTip="Update a customer">
         <StackPanel Width="80" Orientation="Horizontal">
           <Image
@@ -122,7 +169,7 @@
         BorderThickness="0"
         Command="{Binding DeleteCommand}"
         FontSize="14"
-        TabIndex="1"
+        TabIndex="8"
         ToolTip="Delete a customer">
         <StackPanel Orientation="Horizontal">
           <Image
@@ -148,7 +195,7 @@
         BorderThickness="0"
         Command="{Binding GoBackCommand}"
         FontSize="14"
-        TabIndex="1"
+        TabIndex="9"
         ToolTip="Delete a customer">
         <StackPanel Orientation="Horizontal">
           <Image
@@ -167,7 +214,7 @@
     </StackPanel>
     <ListView
       Name="CustomerGrid"
-      Grid.Row="2"
+      Grid.Row="4"
       Grid.Column="0"
       Margin="5,0,0,0"
       HorizontalContentAlignment="Stretch"

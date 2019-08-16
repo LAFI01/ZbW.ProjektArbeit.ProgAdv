@@ -1,0 +1,18 @@
+DeviceId,Hostname,Id,Location,Pod,Severity,Text,Timestamp
+0,Server1,1,Muster AG,Test-PoD1,Critical,Communication error,28/08/2018 08:00:00
+0,PC1,3,Muster AG,Test-PoD1,Warning,test66,22/06/2019 13:26:01
+0,PC1,5,Muster AG,Test-PoD1,Error,ErrorMessage,07/07/2019 13:57:10
+0,Server2,8,Muster AG,Test-PoD1,Critical,test66,07/07/2019 14:00:37
+0,Server2,9,Muster AG,Test-PoD1,Warning,test,07/07/2019 14:17:12
+0,PC1,15,Muster AG,Test-PoD1,Error,ErrorMessage,07/07/2019 14:45:38
+0,Server2,17,Muster AG,Test-PoD1,Warning,testrr,07/07/2019 14:46:46
+0,PC1,18,Muster AG,Test-PoD1,Error,ErrorMessage,23/07/2019 19:55:10
+0,PC1,20,Muster AG,Test-PoD1,Error,ErrorMessage,27/07/2019 12:27:15
+0,PC1,22,Muster AG,Test-PoD1,Error,ErrorMessage,27/07/2019 15:09:51
+0,PC1,24,Muster AG,Test-PoD1,Error,ErrorMessage,28/07/2019 11:40:23
+0,PC1,26,Muster AG,Test-PoD1,Error,ErrorMessage,28/07/2019 14:49:46
+0,PC1,28,Muster AG,Test-PoD1,Error,ErrorMessage,28/07/2019 14:50:44
+0,PC1,30,Muster AG,Test-PoD1,Error,ErrorMessage,28/07/2019 15:17:35
+0,PC1,32,Muster AG,Test-PoD1,Error,ErrorMessage,10/08/2019 10:37:42
+0,PC1,34,Muster AG,Test-PoD1,Error,ErrorMessage,14/08/2019 10:08:18
+0,PC1,36,Muster AG,Test-PoD1,Error,ErrorMessage,14/08/2019 16:41:17
