@@ -14,9 +14,9 @@
       <ColumnDefinition Width="0.15*" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
-      <RowDefinition Height="0.05*" />
+      <RowDefinition Height="0.06*" />
       <RowDefinition Height="0.005*" />
-      <RowDefinition Height="0.05*" />
+      <RowDefinition Height="0.06*" />
       <RowDefinition Height="0.005*" />
       <RowDefinition Height="0.5*" />
       <RowDefinition Height="0.005*" />
@@ -25,18 +25,26 @@
       Grid.Row="0"
       Grid.Column="0"
       Orientation="Horizontal">
+      <Label
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        FontSize="14"
+        FontWeight="Bold">
+        File Name
+      </Label>
       <TextBox
-        x:Name="destinationPath"
-        Width="450"
+        x:Name="fileName"
+        Width="212"
         Height="25"
-        Margin="5"
-        Text="{Binding DestinationPath}" />
+        Margin="15,5,0,0"
+        Text="{Binding FileName}" />
       <Button
         x:Name="toCsv"
         Width="55"
         Height="25"
-        Margin="5"
+        Margin="15,5,0,0"
         Background="#FFFFFBFB"
+        BorderThickness="0"
         Command="{Binding ToCsvCommand}"
         Content="To CSV"
         FontSize="14"
@@ -46,8 +54,9 @@
         x:Name="toJson"
         Width="55"
         Height="25"
-        Margin="5"
+        Margin="15,5,0,0"
         Background="#FFFFFBFB"
+        BorderThickness="0"
         Command="{Binding ToJsonCommand}"
         Content="To JSON"
         FontSize="14"
@@ -57,8 +66,9 @@
         x:Name="toTxt"
         Width="55"
         Height="25"
-        Margin="5"
+        Margin="15,5,0,0"
         Background="#FFFFFBFB"
+        BorderThickness="0"
         Command="{Binding ToTxtCommand}"
         Content="To TXT"
         FontSize="14"

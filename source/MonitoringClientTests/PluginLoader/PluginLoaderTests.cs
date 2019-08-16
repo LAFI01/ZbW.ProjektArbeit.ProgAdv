@@ -19,15 +19,14 @@ namespace MonitoringClientTests.PluginLoader
   [TestClass]
   public class PluginLoaderTests
   {
-    private const string DestinationPath = @"D:\ProjectE\ZbW.Projektarbeit.ProgAdv\ExportFiles\TestFileCustomer";
 
     [TestMethod]
     public void ExportFile_TryExportCustomers_CheckSuccess()
     {
       var customer = GetCustomers();
+      var fileName = "CustomerTest";
 
-
-      var isSuccess = PluginLoader.ExportFile<Customer>(customer, DestinationPath, DataExporter.CsvDataExporter);
+      var isSuccess = PluginLoader.ExportFile<Customer>(customer, fileName, DataExporter.CsvDataExporter);
       Assert.IsTrue(isSuccess);
     }
 
@@ -35,8 +34,8 @@ namespace MonitoringClientTests.PluginLoader
     public void ExportFile_TryExportLogEntries_CheckSuccess()
     {
       var logEntries = GetLogEntries();
-
-      var isSuccess = PluginLoader.ExportFile<LogEntry>(logEntries, DestinationPath, DataExporter.BinaryDataExporter);
+      var fileName = "LogEntriesTest";
+      var isSuccess = PluginLoader.ExportFile<LogEntry>(logEntries, fileName, DataExporter.BinaryDataExporter);
       Assert.IsTrue(isSuccess);
     }
 

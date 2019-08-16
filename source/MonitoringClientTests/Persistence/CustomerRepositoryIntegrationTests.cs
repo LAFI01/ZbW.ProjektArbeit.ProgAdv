@@ -60,11 +60,13 @@ namespace MonitoringClientTests.Persistence
 
     private ICustomer GetCustomer()
     {
+      var r = new Random();
+      var num = r.Next(0, 1000);
       Customer customer = new Customer
       {
         CustomerNumber = string.Concat(ConstantValue.PraefixCustomer, ConstantValue.GetRandomCustomerNumberAsString()),
         Fk_AddressId = 2,
-        Email = string.Concat(DateTime.Now.ToString(), "@time.ch"),
+        Email = string.Concat("testmail.",num, "@integrationTest.ch"),
         Firstname = "Pascal",
         Lastname = "Fitze",
         Password = "myPassword1dd23456!"

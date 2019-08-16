@@ -28,7 +28,7 @@ namespace MonitoringClient.ViewModel
 
   public class MonitoringViewModel : BindableBase
   {
-    private string _destinationPath;
+    private string _fileName;
 
     private List<IEntity> _logEntries;
 
@@ -50,12 +50,12 @@ namespace MonitoringClient.ViewModel
 
     public DelegateCommand CustomerCommand { get; set; }
 
-    public string DestinationPath
+    public string FileName
     {
-      get { return _destinationPath; }
+      get { return _fileName; }
       set
       {
-        SetProperty(ref _destinationPath, value);
+        SetProperty(ref _fileName, value);
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
@@ -158,7 +158,7 @@ namespace MonitoringClient.ViewModel
     {
       try
       {
-        var msg = PluginLoader.ExportFile<LogEntry>(LogEntries, DestinationPath, dataExporter)
+        var msg = PluginLoader.ExportFile<LogEntry>(LogEntries, FileName, dataExporter)
           ? "Export Success"
           : "Export faild";
         MessageBox.Show(msg);

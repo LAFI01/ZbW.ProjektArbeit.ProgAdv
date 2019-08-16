@@ -1,0 +1,3 @@
+CustomerNumber,Email,Firstname,Fk_AddressId,Id,Lastname,Password,Phone,Website
+55412,lf@gg.ch,Testi,2,0,Tester,Passwort!123,,
+55412,lf@gg.ch,Testi,2,0,Tester,Passwort!123,,

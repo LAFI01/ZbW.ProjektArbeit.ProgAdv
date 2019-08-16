@@ -18,11 +18,12 @@ namespace MonitoringClient.PluginLoader
   using System.Reflection;
   using System.Security;
   using PluginContracts;
+  using Syroot.Windows.IO;
   using Utilities.Impl;
 
   public static class PluginLoader
   {
-    public static bool ExportFile<T>(IEnumerable data, string destinationPath, DataExporter dataExporter)
+    public static bool ExportFile<T>(IEnumerable data, string fileName, DataExporter dataExporter)
     {
       var files = Directory.GetFiles(@"D:\ProjectE\ZbW.Projektarbeit.ProgAdv\source\MonitoringClient\bin\Debug\plugins",
         "*.dll");
@@ -37,6 +38,8 @@ namespace MonitoringClient.PluginLoader
             IDataExportPlugin plugin = (IDataExportPlugin) Activator.CreateInstance(t);
             if (plugin.Name.Equals(dataExporter.ToString()))
             {
+              var downloadPath = new KnownFolder(KnownFolderType.Downloads).Path;
+              var destinationPath = string.Concat(downloadPath, @"\", fileName);
               plugin.Export<T>(data, destinationPath);
 
               return true;

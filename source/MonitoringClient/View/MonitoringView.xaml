@@ -28,18 +28,26 @@
       Grid.Row="1"
       Grid.Column="0"
       Orientation="Horizontal">
+      <Label
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        FontSize="14"
+        FontWeight="Bold">
+        File Name
+      </Label>
       <TextBox
         x:Name="destinationPath"
-        Width="450"
+        Width="200"
         Height="25"
         Margin="5"
-        Text="{Binding DestinationPath}" />
+        Text="{Binding FileName}" />
       <Button
         x:Name="toCsv"
         Width="55"
         Height="25"
         Margin="5"
         Background="#FFFFFBFB"
+        BorderThickness="0"
         Command="{Binding ToCsvCommand}"
         Content="To CSV"
         FontSize="14"
@@ -51,6 +59,7 @@
         Height="25"
         Margin="5"
         Background="#FFFFFBFB"
+        BorderThickness="0"
         Command="{Binding ToJsonCommand}"
         Content="To JSON"
         FontSize="14"
@@ -62,6 +71,7 @@
         Height="25"
         Margin="5"
         Background="#FFFFFBFB"
+        BorderThickness="0"
         Command="{Binding ToTxtCommand}"
         Content="To TXT"
         FontSize="14"

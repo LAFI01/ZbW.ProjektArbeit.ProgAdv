@@ -26,7 +26,7 @@ namespace MonitoringClient.ViewModel
   {
     private List<ICustomer> _customers;
 
-    private string _destinationPath;
+    private string _fileName;
 
     private string _filterText;
 
@@ -55,12 +55,12 @@ namespace MonitoringClient.ViewModel
 
     public DelegateCommand DeleteCommand { get; set; }
 
-    public string DestinationPath
+    public string FileName
     {
-      get { return _destinationPath; }
+      get { return _fileName; }
       set
       {
-        SetProperty(ref _destinationPath, value);
+        SetProperty(ref _fileName, value);
         RaisePropertyChanged(MethodBase.GetCurrentMethod().Name);
       }
     }
@@ -137,7 +137,7 @@ namespace MonitoringClient.ViewModel
     {
       try
       {
-        var msg = PluginLoader.ExportFile<LogEntry>(Customers, DestinationPath, dataExporter)
+        var msg = PluginLoader.ExportFile<LogEntry>(Customers, FileName, dataExporter)
           ? "Export Success"
           : "Export faild";
         MessageBox.Show(msg);
