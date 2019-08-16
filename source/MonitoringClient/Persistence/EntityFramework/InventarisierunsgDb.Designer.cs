@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\ProjectE\ZbW.Projektarbeit.ProgAdv\source\MonitoringClient\Persistence\EntityFramework\InventarisierungDb.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\ProjectE\ZbW.Projektarbeit.ProgAdv\source\MonitoringClient\Persistence\EntityFramework\InventarisierunsgDb.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

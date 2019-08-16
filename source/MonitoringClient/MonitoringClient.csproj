@@ -130,22 +130,25 @@
     <Compile Include="Persistence\DbDtos\LogDto.cs" />
     <Compile Include="Persistence\DbDtos\ViewLogEntryDto.cs" />
     <Compile Include="Persistence\EntityFramework\customer.cs">
-      <DependentUpon>InventarisierungDb.tt</DependentUpon>
+      <DependentUpon>InventarisierunsgDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Persistence\EntityFramework\InventarisierungDb.Context.cs">
+    <Compile Include="Persistence\EntityFramework\InventarisierunsgDb.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InventarisierungDb.Context.tt</DependentUpon>
+      <DependentUpon>InventarisierunsgDb.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Persistence\EntityFramework\InventarisierungDb.cs">
+    <Compile Include="Persistence\EntityFramework\InventarisierunsgDb.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InventarisierungDb.tt</DependentUpon>
+      <DependentUpon>InventarisierunsgDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Persistence\EntityFramework\InventarisierungDb.Designer.cs">
+    <Compile Include="Persistence\EntityFramework\InventarisierunsgDb.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InventarisierungDb.edmx</DependentUpon>
+      <DependentUpon>InventarisierunsgDb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Persistence\EntityFramework\view_locationWithPodV5.cs">
+      <DependentUpon>InventarisierunsgDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistence\Table\ICustomerRepository.cs" />
     <Compile Include="Persistence\Table\IDeviceRepository.cs" />
@@ -248,12 +251,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
-    <EntityDeploy Include="Persistence\EntityFramework\InventarisierungDb.edmx">
+    <EntityDeploy Include="Persistence\EntityFramework\InventarisierunsgDb.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>InventarisierungDb.Designer.cs</LastGenOutput>
+      <LastGenOutput>InventarisierunsgDb.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Persistence\EntityFramework\InventarisierungDb.edmx.diagram">
-      <DependentUpon>InventarisierungDb.edmx</DependentUpon>
+    <None Include="Persistence\EntityFramework\InventarisierunsgDb.edmx.diagram">
+      <DependentUpon>InventarisierunsgDb.edmx</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -296,17 +299,16 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="Persistence\EntityFramework\InventarisierungDb.Context.tt">
+    <Content Include="Persistence\EntityFramework\InventarisierunsgDb.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>InventarisierungDb.edmx</DependentUpon>
-      <LastGenOutput>InventarisierungDb.Context.cs</LastGenOutput>
+      <DependentUpon>InventarisierunsgDb.edmx</DependentUpon>
+      <LastGenOutput>InventarisierunsgDb.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Persistence\EntityFramework\InventarisierungDb.tt">
+    <Content Include="Persistence\EntityFramework\InventarisierunsgDb.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>InventarisierungDb.edmx</DependentUpon>
-      <LastGenOutput>InventarisierungDb.cs</LastGenOutput>
+      <DependentUpon>InventarisierunsgDb.edmx</DependentUpon>
+      <LastGenOutput>InventarisierunsgDb.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

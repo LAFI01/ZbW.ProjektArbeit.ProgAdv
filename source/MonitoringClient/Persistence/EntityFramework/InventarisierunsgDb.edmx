@@ -19,8 +19,38 @@
           <Property Name="website" Type="nvarchar" MaxLength="500" />
           <Property Name="password" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'inv.dbo.view_locationWithPodV5' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="view_locationWithPodV5">
+          <Key>
+            <PropertyRef Name="podId" />
+            <PropertyRef Name="locationId" />
+          </Key>
+          <Property Name="locationId" Type="int" Nullable="false" />
+          <Property Name="parentId" Type="int" />
+          <Property Name="locationName" Type="nvarchar" MaxLength="45" />
+          <Property Name="building" Type="nvarchar" MaxLength="45" />
+          <Property Name="podId" Type="int" Nullable="false" />
+          <Property Name="podName" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="NTP_Server" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="timezone" Type="nvarchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'inv.dbo.view_test140819' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityContainer Name="invModelStoreContainer">
           <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="view_locationWithPodV5" EntityType="Self.view_locationWithPodV5" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [view_locationWithPodV5].[locationId] AS [locationId], 
+    [view_locationWithPodV5].[parentId] AS [parentId], 
+    [view_locationWithPodV5].[locationName] AS [locationName], 
+    [view_locationWithPodV5].[building] AS [building], 
+    [view_locationWithPodV5].[podId] AS [podId], 
+    [view_locationWithPodV5].[podName] AS [podName], 
+    [view_locationWithPodV5].[NTP_Server] AS [NTP_Server], 
+    [view_locationWithPodV5].[timezone] AS [timezone]
+    FROM [dbo].[view_locationWithPodV5] AS [view_locationWithPodV5]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -42,7 +72,22 @@
         </EntityType>
         <EntityContainer Name="InvDb" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="customers" EntityType="Self.customer" />
+          <EntitySet Name="view_locationWithPodV5" EntityType="invModel.view_locationWithPodV5" />
         </EntityContainer>
+        <EntityType Name="view_locationWithPodV5">
+          <Key>
+            <PropertyRef Name="podId" />
+            <PropertyRef Name="locationId" />
+          </Key>
+          <Property Name="locationId" Type="Int32" Nullable="false" />
+          <Property Name="parentId" Type="Int32" />
+          <Property Name="locationName" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="building" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="podId" Type="Int32" Nullable="false" />
+          <Property Name="podName" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="NTP_Server" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="timezone" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -61,6 +106,20 @@
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="website" ColumnName="website" />
                 <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_locationWithPodV5">
+            <EntityTypeMapping TypeName="invModel.view_locationWithPodV5">
+              <MappingFragment StoreEntitySet="view_locationWithPodV5">
+                <ScalarProperty Name="timezone" ColumnName="timezone" />
+                <ScalarProperty Name="NTP_Server" ColumnName="NTP_Server" />
+                <ScalarProperty Name="podName" ColumnName="podName" />
+                <ScalarProperty Name="podId" ColumnName="podId" />
+                <ScalarProperty Name="building" ColumnName="building" />
+                <ScalarProperty Name="locationName" ColumnName="locationName" />
+                <ScalarProperty Name="parentId" ColumnName="parentId" />
+                <ScalarProperty Name="locationId" ColumnName="locationId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

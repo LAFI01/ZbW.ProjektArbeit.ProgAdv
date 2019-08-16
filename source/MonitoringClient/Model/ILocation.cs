@@ -2,7 +2,7 @@
 // FileName: ILocation.cs
 // Author: 
 // Created on: 09.06.2019
-// Last modified on: 22.06.2019
+// Last modified on: 14.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -20,12 +20,12 @@ namespace MonitoringClient.Model
 
     int Fk_Address { get; set; }
 
-    int Id { get; set; }
+    int? Id { get; set; }
 
     List<ILocation> Locations { get; set; }
 
     string Name { get; set; }
 
-    int ParentId { get; set; }
+    int? ParentId { get; set; }
   }
 }

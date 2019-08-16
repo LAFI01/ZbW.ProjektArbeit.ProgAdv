@@ -26,5 +26,6 @@ namespace MonitoringClient.Persistence.EntityFramework
         }
     
         public virtual DbSet<customer> customers { get; set; }
+        public virtual DbSet<view_locationWithPodV5> view_locationWithPodV5 { get; set; }
     }
 }

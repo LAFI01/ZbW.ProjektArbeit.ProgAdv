@@ -2,7 +2,7 @@
 // FileName: LocationRepository.cs
 // Author: 
 // Created on: 09.06.2019
-// Last modified on: 10.08.2019
+// Last modified on: 14.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -12,17 +12,20 @@ namespace MonitoringClient.Persistence.Table.Impl
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Base.Impl;
-  using DbDtos;
+  using EntityFramework;
   using Model;
   using Model.Impl;
 
-  public class LocationRepository : MySqlBaseRepository<LocationDto, int>, ILocationRepository
+  public class LocationRepository : ILocationRepository
   {
     public List<ILocation> GetAllLocation()
     {
-      var locationDtos = GetAll();
-      var locations = locationDtos.Select(l => LocationDtoToLocation(l)).ToList();
+      var locations = new List<ILocation>();
+      using (InvDb ctx = new InvDb())
+      {
+        var locationWithPods = ctx.view_locationWithPodV5.ToList();
+        locations = locationWithPods.Select(l => LocationDtoToLocation(l)).ToList();
+      }
 
       return locations;
     }
@@ -68,15 +71,14 @@ namespace MonitoringClient.Persistence.Table.Impl
       }
     }
 
-    private ILocation LocationDtoToLocation(LocationDto l)
+    private ILocation LocationDtoToLocation(view_locationWithPodV5 l)
     {
       Location location = new Location
       {
-        Building = l.Building,
-        Fk_Address = l.Fk_Address,
-        Id = l.Id,
-        Name = l.Name,
-        ParentId = l.ParentId
+        Building = l.building,
+        Id = l.locationId,
+        Name = l.locationName,
+        ParentId = l.parentId
       };
 
       return location;

@@ -105,7 +105,6 @@ namespace MonitoringClient.ViewModel
       LogEntries = LogEntryView.GetAllLogEntries();
       ConfirmCommand.RaiseCanExecuteChanged();
       DuplicatedCommand.RaiseCanExecuteChanged();
-      LocationTreeCommand.RaiseCanExecuteChanged();
     }
 
 
@@ -150,7 +149,7 @@ namespace MonitoringClient.ViewModel
       ConfirmCommand = new DelegateCommand(OnCmdConfirm, HasAnyLogEntries);
       LoadCommand = new DelegateCommand(OnCmdLoad, CanUseDb);
       DuplicatedCommand = new DelegateCommand(OnCmdDuplicatCheck, HasAnyLogEntries);
-      LocationTreeCommand = new DelegateCommand(OnCmdNavigateToLocationView, HasAnyLogEntries);
+      LocationTreeCommand = new DelegateCommand(OnCmdNavigateToLocationView, CanUseDb);
       CustomerCommand = new DelegateCommand(OnCmdNavigateToCustomerView, CanUseDb);
     }
 
@@ -177,6 +176,7 @@ namespace MonitoringClient.ViewModel
         LoadCommand.RaiseCanExecuteChanged();
         ConnectCommand.RaiseCanExecuteChanged();
         CustomerCommand.RaiseCanExecuteChanged();
+        LocationTreeCommand.RaiseCanExecuteChanged();
       }
       catch (Exception ex)
       {

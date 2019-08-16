@@ -2,7 +2,7 @@
 // FileName: CustomerRepository.cs
 // Author: 
 // Created on: 23.07.2019
-// Last modified on: 10.08.2019
+// Last modified on: 14.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -26,7 +26,7 @@ namespace MonitoringClient.Persistence.Table.Impl
       using (InvDb ctx = new InvDb())
       {
         customer customers = ctx.customers.Add(customerToCreate);
-        var b = ctx.SaveChanges();
+        ctx.SaveChanges();
       }
     }
 
@@ -40,7 +40,7 @@ namespace MonitoringClient.Persistence.Table.Impl
           customer customers = ctx.customers.Remove(customerToDelete);
           var b = ctx.SaveChanges();
 
-          return true;
+          return b > 0;
         }
 
         throw new ArgumentException("Customer does not exist");
