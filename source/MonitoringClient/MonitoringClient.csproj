@@ -160,6 +160,7 @@
     <Compile Include="Persistence\Table\Impl\LocationRepository.cs" />
     <Compile Include="Persistence\Table\Impl\LogRepository.cs" />
     <Compile Include="Persistence\View\ILogEntryView.cs" />
+    <Compile Include="PluginLoader\PluginLoader.cs" />
     <Compile Include="Utilities\Impl\ConstantValue.cs" />
     <Compile Include="Utilities\Impl\Encryption.cs" />
     <Compile Include="Utilities\IMessagerLogger.cs" />
@@ -310,6 +311,12 @@
       <DependentUpon>InventarisierunsgDb.edmx</DependentUpon>
       <LastGenOutput>InventarisierunsgDb.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PluginContracts\PluginContracts.csproj">
+      <Project>{59bb8f5a-a66c-479e-8a5d-a24c71f0a39f}</Project>
+      <Name>PluginContracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
