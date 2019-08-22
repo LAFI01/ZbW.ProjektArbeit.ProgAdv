@@ -2,7 +2,7 @@
 // FileName: CustomerViewModel.cs
 // Author: 
 // Created on: 22.07.2019
-// Last modified on: 16.08.2019
+// Last modified on: 22.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -137,7 +137,7 @@ namespace MonitoringClient.ViewModel
     {
       try
       {
-        var msg = PluginLoader.ExportFile<LogEntry>(Customers, FileName, dataExporter)
+        var msg = PluginLoader.ExportFile<Customer>(Customers, FileName, dataExporter)
           ? "Export Success"
           : "Export faild";
         MessageBox.Show(msg);

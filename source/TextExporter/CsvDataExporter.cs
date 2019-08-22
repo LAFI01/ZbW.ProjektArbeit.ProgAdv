@@ -2,7 +2,7 @@
 // FileName: CsvDataExporter.cs
 // Author: 
 // Created on: 16.08.2019
-// Last modified on: 16.08.2019
+// Last modified on: 22.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -18,7 +18,7 @@ namespace TextExporter
   {
     public void Export<T>(IEnumerable data, string destinationPath)
     {
-      var path = string.Concat(destinationPath, ".csv");
+      var path = string.Concat(destinationPath, "-CsvDataExport.csv");
       using (TextWriter tw = File.CreateText(path))
       {
         foreach (var line in ToCsv.FileToCsv<T>(data))

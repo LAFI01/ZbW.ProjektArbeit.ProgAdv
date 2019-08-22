@@ -20,7 +20,7 @@ namespace TextExporter
     public void Export<T>(IEnumerable data, string destinationPath)
     {
       JsonSerializer serializer = new JsonSerializer();
-      var path = string.Concat(destinationPath, "JSON.txt");
+      var path = string.Concat(destinationPath, "-JsonDataExport.txt");
       using (StreamWriter s = File.CreateText(path))
       {
         serializer.Serialize(s, data);

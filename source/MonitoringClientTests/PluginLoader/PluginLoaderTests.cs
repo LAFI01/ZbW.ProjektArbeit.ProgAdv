@@ -2,7 +2,7 @@
 // FileName: PluginLoaderTests.cs
 // Author: 
 // Created on: 16.08.2019
-// Last modified on: 16.08.2019
+// Last modified on: 22.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -19,7 +19,6 @@ namespace MonitoringClientTests.PluginLoader
   [TestClass]
   public class PluginLoaderTests
   {
-
     [TestMethod]
     public void ExportFile_TryExportCustomers_CheckSuccess()
     {

@@ -2,7 +2,7 @@
 // FileName: PluginLoader.cs
 // Author: 
 // Created on: 16.08.2019
-// Last modified on: 16.08.2019
+// Last modified on: 22.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
@@ -25,7 +25,7 @@ namespace MonitoringClient.PluginLoader
   {
     public static bool ExportFile<T>(IEnumerable data, string fileName, DataExporter dataExporter)
     {
-      var files = Directory.GetFiles(@"D:\ProjectE\ZbW.Projektarbeit.ProgAdv\source\MonitoringClient\bin\Debug\plugins",
+      var files = Directory.GetFiles(@"..\..\..\..\source\MonitoringClient\bin\Debug\plugins",
         "*.dll");
       foreach (var file in files.Select(Path.GetFullPath))
       {
