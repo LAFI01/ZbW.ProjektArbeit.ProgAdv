@@ -2,7 +2,7 @@
 // FileName: ICustomer.cs
 // Author: 
 // Created on: 23.07.2019
-// Last modified on: 23.07.2019
+// Last modified on: 22.08.2019
 // Copy Right: JELA Rocks
 // ------------------------------------------------------------------------------------
 // Description: 
